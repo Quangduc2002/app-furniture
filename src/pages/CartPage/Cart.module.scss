@@ -1,0 +1,72 @@
+.modal {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    top: 20px;
+    z-index: 4;
+
+    &_header {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+
+        h5 {
+            font-size: 24px;
+        }
+    }
+
+    &_close {
+        border: none;
+        background-color: #fff;
+
+        span {
+            font-size: 24px;
+            color: #6c757d;
+
+            &:hover {
+                cursor: pointer;
+                color: #000;
+            }
+        }
+    }
+
+    &_body {
+        padding: 20px;
+        border-top: 1px solid #e9ecef;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    &_footer {
+        padding: 20px;
+        text-align: right;
+
+        button {
+            padding: 10px 12px;
+            border: none;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    }
+
+    &_btnClose {
+        background-color: #6c757d;
+        margin-right: 10px;
+
+        &:hover {
+            background-color: #5a6268;
+        }
+    }
+
+    &_btnSave {
+        background-color: #ee4d2d;
+
+        &:hover {
+            background-color: #c52432;
+        }
+    }
+}

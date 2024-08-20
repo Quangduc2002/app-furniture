@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "react-app",
+    "@hunghg255/eslint-config-react"
+  ],
+  // "rules": {
+  //   "linebreak-style": ["error", "windows"],
+  //   "unicorn/no-null": "warn"
+  // }
+}

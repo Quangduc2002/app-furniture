@@ -1,0 +1,278 @@
+.container {
+    padding: 60px 0;
+    background-color: #f8f9fb;
+    &_information {
+        width: 1170px;
+        margin: auto;
+        background-color: #fff;
+        padding: 0 40px;
+        box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.13);
+
+        &__top {
+            padding: 18px 0;
+            border-bottom: 1px solid #e8e8e8;
+
+            h1 {
+                font-weight: 500;
+            }
+        }
+
+        &__bottom {
+            display: flex;
+            padding: 30px 0 60px;
+
+            &__left {
+                width: 70%;
+                border-right: 1px solid #e8e8e8;
+                padding-left: 60px;
+            }
+            &__label {
+                min-width: 120px;
+                margin-right: 20px;
+                text-align: right;
+            }
+
+            &__select {
+                height: 36px;
+                padding-left: 12px;
+                border: 1px solid #dbdbdb;
+                border-radius: 4px;
+                outline: none;
+
+                &:focus {
+                    border: 1px solid #6a5a9f;
+                }
+            }
+
+            &__btn {
+                padding: 8px 20px;
+                outline: none;
+                background-color: #ee4d2d;
+                border-radius: 4px;
+                cursor: pointer;
+                color: #fff;
+                border: none;
+
+                &:hover {
+                    transition: all 0.3s linear;
+                    background-color: #c52432;
+                }
+            }
+
+            &__sex {
+                display: flex;
+                align-items: center;
+                margin: 30px 0;
+
+                input[type='text'] {
+                    width: 100%;
+                    height: 36px;
+                    padding: 6px 12px;
+                    box-sizing: border-box;
+                    border: 1px solid rgba(0, 0, 0, 0.14);
+                    outline: none;
+                    border-radius: 4px;
+
+                    &:focus {
+                        border: 1px solid #6a5a9f;
+                    }
+                }
+            }
+        }
+
+        &__changePass {
+            width: max-content;
+            &:hover {
+                cursor: pointer;
+                transition: all 0.3s linear;
+                color: #ee4d2d;
+            }
+        }
+    }
+
+    &_model {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        width: 550px;
+        padding: 20px;
+        border-radius: 20px;
+        z-index: 5;
+
+        &__close {
+            text-align: right;
+
+            i {
+                &:hover {
+                    cursor: pointer;
+                    color: #eb1336;
+                    transition: all 0.3s linear;
+                }
+            }
+        }
+
+        &__btn {
+            margin: 20px 0;
+
+            p {
+                width: 100%;
+                border: none;
+                padding: 10px 0;
+                background-color: #eb1336;
+                border-radius: 20px;
+                color: #fff;
+                font-size: 16px;
+                text-align: center;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #c52432;
+                    transition: all 0.3s linear;
+                }
+            }
+        }
+    }
+}
+
+.add {
+    display: flex;
+    justify-content: space-between;
+
+    &_right {
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &_formGroup {
+        margin-bottom: 20px;
+
+        &__img {
+            display: flex;
+            margin: auto;
+            border: 1px solid #d7d7d7;
+            border-radius: 50%;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            width: 100px;
+            height: 100px;
+        }
+
+        &__customFile {
+            width: max-content;
+            padding: 8px 16px;
+            outline: none;
+            background-color: #ee4d2d;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #fff;
+            border: none;
+
+            &:hover {
+                transition: all 0.3s linear;
+                background-color: #c52432;
+            }
+        }
+    }
+
+    &_formControl {
+        width: 100%;
+        outline: none;
+        padding: 10px 16px;
+        border: 1px solid #d7d7d7;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+}
+
+.auth {
+    &_input {
+        width: 100%;
+        height: 40px;
+        margin-top: 16px;
+        padding: 0 18px;
+        box-sizing: border-box;
+        border: 1px solid #dbdbdb;
+        border-radius: 4px;
+        outline: none;
+        font-size: 16px;
+
+        &:focus {
+            border: 1px solid #6a5a9f;
+        }
+
+        &__active {
+            border: 1px solid #eb1336 !important;
+        }
+    }
+
+    &_name {
+        width: 48%;
+    }
+
+    &_froup {
+        &__name {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &_p {
+            margin-top: 10px;
+            margin-bottom: 4px;
+            color: #8790b3;
+            font-size: 12px;
+            padding-left: 4px;
+        }
+
+        &__pass {
+            position: relative;
+            display: flex;
+        }
+
+        &__eye {
+            position: absolute;
+            right: 4%;
+            top: 50%;
+            color: #8790b3;
+            cursor: pointer;
+        }
+    }
+
+    &_isValid {
+        border: 1px solid #eb1336 !important;
+    }
+}
+
+.model {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.4);
+    animation: model 0.5s linear;
+    z-index: 4;
+}
+
+@keyframes model {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.form_message {
+    margin-left: 20px;
+    letter-spacing: 1px;
+    color: #eb1336;
+}
+
+.active {
+    opacity: 0.6;
+    cursor: not-allowed !important;
+}

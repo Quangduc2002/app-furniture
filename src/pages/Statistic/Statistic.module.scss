@@ -1,0 +1,245 @@
+.breadcrumbs {
+    display: flex;
+
+    p {
+        color: rgba(102, 102, 102, 0.7);
+        font-size: 18px;
+    }
+
+    span {
+        font-size: 18px;
+        font-weight: bolder;
+        color: rgb(52, 71, 103);
+    }
+}
+
+.Link {
+    text-decoration: none;
+    color: rgba(102, 102, 102, 0.7);
+
+    &:hover {
+        color: #eb1336;
+    }
+}
+
+.divider {
+    margin: 0 6px;
+    color: rgba(102, 102, 102, 0.7);
+    font-weight: 500 !important;
+}
+
+.revenue {
+    padding: 24px;
+    overflow: hidden;
+    overflow-y: scroll;
+
+    &_header {
+        margin-bottom: 40px;
+    }
+
+    &_bill {
+        font-size: 18px;
+        font-weight: bolder;
+        color: rgb(52, 71, 103);
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+    &_card {
+        margin-bottom: 40px;
+
+        &__body {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            p {
+                text-transform: uppercase;
+            }
+
+            i {
+                font-size: 30px;
+            }
+        }
+
+        &__title {
+            color: #757575;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        &__number {
+            color: #5a5c69;
+            font-size: 20px;
+            font-weight: 700;
+        }
+    }
+
+    &__PD {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 4px;
+    }
+}
+
+.table {
+    margin-bottom: 20px;
+
+    &_status {
+        min-width: 110px;
+        display: flex;
+        border: none;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #fff;
+        background-color: #ee4d2d;
+        border-radius: 4px;
+        padding: 4px;
+    }
+
+    &_cancel {
+        min-width: 110px;
+        display: flex;
+        border: none;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #fff;
+        background-color: #ee4d2d;
+        border-radius: 4px;
+        padding: 4px;
+        opacity: 0.6;
+    }
+
+    &_confirmed {
+        display: flex;
+        justify-content: center;
+        min-width: 110px;
+        border: none;
+        align-items: center;
+        text-decoration: none;
+        color: #fff;
+        background-image: linear-gradient(195deg, rgb(102, 187, 106), rgb(67, 160, 71));
+        border-radius: 4px;
+        padding: 4px;
+    }
+
+    &_action {
+        color: #fff;
+        background-color: rgb(58, 186, 244);
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+
+        &:hover {
+            background-color: rgb(68 173 220);
+            cursor: pointer;
+        }
+    }
+
+    &_button {
+        border: none;
+        cursor: pointer;
+    }
+
+    &_image {
+        width: 100px;
+        height: 50px;
+    }
+}
+
+//modal
+.modal {
+    position: fixed;
+    min-width: 900px;
+    height: 360px;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    left: 50%;
+    top: 50%;
+    overflow: hidden;
+    overflow-y: scroll;
+    padding: 20px;
+    animation: slipModel 1s ease-in-out;
+
+    &_header {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 20px;
+
+        h5 {
+            font-size: 24px;
+        }
+    }
+
+    &_close {
+        border: none;
+        background-color: #fff;
+
+        span {
+            font-size: 24px;
+            color: #6c757d;
+
+            &:hover {
+                cursor: pointer;
+                color: #000;
+            }
+        }
+    }
+
+    &_body {
+        padding: 20px;
+        border-top: 1px solid #e9ecef;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    &_footer {
+        padding-right: 20px;
+        text-align: right;
+
+        button {
+            padding: 10px 12px;
+            border: none;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    }
+}
+
+.modal1 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    animation: model 0.5s linear;
+}
+
+@keyframes model {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slipModel {
+    from {
+        top: 0;
+        opacity: 0;
+    }
+    to {
+        top: 50%;
+        opacity: 1;
+    }
+}

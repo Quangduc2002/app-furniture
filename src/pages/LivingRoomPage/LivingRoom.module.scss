@@ -1,0 +1,162 @@
+.medium {
+    display: flex;
+    max-width: 1170px;
+    height: 60px;
+    margin: auto;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+}
+
+.breadcrumbs {
+    display: flex;
+
+    p {
+        color: rgba(102, 102, 102, 0.7);
+        font-size: 18px;
+    }
+
+    span {
+        font-size: 18px;
+        font-weight: bolder;
+    }
+}
+
+.divider {
+    margin: 0 6px;
+    color: rgba(102, 102, 102, 0.7);
+    font-weight: 500 !important;
+}
+
+.select {
+    padding: 10px;
+    outline: none;
+    border: 1px solid #ebebeb;
+    font-size: 16px;
+    border-radius: 4px;
+
+    option {
+        font-size: 14px;
+        padding: 10px 0;
+    }
+}
+
+.Link {
+    text-decoration: none;
+    color: rgba(102, 102, 102, 0.7);
+
+    &:hover {
+        color: #eb1336;
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+.room1 {
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.room {
+    position: relative;
+    background-color: #ebebeb;
+
+    &_product {
+        display: flex;
+        flex-wrap: wrap;
+        position: relative;
+        max-width: 1170px;
+        margin: auto;
+        margin-top: 40px;
+    }
+}
+
+.home {
+    &__product {
+        margin-top: 40px;
+    }
+}
+
+.filter {
+    padding: 6px 10px;
+    background-color: #ee4d2d;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+    position: relative;
+    &:hover {
+        transition: all 0.3s linear;
+        background-color: #c52432;
+    }
+}
+
+.showFilter {
+    &::after {
+        content: '';
+        position: absolute;
+        background-color: #ee4d2d;
+        display: block;
+        width: 14px;
+        height: 14px;
+        left: calc(50% - 7px);
+        bottom: -6px;
+        transition: all 0.4s;
+        transform: rotate(45deg);
+    }
+    &:hover {
+        &::after {
+            transition: all 0.3s linear;
+            background-color: #c52432;
+        }
+    }
+}
+
+//reponsive
+@media screen and (min-width: 922px) and (max-width: 1200px) {
+    .medium {
+        padding: 0 38px;
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+    .home {
+        &__product {
+            padding-left: 10px;
+        }
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .breadcrumbs {
+        span,
+        p {
+            font-size: 14px;
+        }
+    }
+
+    .room {
+        &_product {
+            justify-content: center;
+        }
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .room1 {
+        padding: 10px 0 20px;
+    }
+
+    .medium {
+        display: block;
+        text-align: center;
+        padding: 0;
+
+        ul {
+            margin-top: 10px;
+        }
+    }
+
+    .breadcrumbs {
+        justify-content: center;
+    }
+}

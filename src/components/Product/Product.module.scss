@@ -1,0 +1,266 @@
+.room {
+    position: relative;
+    background-color: #ebebeb;
+
+    &_product {
+        display: flex;
+        flex-wrap: wrap;
+        position: relative;
+        max-width: 1170px;
+        margin: auto;
+        margin-top: 40px;
+    }
+
+    &_product1 {
+        position: relative;
+        // margin: 0 10px 20px;
+        background-color: #fff;
+        border-radius: 4px;
+        border: 1px solid #ebebeb;
+        box-shadow: 3px 3px 3px 3px #ebebeb;
+
+        &:hover {
+            border: 1px solid #ee4d2d;
+            // transform: translateY(-8px);
+            transition: all 0.5s ease-in-out;
+        }
+
+        &_link {
+            text-decoration: none;
+        }
+    }
+
+    &_pos {
+        position: absolute;
+        left: 10px;
+        margin-top: 10px;
+        background-color: #ee4d2d;
+        color: #fff;
+        width: 50px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        font-weight: 700;
+        border-radius: 4px;
+    }
+
+    &_badge {
+        position: relative;
+        overflow: hidden;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        height: 200px;
+
+        img {
+            // width: 260px;
+            // height: 180px;
+            // border-top-left-radius: 4px;
+            // border-top-right-radius: 4px;
+
+            // &:hover {
+            //     transform: scale(1.2);
+            //     cursor: pointer;
+            //     transition: all 0.3s linear;
+            // }
+        }
+    }
+
+    &_price {
+        margin: 10px 0;
+    }
+
+    &_text {
+        padding-bottom: 30px;
+        padding-top: 10px;
+        margin-left: 20px;
+        height: 170px;
+
+        p {
+            font-size: 16px;
+            max-width: 200px;
+            color: #000;
+            // tên sản phẩm dài quá kích thước đã cho thì hiện dấu 3 chấm
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1; //muốn dấu 3 chấm hiện trên dòng nào ?
+
+            &:hover {
+                color: #f62d3e;
+                cursor: pointer;
+            }
+        }
+
+        button {
+            color: #fff;
+            background-color: #f62d3e;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 4px;
+
+            &:hover {
+                transition: all 0.3s linear;
+                background-color: #c52432;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.priceAmount {
+    color: #858585;
+    text-decoration: line-through;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.priceRed {
+    color: #f62d3e;
+}
+.productDetail,
+.cart {
+    opacity: 0;
+}
+
+.hover:hover > .productDetail {
+    animation: slipModel 0.3s linear;
+    opacity: 1;
+}
+
+.hover:hover > .cart {
+    animation: slipModelCart 0.3s linear;
+    opacity: 1;
+}
+
+@keyframes slipModel {
+    from {
+        bottom: -20%;
+        opacity: 0;
+    }
+    to {
+        bottom: 16%;
+        opacity: 1;
+    }
+}
+
+@keyframes slipModelCart {
+    from {
+        left: -10%;
+        opacity: 0;
+    }
+    to {
+        left: 4%;
+        opacity: 1;
+    }
+}
+
+//reponsive
+@media screen and (min-width: 922px) and (max-width: 1200px) {
+    .room {
+        &_product1 {
+            flex-basis: 31%;
+        }
+
+        &_badge {
+            img {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 922px) {
+    .room {
+        &_product1 {
+            flex-basis: 30.33333%;
+        }
+
+        &_badge {
+            height: 160px;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+    .room {
+        &_product {
+            justify-content: center;
+        }
+
+        &_product1 {
+            // width: 28%;
+            // margin-left: 16px;
+            // max-width: 30%;
+            -ms-flex-preferred-size: 30%;
+            flex-basis: 30%;
+            margin: 0 8px 20px;
+            height: 100%;
+        }
+
+        &_badge {
+            height: 170px;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .priceRed {
+        margin-left: 0;
+    }
+
+    .priceAmount {
+        margin-right: 10px;
+    }
+    .room {
+        &_text {
+            button {
+                font-size: 10px;
+            }
+        }
+
+        &_price {
+            display: flex;
+            flex-wrap: wrap;
+            // justify-content: center;
+            // margin: 8px;
+        }
+
+        &_product {
+            justify-content: center;
+        }
+
+        &_product1 {
+            -ms-flex-preferred-size: 30%;
+            flex-basis: 40%;
+            margin: 0 8px 20px;
+            height: 100%;
+        }
+
+        &_badge {
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .room {
+        &_badge {
+            height: 160px;
+        }
+
+        &_text {
+            margin: 0 10px;
+        }
+    }
+}

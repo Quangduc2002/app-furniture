@@ -1,0 +1,150 @@
+@import './reset.scss';
+@import './font.scss';
+@import './space.scss';
+@import './text.scss';
+@import './button.scss';
+@import './custom-antd.scss';
+@import './color/color.variables.css';
+
+*,
+html,
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Mulish', sans-serif;
+  font-size: 14px;
+  line-height: normal;
+  text-rendering: optimizeSpeed;
+}
+
+.react-inspector-container {
+  top: initial !important;
+  left: initial !important;
+  bottom: 10px !important;
+  right: 10px !important;
+}
+
+.isActive{
+  border: 1px solid var(--primary-main);
+  color: var(--primary-main);
+  border-radius: 30px;
+  background-color: #E3EFD8;
+}
+
+.icon-calendar-solid{
+  font-size: 20px;
+}
+
+.stars-outer {
+  position: relative;
+  display: inline-block;
+  margin: 10px 0;
+  margin-right: 15px;
+}
+
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+
+.stars-outer::before {
+  content: '\f005 \f005 \f005 \f005 \f005';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #ccc;
+}
+
+.stars-inner::before {
+  content: '\f005 \f005 \f005 \f005 \f005';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #f8ce0b;
+}
+
+.star-1 {
+  border: none !important;
+  padding-left: 0 !important;
+}
+
+.star-1::before {
+  content: '\f005 ';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #ccc;
+}
+
+.star-2::before {
+  content: '\f005 \f005 ';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #ccc;
+}
+
+.star-3::before {
+  content: '\f005 \f005 \f005 ';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #ccc;
+}
+
+.star-4::before {
+  content: '\f005 \f005 \f005 \f005 ';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #ccc;
+}
+
+.star-5::before {
+  content: '\f005 \f005 \f005 \f005 \f005';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #ccc;
+}
+
+.star-6::before {
+  content: '\f005 \f005 \f005 \f005 \f005 ';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #ccc;
+}
+
+.active::before {
+  font-weight: 900;
+  color: #f8ce0b;
+}
+
+.star:hover::before {
+  cursor: pointer;
+  transition: all 0.3s linear;
+  font-weight: 900;
+  color: #f8ce0b;
+}
+
+.stars-inner-5 {
+  width: 100%;
+}
+
+.stars-inner-4 {
+  width: 80%;
+}
+
+.stars-inner-3 {
+  width: 60%;
+}
+
+.stars-inner-2 {
+  width: 40%;
+}
+
+.stars-inner-1 {
+  width: 20%;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #e5e7eb 
+}

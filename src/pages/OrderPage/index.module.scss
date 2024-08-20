@@ -1,0 +1,410 @@
+.order {
+    min-height: 600px;
+    margin-bottom: 60px;
+
+    &_container {
+        height: 100%;
+        width: 1200px;
+        margin: auto;
+        margin-bottom: 20px;
+        background-color: #fff;
+    }
+
+    &_ImageOrder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 600px;
+        width: 1000px;
+        margin: auto;
+        margin-bottom: 20px;
+        background-color: #fff;
+
+        img {
+            width: 200px;
+            height: 200px;
+        }
+
+        p {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+    }
+
+    &_header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+        padding-bottom: 16px;
+
+        &__left {
+            display: flex;
+
+            &__favourite {
+                padding: 0 8px;
+                color: #fff;
+                background-color: #ee4d2d;
+                height: max-content;
+                border-radius: 2px;
+            }
+
+            &__shop {
+                margin-left: 8px;
+                font-size: 14px;
+                font-weight: 700;
+            }
+        }
+
+        &__right {
+            display: flex;
+            align-items: center;
+
+            &__review {
+                color: #ee4d2d !important;
+                // font-weight: 600;
+                padding-left: 8px;
+
+                &:hover {
+                    cursor: pointer;
+                    color: #e70317 !important;
+                    transition: all 0.3s linear;
+                }
+            }
+
+            &__p {
+                padding-right: 8px;
+                border-right: 1px solid rgba(0, 0, 0, 0.09);
+            }
+        }
+    }
+
+    &_status {
+        display: flex;
+        align-items: center;
+
+        &__img {
+            width: 30px;
+            height: 30px;
+            margin-right: 8px;
+        }
+
+        p {
+            color: #26aa99;
+        }
+
+        &__waitConfirm {
+            color: #ee4d2d !important;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+    }
+
+    &_body {
+        overflow: hidden;
+        overflow-y: scroll;
+        max-height: 226px;
+        padding-right: 14px;
+
+        &::-webkit-scrollbar {
+            background-color: #fff;
+            width: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #b7b7b7;
+            border-radius: 10px;
+        }
+    }
+
+    &_product {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+
+        &__left {
+            display: flex;
+        }
+
+        &__img {
+            height: 80px;
+            width: 80px;
+            border: 1px solid rgba(0, 0, 0, 0.09);
+            margin-right: 20px;
+        }
+
+        &__right {
+            &__discount {
+                text-decoration: line-through;
+                color: #000;
+                opacity: 0.26;
+                margin-right: 6px;
+            }
+
+            &__price {
+                color: #ee4d2d;
+            }
+        }
+    }
+
+    &_total {
+        padding: 16px 0;
+        display: flex;
+        align-items: center;
+        justify-content: right;
+
+        &__price {
+            font-size: 24px;
+            margin-left: 10px;
+        }
+    }
+
+    &_purchase {
+        display: flex;
+        justify-content: right;
+        &__btn {
+            font-size: 16px;
+            padding: 12px;
+            background-color: #ee4d2d !important;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            border: none;
+            color: #fff;
+            min-width: 150px;
+
+            &:hover {
+                transition: all 0.3s linear;
+                background-color: #c52432 !important;
+            }
+        }
+
+        &__btnContact {
+            color: #555;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 0, 0, 0.09);
+            min-width: 150px;
+            margin-left: 10px;
+            background-color: #fff;
+            cursor: pointer;
+
+            &:hover {
+                transition: all 0.3s linear;
+                background-color: rgba(0, 0, 0, 0.05);
+            }
+        }
+    }
+
+    &_cancel {
+        &__btn {
+            font-size: 16px;
+            padding: 12px 10px;
+            background-color: #ee4d2d;
+            border-radius: 4px;
+            cursor: not-allowed;
+            text-decoration: none;
+            border: none;
+            color: #fff;
+            min-width: 150px;
+            opacity: 0.6;
+        }
+    }
+}
+
+.describe {
+    &_Evaluate {
+        h2 {
+            font-size: 16px;
+        }
+    }
+
+    &_star {
+        display: flex;
+    }
+
+    &__star {
+        text-decoration: none;
+        border-left: 1px solid #ccc;
+        padding: 0 10px;
+    }
+}
+
+.table {
+    background-color: #fff;
+    height: 200px;
+    overflow: hidden;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        background-color: #fff;
+        display: none;
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #b7b7b7;
+        border-radius: 10px;
+    }
+
+    &__evaluate {
+        margin-bottom: 50px;
+    }
+
+    &__quality {
+        display: flex;
+        align-items: center;
+
+        p {
+            margin-right: 10px;
+        }
+    }
+
+    &__sp {
+        display: flex;
+        margin-bottom: 20px;
+    }
+
+    &__comment {
+        margin: 20px 0;
+        outline: none;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        max-width: 80%;
+        min-height: 38px;
+    }
+
+    &_image {
+        width: 80px;
+        height: 80px;
+        margin-right: 20px;
+    }
+}
+
+//modal
+.modal {
+    position: fixed;
+    min-width: 900px;
+    height: 360px;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    top: 50%;
+    left: 50%;
+    overflow: hidden;
+    overflow-y: scroll;
+    // padding: 20px;
+    animation: slipModel 1s ease-in-out;
+
+    &_container {
+        position: fixed;
+        width: 900px;
+        height: 360px;
+        transform: translate(-50%, -50%);
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+        top: 50%;
+        left: 50%;
+        z-index: 4;
+        animation: slipModel 1s ease-in-out;
+        overflow: hidden;
+        background-color: #fff;
+        padding: 20px;
+    }
+
+    &_header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 70px;
+        padding: 0 20px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 5;
+        background-color: #fff;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+
+        h5 {
+            font-size: 24px;
+        }
+    }
+
+    &_close {
+        border: none;
+        background-color: #fff;
+
+        span {
+            font-size: 24px;
+            color: #6c757d;
+
+            &:hover {
+                cursor: pointer;
+                color: #000;
+            }
+        }
+    }
+
+    &_body {
+        padding: 20px;
+        border-top: 1px solid #e9ecef;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    &_footer {
+        padding: 0 20px;
+        text-align: right;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #fff;
+        border-top: 1px solid rgba(0, 0, 0, 0.09);
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        button {
+            padding: 10px 12px;
+            background-color: #e5e5e5;
+            font-size: 16px;
+            height: 44px;
+        }
+    }
+}
+
+.modal1 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    animation: model 0.5s linear;
+    z-index: 3;
+}
+
+@keyframes model {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slipModel {
+    from {
+        top: 0;
+        opacity: 0;
+    }
+    to {
+        top: 50%;
+        opacity: 1;
+    }
+}
