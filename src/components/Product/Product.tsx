@@ -1,8 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import styles from './Product.module.scss';
-import { Link, useNavigate } from 'react-router-dom';
-import { List } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import { FormatPrice } from '@/utils/FormatPrice';
 import { ConvertSlugUrl } from '@/utils/ConvertSlugUrl';
 import { ROUTE_PATH } from '@/routes/route.constant';

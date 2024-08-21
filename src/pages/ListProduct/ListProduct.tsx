@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import styles from './index.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, spring } from 'framer-motion';
 import { Icon } from '@/components/UI/IconFont/Icon';
 import getListProducts from '@/store/Home/ListProducts';
@@ -12,7 +12,8 @@ import ModalDelete from './ModalDelete';
 import Button from '@/components/UI/Button/Button';
 import { ROUTE_PATH } from '@/routes/route.constant';
 
-function ManageProduct() {
+function ListProduct() {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState<any>(1);
   const [pageSize, setPageSize] = useState<any>(12);
   const [action, setAction] = useState<string>('');
@@ -73,11 +74,12 @@ function ManageProduct() {
       key: 'actions',
       render: (_: any, record: any) => (
         <Row wrap={false} align={'middle'} justify={'end'}>
-          {/* <ModalModifyService onRefresh={refresh} data={record}> */}
-          <p className='w-[48px] h-[48px] flex items-center justify-center rounded-full cursor-pointer hover:bg-[var(--primary-8)] transition-all'>
+          <p
+            onClick={() => navigate(ROUTE_PATH.EDITPRODUCT(record.ID, 'update'))}
+            className='w-[48px] h-[48px] flex items-center justify-center rounded-full cursor-pointer hover:bg-[var(--primary-8)] transition-all'
+          >
             <Icon icon='icon-pen-fill' className='text-[18px]' color='text-icon' />
           </p>
-          {/* </ModalModifyService> */}
           <ModalDelete data={record} onRefresh={onRefresh}>
             <p className='w-[48px] h-[48px] flex items-center justify-center rounded-full cursor-pointer hover:bg-[var(--primary-8)] transition-all'>
               <Icon icon='icon-trash-fill' className='text-[24px] text-[--error-main]' />
@@ -153,7 +155,9 @@ function ManageProduct() {
                 onRefresh={onRefresh}
               >
                 <Button
-                  disabled={action === '' || selectedRowKeys.length === 0}
+                  disabled={
+                    action === '' || selectedRowKeys.length === 0 || products?.data?.length === 0
+                  }
                   type='xhotel-negative-primary'
                 >
                   Thực hiện
@@ -163,7 +167,7 @@ function ManageProduct() {
           </div>
 
           <div className={clsx(styles.listProduct_title__right, 'my-4 flex-wrap gap-2 pl-2.5')}>
-            <Link to={ROUTE_PATH.ADDPRODUCT}>
+            <Link to={ROUTE_PATH.ADDPRODUCT('new')}>
               <Button type='xhotel-negative-primary' className='flex items-center !py-3 h-full'>
                 <Icon icon='icon-plus' className='mr-[6px]' />
                 Thêm sản phẩm
@@ -228,4 +232,4 @@ function ManageProduct() {
   );
 }
 
-export default ManageProduct;
+export default ListProduct;

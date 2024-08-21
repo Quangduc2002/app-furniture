@@ -19,9 +19,9 @@ import PasswordNew from '@/pages/Account/PasswordNew/PasswordNew';
 import Revenua from '@/pages/Revenua/Revenua';
 import AdminLayout from '@/Layout/AdminLayout/AdminLayout';
 import Statistic from '@/pages/Statistic/Statistic';
-import ManageProduct from '@/pages/ManageProduct/ManageProduct';
 import TrashProduct from '@/pages/TrashProduct/TrashProduct';
-import AddProduct from '@/pages/ManageProduct/AddProduct/AddProduct';
+import ManageProduct from '@/pages/ListProduct/ManageProduct/ManageProduct';
+import ListProduct from '@/pages/ListProduct/ListProduct';
 
 const MainLayout = React.lazy(() => import('@/Layout/MainLayout/MainLayout'));
 const HomePage = React.lazy(() => import('@/pages/HomePage/HomePage'));
@@ -180,7 +180,7 @@ export const router = createBrowserRouter([
             path: ROUTE_PATH.MANAGEPRODUCT,
             element: (
               <Suspense>
-                <ManageProduct />
+                <ListProduct />
               </Suspense>
             ),
           },
@@ -193,10 +193,18 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: ROUTE_PATH.ADDPRODUCT,
+            path: ROUTE_PATH.ADDPRODUCT(':action'),
             element: (
               <Suspense>
-                <AddProduct />
+                <ManageProduct />
+              </Suspense>
+            ),
+          },
+          {
+            path: ROUTE_PATH.EDITPRODUCT(':id', ':action'),
+            element: (
+              <Suspense>
+                <ManageProduct />
               </Suspense>
             ),
           },

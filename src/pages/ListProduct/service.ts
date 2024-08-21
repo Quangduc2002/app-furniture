@@ -1,4 +1,4 @@
-import { axiosGet, axiosPut } from "@/api/request"
+import { axiosGet, axiosPost, axiosPut } from "@/api/request"
 
 export const serviceDeleteProduct = ({id, status}: any) => {
   return axiosPut(`/products/${id}/delete`, {trangThai:status})
@@ -17,3 +17,10 @@ export const serviceMeterial = () => {
   return axiosGet(`/products/meterial`)
 }
 
+export const serviceProductType = () => {
+  return axiosGet(`/producttypes`)
+}
+
+export const serviceAddProduct = (data:any) => {
+  return axiosPost(`/products/add`,data)
+}
