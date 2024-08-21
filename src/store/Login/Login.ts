@@ -10,7 +10,7 @@ import { ROUTE_PATH } from "@/routes/route.constant";
 const getUserAccounts = () => {
   const location = useLocation();
   const [, setUser] = useAtom(userDefault);
-  const { run: account } = useRequest(serviceGetAccount, {
+  const { run: account} = useRequest(serviceGetAccount, {
     manual: true,
     onSuccess: (res) => {
         let roles = res.data.DT.roles;

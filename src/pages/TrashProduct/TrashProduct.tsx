@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import styles from './Trash.module.scss';
 import Button from '@/components/UI/Button/Button';
-import ModalDelete from '../ManageProduct/ModalDelete';
+import ModalDelete from '../ListProduct/ModalDelete';
 import { Result, Row, Table } from 'antd';
 import { Icon } from '@/components/UI/IconFont/Icon';
 import { FormatPrice } from '@/utils/FormatPrice';
@@ -76,7 +76,6 @@ function TrashProduct() {
     onChange: onSelectChange,
     type: 'checkbox' as const,
   };
-  console.log(selectedRowKeys.length);
 
   return (
     <div className={clsx(styles.listProduct, 'xs:w-full ')}>
@@ -110,7 +109,9 @@ function TrashProduct() {
               onRefresh={onRefresh}
             >
               <Button
-                disabled={action === '' || selectedRowKeys.length === 0}
+                disabled={
+                  action === '' || selectedRowKeys.length === 0 || products?.data?.length === 0
+                }
                 type='xhotel-negative-primary'
               >
                 Thực hiện

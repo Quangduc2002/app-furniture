@@ -37,13 +37,6 @@ function EnterCode({ handleCancel }: any) {
         user: JSON.parse(localStorage.account),
         OTP: '',
       });
-      //   axios
-      //     .post('http://localhost:8080/user/resetOTP', {
-      //       user: JSON.parse(localStorage.account),
-      //       OTP: '',
-      //     })
-      //     .then((res) => {})
-      //     .catch((err) => {});
     }
   });
 
@@ -51,17 +44,6 @@ function EnterCode({ handleCancel }: any) {
     e.preventDefault();
     if (OTP) {
       runCompareCode({ user: JSON.parse(localStorage.account), OTP: OTP });
-      //   axios
-      //     .post('http://localhost:8080/user/confirmOTP', {
-      //       user: JSON.parse(localStorage.account),
-      //       OTP: OTP,
-      //     })
-      //     .then((res) => {
-      //       navigate('/Login/PassWordNew');
-      //     })
-      //     .catch((err) => {
-      //       setError(err.response.data.message);
-      //     });
     }
   };
 

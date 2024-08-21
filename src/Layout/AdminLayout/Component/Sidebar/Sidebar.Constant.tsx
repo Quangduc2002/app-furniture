@@ -14,6 +14,7 @@ type TRouteSidebar = Array<{
 
 export const RouteSidebar = () => {
   const [user] = useAtom(userDefault);
+
   const ROUTE_SIDEBAR: TRouteSidebar = [
     {
       key: '1',

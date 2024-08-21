@@ -17,7 +17,8 @@ export const ROUTE_PATH = {
   PASSWORDNEW: '/login/password-new',
 
   REVENUA: '/admin/thong-ke',
-  MANAGEPRODUCT: '/admin/danh-sach-san-pham',
+  MANAGEPRODUCT: '/admin/san-pham',
   TRASHPRODUCT: '/admin/thung-rac',
-  ADDPRODUCT: '/admin/them-san-pham',
+  ADDPRODUCT:(action:string) => `/admin/san-pham/${action}`,
+  EDITPRODUCT: (id:string, action:string) => `/admin/san-pham/${id}/${action}` ,
 };
