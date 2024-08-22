@@ -1,0 +1,428 @@
+::placeholder {
+    color: rgb(144 149 171);
+}
+
+th {
+    color: rgb(52, 71, 103);
+}
+
+.breadcrumbs {
+    display: flex;
+
+    p {
+        color: rgba(102, 102, 102, 0.7);
+        font-size: 18px;
+    }
+
+    span {
+        font-size: 18px;
+        font-weight: bolder;
+        color: rgb(52, 71, 103);
+    }
+}
+
+.Link {
+    text-decoration: none;
+    color: rgba(102, 102, 102, 0.7);
+
+    &:hover {
+        color: #eb1336;
+    }
+}
+
+.divider {
+    margin: 0 6px;
+    color: rgba(102, 102, 102, 0.7);
+    font-weight: 500 !important;
+}
+
+.listOrderProduct {
+    padding: 24px;
+    overflow: hidden;
+    overflow-y: scroll;
+
+    &_header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 40px;
+        padding: 0 16px;
+
+        &__search {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &__xmark {
+            position: absolute;
+            right: 12px;
+            color: rgb(123, 128, 154);
+            cursor: pointer;
+
+            &:hover {
+                transition: all 0.3s linear;
+                color: #555;
+            }
+        }
+
+        input {
+            border: 1px solid #d3d3d3;
+            padding: 12px;
+            outline: none;
+            border-radius: 6px;
+            background: none transparent;
+
+            &:focus {
+                border: 1px solid #6a5a9f;
+            }
+        }
+    }
+
+    &_PD {
+        padding: 30px;
+        padding-top: 0;
+        background-color: #fff;
+        border-radius: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+        color: rgb(52, 71, 103);
+        margin: 20px 0;
+    }
+
+    p {
+        padding: 0 10px;
+    }
+
+    &_title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &_add {
+        display: flex;
+        align-items: center;
+        margin: 20px 0;
+        text-decoration: none;
+        color: #fff;
+        background-color: #ee4d2d;
+        border-radius: 4px;
+        cursor: pointer;
+        padding: 10px;
+
+        &:hover {
+            transition: all 0.3s linear;
+            background-color: #c52432;
+        }
+    }
+
+    &_annouce {
+        position: relative;
+        background-color: #e4e4e4;
+        border-radius: 50%;
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 10px;
+        cursor: pointer;
+
+        &_active {
+            background-color: #ccc;
+        }
+
+        &:hover {
+            background-color: #ccc;
+        }
+
+        i {
+            color: rgb(123, 128, 154);
+        }
+
+        span {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            right: -4px;
+            top: -8px;
+            font-size: 12px;
+            background: #ee4d2d;
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            font-weight: 500;
+            color: #fff;
+        }
+    }
+
+    &_detailannouce {
+        position: absolute;
+        background-color: #fff;
+        border-radius: 4px;
+        border: 1px solid #e2e2e2;
+        width: 250px;
+        top: 62px;
+        right: 0px;
+
+        &__title {
+            padding: 16px;
+            border-bottom: 1px solid #e6edef;
+        }
+    }
+
+    &_detailannouce1 {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #e6edef;
+        padding: 16px;
+
+        &__icon {
+            background-color: rgba(27, 76, 67, 0.1);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+
+            i {
+                font-size: 16px;
+            }
+        }
+
+        &__inform {
+            p {
+                margin: 4px 0;
+            }
+        }
+    }
+}
+
+.table {
+    margin-bottom: 20px;
+
+    &_status {
+        min-width: 160px;
+        display: flex;
+        border: none;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #fff;
+        background-color: #ee4d2d;
+        cursor: pointer;
+        padding: 10px;
+
+        &:hover {
+            transition: all 0.3s linear;
+            background-color: #c52432;
+        }
+    }
+
+    &_cancel {
+        min-width: 160px;
+        display: flex;
+        border: none;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #fff;
+        background-color: #ee4d2d;
+        cursor: not-allowed;
+        padding: 10px;
+        opacity: 0.6;
+    }
+
+    &_confirmed {
+        display: flex;
+        justify-content: center;
+        min-width: 160px;
+        border: none;
+        align-items: center;
+        text-decoration: none;
+        color: #fff;
+        background-image: linear-gradient(195deg, rgb(102, 187, 106), rgb(67, 160, 71));
+        padding: 10px;
+    }
+
+    &_button {
+        border: none;
+        cursor: pointer;
+    }
+}
+
+tr:nth-child(even) {
+    background-color: #e2e3e5;
+}
+
+//modal
+.modal {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 200px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    top: 20px;
+
+    &_header {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+
+        h5 {
+            font-size: 24px;
+        }
+    }
+
+    &_close {
+        border: none;
+        background-color: #fff;
+
+        span {
+            font-size: 24px;
+            color: #6c757d;
+
+            &:hover {
+                cursor: pointer;
+                color: #000;
+            }
+        }
+    }
+
+    &_body {
+        padding: 20px;
+        border-top: 1px solid #e9ecef;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    &_footer {
+        padding: 20px;
+        text-align: right;
+
+        button {
+            padding: 10px 12px;
+            border: none;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    }
+
+    &_btnClose {
+        background-color: #6c757d;
+        margin-right: 10px;
+
+        &:hover {
+            background-color: #5a6268;
+        }
+    }
+
+    &_btnSave {
+        background-color: #ee4d2d;
+
+        &:hover {
+            background-color: #c52432;
+        }
+    }
+}
+
+//modal
+.modal {
+    position: fixed;
+    min-width: 900px;
+    height: 360px;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    left: 50%;
+    top: 50%;
+    overflow: hidden;
+    overflow-y: scroll;
+    padding: 20px;
+    animation: slipModel 1s ease-in-out;
+
+    &_header {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 20px;
+
+        h5 {
+            font-size: 24px;
+        }
+    }
+
+    &_close {
+        border: none;
+        background-color: #fff;
+
+        span {
+            font-size: 24px;
+            color: #6c757d;
+
+            &:hover {
+                cursor: pointer;
+                color: #000;
+            }
+        }
+    }
+
+    &_body {
+        padding: 20px;
+        border-top: 1px solid #e9ecef;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    &_footer {
+        padding-right: 20px;
+        text-align: right;
+
+        button {
+            padding: 10px 12px;
+            border: none;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    }
+}
+
+.modal1 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    animation: model 0.5s linear;
+}
+
+@keyframes model {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slipModel {
+    from {
+        top: 0;
+        opacity: 0;
+    }
+    to {
+        top: 50%;
+        opacity: 1;
+    }
+}

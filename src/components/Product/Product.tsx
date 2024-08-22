@@ -22,11 +22,7 @@ function Product({ product }: any) {
       <div className={clsx(styles.room_product1_link)}>
         <div className={clsx(styles.room_image)}>
           <div className={clsx(styles.room_badge, styles.hover)}>
-            <img
-              className='w-full h-full'
-              alt=''
-              src={`http://localhost:3000/Images/${product.image}`}
-            />
+            <img className='w-full h-full' alt='' src={`${product.image}`} />
             <div
               className={clsx(
                 styles.productDetail,

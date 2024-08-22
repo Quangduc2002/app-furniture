@@ -19,6 +19,7 @@ export const ROUTE_PATH = {
   REVENUA: '/admin/thong-ke',
   MANAGEPRODUCT: '/admin/san-pham',
   TRASHPRODUCT: '/admin/thung-rac',
+  LISTORDERPRODUCT: '/admin/danh-sach-don-hang',
   ADDPRODUCT:(action:string) => `/admin/san-pham/${action}`,
   EDITPRODUCT: (id:string, action:string) => `/admin/san-pham/${id}/${action}` ,
 };

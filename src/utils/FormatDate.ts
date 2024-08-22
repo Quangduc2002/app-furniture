@@ -1,4 +1,3 @@
-  // curDate sẽ lưu trữ thời gian hiện tại
   var curDate = new Date();
 
   const Days:any = [];

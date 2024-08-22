@@ -52,21 +52,16 @@ export const RouteSidebar = () => {
         },
         {
           key: '2-3',
-          label: 'Thêm sản phẩm',
-          href: ROUTE_PATH.HOME,
-        },
-        {
-          key: '2-4',
           label: 'Thêm người dùng',
           href: ROUTE_PATH.HOME,
         },
         {
-          key: '2-5',
+          key: '2-4',
           label: 'Quản lý người dùng',
           href: ROUTE_PATH.HOME,
         },
         {
-          key: '2-6',
+          key: '2-5',
           label: 'Thùng rác',
           href: ROUTE_PATH.TRASHPRODUCT,
         },
@@ -80,7 +75,7 @@ export const RouteSidebar = () => {
         {
           key: '3-1',
           label: 'Danh sách đơn hàng',
-          href: ROUTE_PATH.HOME,
+          href: ROUTE_PATH.LISTORDERPRODUCT,
         },
         {
           key: '3-2',

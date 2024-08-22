@@ -16,18 +16,28 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 export const useImageUpload = () => {
+  const [loading, setLoading] = useState(false);
    const uploadImage = async (file: any,) => {
     if (!file) return;
-    const storageRef = ref(storage, `Images/${uuid()}`);
-    // uploadBytes(storageRef, file).then((snapshot) => {
-    //   getDownloadURL(storageRef).then((url) => {
-    //     setImageUrl(url);
-    //   });
-    // });
-    const snapshot = await uploadBytes(storageRef, file);
-    const url = await getDownloadURL(storageRef);
-    return url;
+    setLoading(true)
+    try {
+      const storageRef = ref(storage, `Images/${uuid()}`);
+      // uploadBytes(storageRef, file).then((snapshot) => {
+      //   getDownloadURL(storageRef).then((url) => {
+      //     setImageUrl(url);
+      //   });
+      // });
+      const snapshot = await uploadBytes(storageRef, file);
+      const url = await getDownloadURL(storageRef);
+      return url;
+    } catch (error) {
+      console.log(error);
+      
+    }finally{
+      setLoading(false);
+    }
+  
   };
-  return { uploadImage};
+  return {loading, uploadImage};
 }
 

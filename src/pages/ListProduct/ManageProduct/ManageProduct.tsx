@@ -4,10 +4,16 @@ import styles from '../index.module.scss';
 import { Icon } from '@/components/UI/IconFont/Icon';
 import Button from '@/components/UI/Button/Button';
 import { Col, Form, Row } from 'antd';
+import Text from '@/components/UI/Text';
 import InputText from '@/components/UI/InputText';
 import SelectCustom from '@/components/UI/SelectCustom';
 import { useRequest, useUpdateEffect } from 'ahooks';
-import { serviceAddProduct, serviceMeterial, serviceProductType } from '../service';
+import {
+  serviceAddProduct,
+  serviceEditProduct,
+  serviceMeterial,
+  serviceProductType,
+} from '../service';
 import InputCurrency from '@/components/UI/InputCurrency/InputCurrency';
 import UploadImage from '@/components/UploadImage/UploadImage';
 import { useImageUpload } from '@/utils/FireBase';
@@ -19,7 +25,7 @@ import { serviceGetProductDetail } from '@/pages/ProductDetailPage/service';
 function ManageProduct() {
   const { data: dataMeterial } = useRequest(serviceMeterial);
   const { data: dataProductType } = useRequest(serviceProductType);
-  const { uploadImage } = useImageUpload();
+  const { loading, uploadImage } = useImageUpload();
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [disable, setDisabled] = useState<boolean>(true);
@@ -67,29 +73,44 @@ function ManageProduct() {
     },
   });
 
+  const requestEditProduct = useRequest(serviceEditProduct, {
+    manual: true,
+    onSuccess: () => {
+      toast.success('Sửa sản phẩm thành công !');
+    },
+    onError: (err: any) => {
+      toast.error(err);
+    },
+  });
+
   const onSubmit = async (values: any) => {
+    requestEditProduct.loading === true;
     const file = values.image.file;
     let dataImage = null;
     if (file) {
       dataImage = await uploadImage(file);
     }
 
-    if (dataImage) {
-      const data: any = {
-        tenSp: values.tenSp,
-        giaBan: values.giaBan,
-        giaNhap: values.giaNhap,
-        giamGia: values.giamGia,
-        kichThuoc: values.kichThuoc,
-        producttypeId: values.producttypeId,
-        soLuong: values.soLuong,
-        chatLieu: values.chatLieu,
-        image: dataImage,
-        trangThai: 1,
-      };
+    const data: any = {
+      tenSp: values.tenSp,
+      giaBan: values.giaBan,
+      giaNhap: values.giaNhap,
+      giamGia: values.giamGia,
+      kichThuoc: values.kichThuoc,
+      producttypeId: values.producttypeId,
+      soLuong: values.soLuong,
+      chatLieu: values.chatLieu,
+      image: dataImage ? dataImage : values.image,
+      trangThai: 1,
+    };
+    if (action === 'update') {
+      requestEditProduct.run(id, data);
+    } else {
       requestAddProduct.run(data);
     }
   };
+
+  console.log(requestEditProduct?.loading);
 
   const { data: productDetail, run: runProductDtails } = useRequest(serviceGetProductDetail, {
     manual: true,
@@ -147,11 +168,11 @@ function ManageProduct() {
           </Button>
           <Button
             htmlType='submit'
-            disabled={disable}
+            loading={requestAddProduct?.loading || requestEditProduct?.loading || loading}
             className='w-[100px] !py-3'
             type='xhome-negative-primary'
           >
-            Xác nhận
+            <Text element='span'>Xác nhận</Text>
           </Button>
         </div>
       </div>

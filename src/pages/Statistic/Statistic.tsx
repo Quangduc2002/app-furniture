@@ -158,11 +158,7 @@ function Statistic() {
       dataIndex: 'image',
       key: 'image',
       render: (value: any) => (
-        <img
-          className={clsx(styles.table_image, 'mx-auto')}
-          src={`http://localhost:3000/Images/${value}`}
-          alt=''
-        />
+        <img className={clsx(styles.table_image, 'mx-auto')} src={`${value}`} alt='' />
       ),
     },
     {

@@ -1,11 +1,9 @@
-import { GetProp, Upload, UploadFile, UploadProps, Image } from 'antd';
+import { Upload } from 'antd';
 import classNames from 'classnames';
-import { useState } from 'react';
 import Text from '@/components/UI/Text';
 import styles from './index.module.scss';
 import { Icon } from '../UI/IconFont/Icon';
 import { base64ToBlob, beforeUploadImg, checkMb, getBase64, isImage } from '@/utils/image';
-type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
 interface IPropsFormUploadImage {
   value?: any;
@@ -48,7 +46,7 @@ const ItemImage = ({
       }}
     >
       <img
-        src={value?.url}
+        src={value?.url ? value?.url : value}
         alt=''
         className={classNames('w-full h-full rounded-[8px]', {
           'object-contain': objectFit === 'contain',
