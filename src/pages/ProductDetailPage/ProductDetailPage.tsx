@@ -1,7 +1,8 @@
-import { AnimatePresence, motion, spring } from 'framer-motion';
+import { motion, spring } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import clsx from 'clsx';
+import { Image } from 'antd';
 import { useRequest } from 'ahooks';
 import Loading from '@/components/Loading/Loading';
 import styles from './ProductDetails.module.scss';
@@ -151,15 +152,7 @@ function ProductDetailPage() {
         >
           <div className={clsx(styles.productDetail)}>
             <div className={clsx(styles.images, 'relative')}>
-              <img
-                src={`http://localhost:3000/Images/${product?.data?.image}`}
-                alt=''
-                // layoutId={product?.data?.ID}
-              />
-              <i
-                // onClick={() => setSelectedId(product?.data?.ID)}
-                className='fa-solid fa-up-right-and-down-left-from-center absolute bottom-8 left-12 text-xl w-10 h-10 flex items-center justify-center border border-black rounded-full cursor-pointer hover:bg-[#f62d3e] hover:border-0 hover:text-white transition duration-500 ease-in-out'
-              ></i>
+              <Image className='!w-[550px] !h-[400px]' src={`${product?.data?.image}`} />
             </div>
             <div className={clsx(styles.right)}>
               <h1 className='text-3xl'>{product?.data?.tenSp}</h1>
@@ -453,35 +446,22 @@ function ProductDetailPage() {
                       className={`flex gap-4  ${index === 0 ? 'pb-4' : 'py-4'} border-b`}
                     >
                       <div>
-                        <img
-                          className='w-10 h-10 rounded-full'
-                          src={`http://localhost:3000/Images/${item.User.image}`}
-                          alt=''
-                        />
+                        <img className='w-10 h-10 rounded-full' src={`${item.User.image}`} alt='' />
                       </div>
                       <div className='flex flex-col gap-2'>
-                        <p className='!mt-0'>{item.User.name}</p>
+                        <div className='flex gap-4'>
+                          <p className='!mt-0'>{item.User.name}</p>
+                          <p className='!mt-0 text-[#00000066]'>
+                            {moment(item?.createdAt).format('DD/MM/YYYY HH:mm')}
+                          </p>
+                        </div>
                         <div className={clsx(`star-${item.numberRating} active`)}></div>
-                        <p className='!mt-0 text-[#00000066]'>
-                          {moment(item?.createdAt).format('DD/MM/YYYY HH:mm')}
-                        </p>
+
                         <p className='!mt-0'>{item.comment ? item.comment : ''}</p>
                       </div>
                     </div>
                   ))}
                 </div>
-                {/* {Evaluation?.data?.totalRatings > 0 && (
-                  <div className='mt-6'>
-                    <Pagination
-                      productPerPage={evaluaAll.limit}
-                      totalProduct={evaluaAll.totalRatings}
-                      pagination={pagination}
-                      isActive={isActive}
-                      handleNext={handleNext}
-                      handlePrevious={handlePrevious}
-                    />
-                  </div>
-                )} */}
               </motion.div>
             )}
           </div>
@@ -522,32 +502,6 @@ function ProductDetailPage() {
               </div>
             </div>
           )}
-
-          <AnimatePresence>
-            {/* {selectedId && (
-              <motion.div
-                style={{ transform: 'translate(-50%, -50%)' }}
-                className='z-20 fixed top-1/2 left-1/2 -translate-y-1/2 w-1/2'
-                layoutId={selectedId}
-              >
-                <motion.img
-                  className='w-full rounded-md'
-                  alt=''
-                  src={`http://localhost:3000/Image/${product?.data?.image}`}
-                />
-                <i
-                  onClick={() => setSelectedId(null)}
-                  className='fa-solid fa-xmark absolute top-4 right-4  hover:text-[#ee4d2d] cursor-pointer'
-                ></i>
-              </motion.div>
-            )} */}
-          </AnimatePresence>
-          {/* {selectedId && (
-                <div
-                    onClick={() => setSelectedId(null)}
-                    className="fixed top-0 left-0 bottom-0 right-0 z-10 bg-[#00000066]"
-                ></div>
-            )} */}
         </motion.div>
       )}
     </div>

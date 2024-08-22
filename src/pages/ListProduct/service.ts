@@ -24,3 +24,7 @@ export const serviceProductType = () => {
 export const serviceAddProduct = (data:any) => {
   return axiosPost(`/products/add`,data)
 }
+
+export const serviceEditProduct = (id:any, data:any) => {
+  return axiosPut(`products/${id}/edit`, data)
+}

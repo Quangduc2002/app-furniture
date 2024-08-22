@@ -28,6 +28,7 @@
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "csvgtocss": "^0.0.10",
+    "dayjs": "^1.11.13",
     "esno": "^4.7.0",
     "firebase": "^10.12.4",
     "framer-motion": "^11.2.13",

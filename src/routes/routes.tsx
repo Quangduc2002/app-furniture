@@ -22,6 +22,7 @@ import Statistic from '@/pages/Statistic/Statistic';
 import TrashProduct from '@/pages/TrashProduct/TrashProduct';
 import ManageProduct from '@/pages/ListProduct/ManageProduct/ManageProduct';
 import ListProduct from '@/pages/ListProduct/ListProduct';
+import ListOrderProduct from '@/pages/ListOrderProduct/ListOrderProduct';
 
 const MainLayout = React.lazy(() => import('@/Layout/MainLayout/MainLayout'));
 const HomePage = React.lazy(() => import('@/pages/HomePage/HomePage'));
@@ -205,6 +206,14 @@ export const router = createBrowserRouter([
             element: (
               <Suspense>
                 <ManageProduct />
+              </Suspense>
+            ),
+          },
+          {
+            path: ROUTE_PATH.LISTORDERPRODUCT,
+            element: (
+              <Suspense>
+                <ListOrderProduct />
               </Suspense>
             ),
           },
