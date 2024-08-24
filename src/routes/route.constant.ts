@@ -20,6 +20,9 @@ export const ROUTE_PATH = {
   MANAGEPRODUCT: '/admin/san-pham',
   TRASHPRODUCT: '/admin/thung-rac',
   LISTORDERPRODUCT: '/admin/danh-sach-don-hang',
+  LISTORDERPRODUCTDETAILS: '/admin/chi-tiet-don-hang',
+  MATERIAL: '/admin/chat-lieu',
+  MANAGECUSTOMER: '/admin/danh-sach-khach-hang',
   ADDPRODUCT:(action:string) => `/admin/san-pham/${action}`,
   EDITPRODUCT: (id:string, action:string) => `/admin/san-pham/${id}/${action}` ,
 };

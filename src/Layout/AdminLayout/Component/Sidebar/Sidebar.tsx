@@ -6,6 +6,7 @@ import { Icon } from '@/components/UI/IconFont/Icon';
 import { generateMenuItems, RouteSidebar } from './Sidebar.Constant';
 import Button from '@/components/UI/Button/Button';
 import styles from './Sidebar.module.scss';
+import { getActiveKey } from '@/utils/ActiveKey';
 function Sidebar() {
   const { logoutUser } = useLogout();
   const handleLogOutUser = () => {
@@ -13,19 +14,6 @@ function Sidebar() {
   };
   const { ROUTE_SIDEBAR } = RouteSidebar();
   const items = generateMenuItems(ROUTE_SIDEBAR);
-  const getActiveKey = (pathname: any, items: any) => {
-    for (const item of items) {
-      if (item.children) {
-        for (const child of item.children) {
-          if (pathname === child.href) {
-            return child.key;
-          }
-        }
-      }
-    }
-    return '';
-  };
-
   const activeKey = getActiveKey(location.pathname, items);
 
   return (

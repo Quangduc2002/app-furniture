@@ -26,12 +26,7 @@ export const RouteSidebar = () => {
         {
           key: '1-1',
           label: 'Thông tin của tôi',
-          href: ROUTE_PATH.HOME,
-        },
-        {
-          key: '1-2',
-          label: 'Cài đặt',
-          href: ROUTE_PATH.HOME,
+          href: ROUTE_PATH.PROFILE,
         },
       ],
     },
@@ -52,16 +47,21 @@ export const RouteSidebar = () => {
         },
         {
           key: '2-3',
-          label: 'Thêm người dùng',
+          label: 'Quản lý nhân viên',
           href: ROUTE_PATH.HOME,
         },
         {
           key: '2-4',
-          label: 'Quản lý người dùng',
-          href: ROUTE_PATH.HOME,
+          label: 'Quản lý khách hàng',
+          href: ROUTE_PATH.MANAGECUSTOMER,
         },
         {
           key: '2-5',
+          label: 'Chất liệu',
+          href: ROUTE_PATH.MATERIAL,
+        },
+        {
+          key: '2-6',
           label: 'Thùng rác',
           href: ROUTE_PATH.TRASHPRODUCT,
         },
@@ -80,7 +80,7 @@ export const RouteSidebar = () => {
         {
           key: '3-2',
           label: 'Chi tiết đơn hàng',
-          href: ROUTE_PATH.HOME,
+          href: ROUTE_PATH.LISTORDERPRODUCTDETAILS,
         },
       ],
     },

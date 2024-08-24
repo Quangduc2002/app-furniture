@@ -22,11 +22,6 @@ export const useImageUpload = () => {
     setLoading(true)
     try {
       const storageRef = ref(storage, `Images/${uuid()}`);
-      // uploadBytes(storageRef, file).then((snapshot) => {
-      //   getDownloadURL(storageRef).then((url) => {
-      //     setImageUrl(url);
-      //   });
-      // });
       const snapshot = await uploadBytes(storageRef, file);
       const url = await getDownloadURL(storageRef);
       return url;

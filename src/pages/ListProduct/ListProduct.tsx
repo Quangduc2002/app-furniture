@@ -33,12 +33,12 @@ function ListProduct() {
       ),
     },
     {
-      title: 'tên sản phẩm',
+      title: 'Tên sản phẩm',
       dataIndex: 'tenSp',
       key: 'tenSp',
     },
     {
-      title: 'chất liệu',
+      title: 'Chất liệu',
       dataIndex: 'Meterial',
       key: 'Meterial',
       render: (value: any) => <Text>{value?.tenChatLieu}</Text>,
@@ -49,7 +49,7 @@ function ListProduct() {
       key: 'kichThuoc',
     },
     {
-      title: 'giá bán',
+      title: 'Giá bán',
       dataIndex: 'giaBan',
       key: 'giaBan',
       render: (_: any, record: any) => (
@@ -59,7 +59,7 @@ function ListProduct() {
       ),
     },
     {
-      title: <div style={{ textAlign: 'center' }}>số lượng</div>,
+      title: <div style={{ textAlign: 'center' }}>Số lượng</div>,
       dataIndex: 'soLuong',
       key: 'soLuong',
       render: (_: any, record: any) => (
@@ -102,13 +102,13 @@ function ListProduct() {
 
   return (
     <div className={clsx(styles.listProduct, 'xs:w-full')}>
-      <div className={clsx(styles.listProduct_header, 'flex-wrap')}>
-        <div className={clsx(styles.breadcrumbs)}>
-          <Link to='/' className={clsx(styles.Link)}>
+      <div className={clsx(styles.listProduct_header, 'flex-wrap h-[44px]')}>
+        <div className={'flex items-center'}>
+          <Link to='/' className={'text-[#666666b3] no-underline hover:text-[#eb1336]'}>
             Trang
           </Link>
-          <span className={clsx(styles.divider)}>/</span>
-          <span>Quản lý sản phẩm</span>
+          <span className={'font-medium mx-[6px] text-[#344767] text-[18px]'}>/</span>
+          <span className='text-[#344767] text-[18px] font-bold'>Quản lý sản phẩm</span>
         </div>
         <div style={{ display: 'flex' }}>
           <div className={clsx(styles.listProduct_header__search)}>

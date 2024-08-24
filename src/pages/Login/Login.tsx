@@ -127,8 +127,8 @@ function Login() {
       //   toast.success('Đăng nhập thành công !');
       // }
     },
-    onError: (e: any) => {
-      toast.error('Tài khoản mật khẩu chưa chính xác');
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
     },
   });
 
@@ -171,7 +171,8 @@ function Login() {
         thangSinh: Month,
         namSinh: Year,
         gioiTinh: gioiTinh,
-        image: 'avt-default.jpg',
+        image:
+          'https://firebasestorage.googleapis.com/v0/b/qlbanhang-457b3.appspot.com/o/Images%2F24f868a3-7e99-481e-b7ca-f905d57a669b?alt=media&token=a7591db7-7581-49ab-995a-a2492022d1fc',
       });
     }
   };

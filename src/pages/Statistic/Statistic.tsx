@@ -19,6 +19,7 @@ import {
 } from './sevice';
 import { Result, Row, Table } from 'antd';
 import { FormatPrice } from '@/utils/FormatPrice';
+import Button from '@/components/UI/Button/Button';
 
 type RevenuaCard = Array<{
   title: string;
@@ -37,7 +38,8 @@ function Statistic() {
   const [methodStatistic, setMethodStatistic] = useState('');
   const [month, setMonth] = useState('');
   const [precious, setPrecious] = useState('');
-  const [year, setYear] = useState(Years[0]);
+  const [year, setYear] = useState<any>(null);
+  const [yearChart, setYearChart] = useState<any>(null);
   const [chartStatistics, setChartStatistics] = useState([]);
   const [currentPage, setCurrentPage] = useState<any>(1);
 
@@ -82,18 +84,16 @@ function Statistic() {
   });
 
   const { run: runChart } = useRequest(serviceChartStatistic, {
-    manual: true,
+    defaultParams: [2024],
     onSuccess: (res: any) => {
       setChartStatistics(res.data);
     },
   });
 
-  useEffect(() => {
-    runChart(year);
-  }, []);
-
   const handleChartStatistics = () => {
-    runChart(year);
+    if (yearChart) {
+      runChart(yearChart);
+    }
   };
 
   const { run: runSatitistic } = useRequest(serviceStatistic, {
@@ -155,10 +155,10 @@ function Statistic() {
     },
     {
       title: 'ảnh',
-      dataIndex: 'image',
+      dataIndex: 'Product',
       key: 'image',
       render: (value: any) => (
-        <img className={clsx(styles.table_image, 'mx-auto')} src={`${value}`} alt='' />
+        <img className={clsx(styles.table_image, 'mx-auto')} src={`${value?.image}`} alt='' />
       ),
     },
     {
@@ -221,7 +221,7 @@ function Statistic() {
           <div>
             <div className='flex gap-3 my-6'>
               <select
-                onChange={(e) => setYear(e.target.value)}
+                onChange={(e) => setYearChart(e.target.value)}
                 className='py-2 px-2  focus:ring focus:border-gray-300 outline-none block border border-gray-200 rounded-lg text-sm '
               >
                 <option className='hidden'>--Chọn hành động--</option>
@@ -231,12 +231,13 @@ function Statistic() {
                   </option>
                 ))}
               </select>
-              <button
+              <Button
+                disabled={!yearChart}
                 onClick={handleChartStatistics}
-                className=' rounded-md py-1.5 px-3 text-white bg-[#ee4d2d] hover:bg-[#c52432]'
+                type='xhome-negative-primary'
               >
                 Thống kê
-              </button>
+              </Button>
             </div>
             <Line className='w-full mb-10' data={data} />
           </div>
@@ -257,12 +258,18 @@ function Statistic() {
                       Sản phẩm đã bán trong tháng
                     </option>
                   </select>
-                  <button
+                  <Button
+                    disabled={
+                      !methodStatistic || !year || methodStatistic === 'Sản phẩm đã bán trong tháng'
+                        ? !month
+                        : !precious
+                    }
                     onClick={handleStatistics}
-                    className='lg:block xs:hidden rounded-md py-1.5 px-3 text-white bg-[#ee4d2d] hover:bg-[#c52432]'
+                    type='xhome-negative-primary'
+                    className='lg:block xs:hidden rounded-md py-1.5 px-3 text-white'
                   >
                     Thống kê
-                  </button>
+                  </Button>
                 </div>
 
                 {methodStatistic === 'Sản phẩm đã bán trong tháng' ? (
@@ -320,12 +327,12 @@ function Statistic() {
               </div>
             </div>
             <div>
-              <button
-                // onClick={handleStatistics}
+              <Button
+                onClick={handleStatistics}
                 className='mt-2 xs:block lg:hidden rounded-md py-1.5 px-3 text-white bg-[#ee4d2d] hover:bg-[#c52432]'
               >
                 Thống kê
-              </button>
+              </Button>
             </div>
           </div>
 
