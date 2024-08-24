@@ -21,41 +21,28 @@ export const MenuHeader: React.FC<MenuHeaderProps> = ({ user, hide }) => {
   };
   return (
     <div>
-      {user?.account && user?.account && user?.account?.getUser?.roleId !== 1 ? (
-        <Link to={ROUTE_PATH.REVENUA} className={clsx(styles.wrapper1_menu, 'items-center gap-3')}>
-          <Icon icon='icon-gear' />
-          <p>Quản lý sản phẩm</p>
-        </Link>
-      ) : (
-        ''
-      )}
-      {ROUTE_HEADER_PROFILE?.map((item: any) => {
+      {ROUTE_HEADER_PROFILE.concat(
+        user?.account?.getUser?.roleId !== 1
+          ? [
+              {
+                id: 'manageProduct',
+                title: 'Quản lý sản phẩm',
+                href: ROUTE_PATH.REVENUA,
+                icon: () => <Icon icon='icon-gear' className='text-[20px]' />,
+              },
+            ]
+          : [],
+      )?.map((item: any) => {
         return (
-          <NavLink
-            className={clsx(styles.wrapper1_menu, 'items-center gap-3')}
-            // to={`${path.LayoutProfile}`}
-            to={item?.href}
-          >
+          <NavLink className={clsx(styles.wrapper1_menu, 'items-center gap-3')} to={item?.href}>
             {item?.icon()}
             <p>{item?.title}</p>
           </NavLink>
         );
       })}
 
-      {/* {user?.account && user?.account && user?.account?.getUser?.roleId === 1 ? (
-        <NavLink
-          className={clsx(styles.wrapper1_menu, 'items-center gap-3')}
-          to={ROUTE_PATH.LISTORDER}
-        >
-          <Icon className='w-5 h-5' icon={'icon-clip-board'} />
-          <p>Đơn mua</p>
-        </NavLink>
-      ) : (
-        ''
-      )} */}
-
       <div className={clsx(styles.wrapper1_menu, 'items-center gap-3')}>
-        <Icon className='w-5 h-5' icon={'icon-right-to-bracket'} />
+        <Icon className='text-' icon={'icon-right-to-bracket'} />
         <p onClick={handleLogOutUser}>Đăng xuất</p>
       </div>
     </div>

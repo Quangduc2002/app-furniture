@@ -5,7 +5,6 @@ import classNames from 'classnames';
 
 import { TColor } from '@/styles/color/color.variables';
 
-// import { Ticon } from '../../../../public/svgtocss/icon-type';
 import { Ticon } from '@/../public/svgtocss/icon-type';
 
 export const Icon = ({

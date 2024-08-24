@@ -110,8 +110,6 @@ function ManageProduct() {
     }
   };
 
-  console.log(requestEditProduct?.loading);
-
   const { data: productDetail, run: runProductDtails } = useRequest(serviceGetProductDetail, {
     manual: true,
   });
@@ -168,6 +166,7 @@ function ManageProduct() {
           </Button>
           <Button
             htmlType='submit'
+            disabled={disable}
             loading={requestAddProduct?.loading || requestEditProduct?.loading || loading}
             className='w-[100px] !py-3'
             type='xhome-negative-primary'

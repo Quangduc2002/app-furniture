@@ -79,13 +79,13 @@ function TrashProduct() {
 
   return (
     <div className={clsx(styles.listProduct, 'xs:w-full ')}>
-      <div className={clsx(styles.listProduct_header, 'flex-wrap ')}>
-        <div className={clsx(styles.breadcrumbs)}>
-          <Link to='/' className={clsx(styles.Link)}>
+      <div className={clsx(styles.listProduct_header, 'flex-wrap  h-[44px]')}>
+        <div className={'flex items-center'}>
+          <Link to='/' className={'text-[#666666b3] no-underline hover:text-[#eb1336]'}>
             Trang
           </Link>
-          <span className={clsx(styles.divider)}>/</span>
-          <span>Danh sách sản phẩm đã xóa</span>
+          <span className={'font-medium mx-[6px] text-[#344767] text-[18px]'}>/</span>
+          <span className='text-[#344767] text-[18px] font-bold'>Danh sách sản phẩm đã xóa</span>
         </div>
       </div>
 

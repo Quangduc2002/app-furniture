@@ -43,12 +43,12 @@ export const ROUTE_HEADER_PROFILE: TRouteSidebar = [
     id: 'personal',
     title: 'Hồ sơ cá nhân',
     href: ROUTE_PATH.PROFILE,
-    icon: () => <Icon icon='icon-user' className='text-[24px]' />,
+    icon: () => <Icon icon='icon-user' className='text-[20px]' />,
   },
   {
     id: 'purchaseOrder',
     title: 'Đơn mua',
     href: ROUTE_PATH.LISTORDER,
-    icon: () => <Icon icon='icon-clip-board' className='text-[24px]' />,
+    icon: () => <Icon icon='icon-clip-board' className='text-[20px]' />,
   },
 ];

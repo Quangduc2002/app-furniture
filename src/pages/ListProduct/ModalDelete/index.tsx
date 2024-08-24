@@ -11,7 +11,7 @@ import { toast } from '@/components/UI/Toast/toast';
 function index({ data, children, onRefresh, action, disabled }: ModalIprops) {
   const [visible, setVisible] = useState(false);
 
-  const { run: deleteProduct, loading: isLoadingProduct } = useRequest(serviceDeleteProduct, {
+  const { run: deleteProduct } = useRequest(serviceDeleteProduct, {
     manual: true,
     onSuccess: (res) => {
       toast.success('Xóa sản phẩm thành công !');
@@ -23,20 +23,17 @@ function index({ data, children, onRefresh, action, disabled }: ModalIprops) {
     },
   });
 
-  const { run: deleteAllProduct, loading: isLoadingProducts } = useRequest(
-    serviceDeleteAllProduct,
-    {
-      manual: true,
-      onSuccess: (res) => {
-        toast.success('Xóa sản phẩm thành công !');
-        setVisible(false);
-        onRefresh && onRefresh();
-      },
-      onError: (err: any) => {
-        toast.error(err);
-      },
+  const { run: deleteAllProduct } = useRequest(serviceDeleteAllProduct, {
+    manual: true,
+    onSuccess: (res) => {
+      toast.success('Xóa sản phẩm thành công !');
+      setVisible(false);
+      onRefresh && onRefresh();
     },
-  );
+    onError: (err: any) => {
+      toast.error(err);
+    },
+  });
 
   const handleDeleteProduct = () => {
     if (action === 'delete' && data.length > 0) {

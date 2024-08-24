@@ -23,6 +23,9 @@ import TrashProduct from '@/pages/TrashProduct/TrashProduct';
 import ManageProduct from '@/pages/ListProduct/ManageProduct/ManageProduct';
 import ListProduct from '@/pages/ListProduct/ListProduct';
 import ListOrderProduct from '@/pages/ListOrderProduct/ListOrderProduct';
+import ListOrderProductDetails from '@/pages/ListOrderProductDetails/ListOrderProductDetails';
+import ListMaterial from '@/pages/ListMaterial/ListMaterial';
+import ManageCustomer from '@/pages/ManageCustomer/ManageCustomer';
 
 const MainLayout = React.lazy(() => import('@/Layout/MainLayout/MainLayout'));
 const HomePage = React.lazy(() => import('@/pages/HomePage/HomePage'));
@@ -214,6 +217,30 @@ export const router = createBrowserRouter([
             element: (
               <Suspense>
                 <ListOrderProduct />
+              </Suspense>
+            ),
+          },
+          {
+            path: ROUTE_PATH.LISTORDERPRODUCTDETAILS,
+            element: (
+              <Suspense>
+                <ListOrderProductDetails />
+              </Suspense>
+            ),
+          },
+          {
+            path: ROUTE_PATH.MATERIAL,
+            element: (
+              <Suspense>
+                <ListMaterial />
+              </Suspense>
+            ),
+          },
+          {
+            path: ROUTE_PATH.MANAGECUSTOMER,
+            element: (
+              <Suspense>
+                <ManageCustomer />
               </Suspense>
             ),
           },

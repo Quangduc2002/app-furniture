@@ -1,5 +1,5 @@
 ::placeholder {
-  color: #9095ab;
+  color: rgb(144 149 171);
 }
 
 th {
@@ -36,7 +36,7 @@ th {
   font-weight: 500 !important;
 }
 
-.listProduct {
+.orderDetail {
   padding: 24px;
   overflow: hidden;
   overflow-y: scroll;
@@ -90,36 +90,23 @@ th {
   h1 {
       font-size: 24px;
       color: rgb(52, 71, 103);
+      margin: 20px 0;
   }
 
   p {
       padding: 0 10px;
-      margin: 10px 0;
   }
 
   &_title {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 20px;
-      padding-top: 20px;
-      &__right {
-          display: flex;
-          select {
-              padding: 12px;
-              border-radius: 20px;
-              background: rgb(244 245 249);
-              color: rgba(102, 102, 102, 0.85);
-              border: 1px solid #ccc;
-              outline: none;
-          }
-      }
   }
 
   &_add {
       display: flex;
       align-items: center;
-      // margin: 20px 0;
+      margin: 20px 0;
       text-decoration: none;
       color: #fff;
       background-color: #ee4d2d;
@@ -132,60 +119,6 @@ th {
           background-color: #c52432;
       }
   }
-
-  &_annouce {
-      position: relative;
-      background-color: #e4e4e4;
-      border-radius: 50%;
-      width: 42px;
-      height: 42px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-left: 10px;
-      cursor: pointer;
-
-      &:hover {
-          background-color: #ccc;
-      }
-
-      i {
-          color: rgb(123, 128, 154);
-      }
-  }
-
-  &_action {
-      display: flex;
-      align-items: center;
-      padding-left: 10px;
-
-      &__select {
-          padding: 6px 8px;
-          border: 1px solid #ced4da;
-          border-radius: 4px;
-          outline: none;
-
-          &:focus {
-              border: 1px solid #6a5a9f;
-          }
-      }
-
-      &__btnDelAll {
-          display: flex;
-          align-items: center;
-          color: #fff;
-          background-color: #ee4d2d;
-          border-radius: 4px;
-          cursor: pointer;
-          padding: 10px;
-          border: none;
-
-          &__active {
-              opacity: 0.6;
-              cursor: not-allowed;
-          }
-      }
-  }
 }
 
 .table {
@@ -193,6 +126,11 @@ th {
   &_button {
       border: none;
       cursor: pointer;
+  }
+
+  &_image {
+      width: 100px;
+      height: 50px;
   }
 }
 

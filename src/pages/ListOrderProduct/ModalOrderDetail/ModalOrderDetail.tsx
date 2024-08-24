@@ -10,17 +10,12 @@ import { useRequest } from 'ahooks';
 import { serviceOrderDetail } from '../service';
 import { FormatPrice } from '@/utils/FormatPrice';
 
-interface IModalOrderDetail {
-  currentPage?: number;
-}
-
-const ModalOrderDetail: React.FC<ModalIprops & IModalOrderDetail> = ({
+const ModalOrderDetail: React.FC<ModalIprops> = ({
   data,
   children,
   onRefresh,
   action,
   disabled,
-  currentPage = 1,
 }) => {
   const [visible, setVisible] = useState(false);
 
