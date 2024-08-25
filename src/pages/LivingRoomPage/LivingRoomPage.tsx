@@ -1,6 +1,6 @@
 import Product from '@/components/Product/Product';
 import { atomProductTypes } from '@/store/Home/type';
-import { List } from 'antd';
+import { List, Result } from 'antd';
 import clsx from 'clsx';
 import { useAtom } from 'jotai';
 import React, { useState } from 'react';
@@ -76,37 +76,43 @@ function LivingRoomPage() {
         )}
       </>
       <div className='mt-[40px]'>
-        {filteredData?.length === 0 ? (
-          <div className='mx-5 '>
-            <p className='xl:w-[1170px] mx-auto py-3 md:text-xl xs:text-sm rounded-md text-red-500 font-semibold bg-orange-200 text-center'>
-              Sản phẩm tìm kiếm không tồn tại
-            </p>
-          </div>
-        ) : (
-          <div className={clsx('m-auto max-w-[1170px] px-8')} data-aos='fade-up'>
-            <List
-              grid={{
-                gutter: 20,
-                column: 4,
-                xs: 1,
-                sm: 2,
-                md: 3,
-                lg: 4,
-              }}
-              pagination={{
-                total: filteredData?.length || 0,
-                pageSize: 12,
-                align: 'center',
-              }}
-              dataSource={filteredData}
-              renderItem={(product: any) => (
-                <List.Item>
-                  <Product key={product.ID} product={product} />
-                </List.Item>
-              )}
-            />
-          </div>
-        )}
+        <div className={clsx('m-auto max-w-[1170px] px-8')} data-aos='fade-up'>
+          <List
+            grid={{
+              gutter: 20,
+              column: 4,
+              xs: 1,
+              sm: 2,
+              md: 3,
+              lg: 4,
+            }}
+            pagination={{
+              total: filteredData?.length || 0,
+              pageSize: 12,
+              align: 'center',
+            }}
+            dataSource={filteredData}
+            renderItem={(product: any) => (
+              <List.Item>
+                <Product key={product.ID} product={product} />
+              </List.Item>
+            )}
+            locale={{
+              emptyText: (
+                <Result
+                  icon={
+                    <img
+                      src={'/svg/NoFile.svg'}
+                      alt='Empty Data'
+                      className='w-[148px] h-[160px] m-auto'
+                    />
+                  }
+                  title='Chưa có thông tin'
+                />
+              ),
+            }}
+          />
+        </div>
       </div>
     </div>
   );

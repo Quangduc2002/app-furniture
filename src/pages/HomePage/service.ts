@@ -9,6 +9,6 @@ export const serviceGetProductTypes = (id: any) => {
 };
 
 export const serviceGetAllMeterial= () => {
-  return axiosGet('/products/meterial');
+  return axiosGet('/material');
 };
 

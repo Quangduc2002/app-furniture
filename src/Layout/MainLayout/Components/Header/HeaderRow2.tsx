@@ -10,6 +10,7 @@ import useLogout from '@/store/Logout/Logout';
 import { Drawer } from 'antd';
 import getListProducts from '@/store/Home/ListProducts';
 import { atomProducts } from '@/store/Home/type';
+import { atomListCartUser } from '@/store/type';
 
 const ModalMenu = ({ onClose }: any) => {
   const [user] = useAtom(userDefault);
@@ -25,7 +26,7 @@ const ModalMenu = ({ onClose }: any) => {
           <Icon onClick={() => onClose()} icon={'icon-close-line'} className={'text-2xl '} />
         </li>
         <li className='text-center'>
-          <img className='w-[250px]' alt='' src={'/Images/Logo.png'} />
+          <img className='w-[200px] m-auto' alt='' src={'/Images/Logo.png'} />
         </li>
 
         <ul>
@@ -33,7 +34,7 @@ const ModalMenu = ({ onClose }: any) => {
             return (
               <li key={link.id} className='!border-b-[1px] border-black'>
                 <NavLink
-                  onClick={() => setShow2(!show2)}
+                  onClick={() => (setShow2(!show2), onClose())}
                   className={clsx(styles.wrapper3_link, 'items-center')}
                   to={link.href}
                 >
@@ -83,6 +84,7 @@ const ModalMenu = ({ onClose }: any) => {
 };
 
 function HeaderRow2() {
+  const [listCartUser] = useAtom(atomListCartUser);
   const [open, setOpen] = useState(false);
   const [focus, setFocus] = useState(false);
   const navigate = useNavigate();
@@ -130,7 +132,9 @@ function HeaderRow2() {
         {/* {roleId !== '0' ? ( */}
         <Link to='/giohang' className={clsx(styles.cart, styles.cartMB)}>
           <Icon icon='icon-cart' />
-          {/* <span className={clsx(styles.cartSL)}>{cartItems.length}</span> */}
+          <span className={clsx(styles.cartSL, 'py-1 text-[12px]')}>
+            {listCartUser ? listCartUser.length : 0}
+          </span>
         </Link>
         {/* ) : (
         ''
