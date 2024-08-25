@@ -29,13 +29,6 @@ function Filter({
   setIsActivePrice,
 }: FilterProps) {
   const { data: materials } = useRequest(serviceGetAllMeterial);
-  // const stars = [
-  //   { id: 1, class: 'star-1' },
-  //   { id: 2, class: 'star-2' },
-  //   { id: 3, class: 'star-3' },
-  //   { id: 4, class: 'star-4' },
-  //   { id: 5, class: 'star-5' },
-  // ];
   const sortPrices = [
     {
       id: 1,
@@ -163,7 +156,7 @@ function Filter({
             <div className={clsx(styles.panelFilter_wrapFilter__filter__mtext)}>Chất liệu</div>
             <ul>
               {materials &&
-                materials?.data.map((material: any) => {
+                materials?.data?.map((material: any) => {
                   return (
                     <li key={material.id}>
                       <label

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import clsx from 'clsx';
 import HomeSearch from './HomeSearch';
 import Product from '@/components/Product/Product';
-import { List, Pagination } from 'antd';
+import { List, Pagination, Result } from 'antd';
 import { useAtom } from 'jotai';
 import { atomProducts } from '@/store/Home/type';
 
@@ -49,37 +49,47 @@ function HomeProducts({ products }: any) {
         isActivePrice={isActivePrice}
         setIsActivePrice={setIsActivePrice}
       />
-      {filteredData?.length === 0 ? (
-        <div className='mx-5 '>
-          <p className='xl:w-[1170px] mx-auto py-3 md:text-xl xs:text-sm rounded-md text-red-500 font-semibold bg-orange-200 text-center'>
-            Sản phẩm tìm kiếm không tồn tại
-          </p>
-        </div>
-      ) : (
-        <div className={clsx('m-auto max-w-[1170px] px-8')} data-aos='fade-up'>
-          <List
-            grid={{
-              gutter: 20,
-              column: 4,
-              xs: 1,
-              sm: 2,
-              md: 3,
-              lg: 4,
-            }}
-            pagination={{
-              total: filteredData?.length || 0,
-              pageSize: pageSize,
-              align: 'center',
-            }}
-            dataSource={filteredData}
-            renderItem={(product: any) => (
-              <List.Item>
-                <Product key={product.ID} product={product} />
-              </List.Item>
-            )}
-          />
-        </div>
-      )}
+      <div className={clsx('m-auto max-w-[1170px] px-8')} data-aos='fade-up'>
+        <List
+          grid={{
+            gutter: 20,
+            column: 4,
+            xs: 1,
+            sm: 2,
+            md: 3,
+            lg: 4,
+          }}
+          pagination={
+            filteredData?.length > pageSize
+              ? {
+                  total: filteredData?.length || 0,
+                  pageSize: pageSize,
+                  align: 'center',
+                }
+              : false
+          }
+          dataSource={filteredData}
+          renderItem={(product: any) => (
+            <List.Item>
+              <Product key={product.ID} product={product} />
+            </List.Item>
+          )}
+          locale={{
+            emptyText: (
+              <Result
+                icon={
+                  <img
+                    src={'/svg/NoFile.svg'}
+                    alt='Empty Data'
+                    className='w-[148px] h-[160px] m-auto'
+                  />
+                }
+                title='Chưa có thông tin'
+              />
+            ),
+          }}
+        />
+      </div>
     </div>
   );
 }

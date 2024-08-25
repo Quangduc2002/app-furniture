@@ -156,7 +156,7 @@ function CheckOut() {
                       >
                         <div className='w-full flex gap-4 items-center'>
                           <div className='overflow-hidden rounded-lg min-w-16 h-16 bg-gray-50 border border-gray-200'>
-                            <img className='w-16 h-16' src={`/Images/${cartItem.image}`} alt='' />
+                            <img className='w-16 h-16' src={`${cartItem.image}`} alt='' />
                           </div>
 
                           <div className='sm:flex gap-4 justify-between'>
