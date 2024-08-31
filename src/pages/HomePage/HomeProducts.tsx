@@ -2,9 +2,10 @@ import { useState } from 'react';
 import clsx from 'clsx';
 import HomeSearch from './HomeSearch';
 import Product from '@/components/Product/Product';
-import { List, Pagination, Result } from 'antd';
+import { List, Result } from 'antd';
 import { useAtom } from 'jotai';
 import { atomProducts } from '@/store/Home/type';
+import { FilterProduct } from '@/utils/FilterProduct';
 
 function HomeProducts({ products }: any) {
   const [pageSize, setPageSize] = useState(12);
@@ -16,20 +17,14 @@ function HomeProducts({ products }: any) {
   const [ratings, setRatings] = useState('');
   const [searchs, setSearchs] = useState('');
   const [product] = useAtom(atomProducts);
-
-  const filteredData = product?.filter(
-    (product: any) =>
-      (isCheckedMaterial.length === 0 || isCheckedMaterial.includes(product.chatLieu)) &&
-      (maxPrice
-        ? (minPrice === '' ||
-            product.giaBan - (product.giaBan * product.giamGia) / 100 >= parseInt(minPrice)) &&
-          (maxPrice === '' ||
-            product.giaBan - (product.giaBan * product.giamGia) / 100 <= parseInt(maxPrice))
-        : minPrice === '' ||
-          product.giaBan - (product.giaBan * product.giamGia) / 100 >= parseInt(minPrice)) &&
-      (discount ? product.giamGia > 0 : product.giamGia >= 0) &&
-      (ratings === '' || (ratings ? product.tongDanhGia >= ratings : '')),
-  );
+  const filteredData = FilterProduct({
+    product,
+    minPrice,
+    maxPrice,
+    discount,
+    ratings,
+    isCheckedMaterial,
+  });
 
   return (
     <div>

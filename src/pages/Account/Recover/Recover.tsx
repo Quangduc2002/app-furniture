@@ -36,20 +36,7 @@ function Recover({ handleCancel }: any) {
       user: JSON.parse(localStorage.account),
       options: option,
     });
-    // axios
-    //   .post('http://localhost:8080/user/sendEmail', {
-    //     user: JSON.parse(localStorage.account),
-    //     options: option,
-    //   })
-    //   .then((res) => {
-    //     // navigate('/Login/EnterCode');
-    //   })
-    //   .catch((err) => {
-    //     setError(err.response.data.message);
-    //   });
   };
-
-  console.log(option);
 
   return (
     <div className={clsx(styles.recover)}>

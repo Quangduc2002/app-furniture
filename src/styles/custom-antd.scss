@@ -44,7 +44,7 @@
       content: '*' !important;
       display: block !important;
       color: var(--error-main);
-      visibility: inherit;
+      visibility: inherit !important;
     }
   }
 }
@@ -169,6 +169,17 @@
   span p {
     margin: 0 !important;
   }
+}
+
+.ant-radio-wrapper {
+  margin-right: 10px;
+  align-items: center;
+  gap: 8px;
+}
+
+.ant-radio-wrapper .ant-radio{
+  width: 20px;
+  height: 20px;
 }
 
 .ant-checkbox-indeterminate .ant-checkbox-inner:after{

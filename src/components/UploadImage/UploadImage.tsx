@@ -4,6 +4,7 @@ import Text from '@/components/UI/Text';
 import styles from './index.module.scss';
 import { Icon } from '../UI/IconFont/Icon';
 import { base64ToBlob, beforeUploadImg, checkMb, getBase64, isImage } from '@/utils/image';
+import Button from '../UI/Button/Button';
 
 interface IPropsFormUploadImage {
   value?: any;
@@ -15,6 +16,7 @@ interface IPropsFormUploadImage {
   width?: number;
   height?: number;
   max?: number;
+  type?: 'profile' | 'product';
   objectFit?: 'contain' | 'cover' | 'fill';
 }
 
@@ -91,6 +93,7 @@ function UploadImage({
   width = 410,
   height = 222,
   max,
+  type = 'product',
   objectFit = 'fill',
 }: IPropsFormUploadImage) {
   const onChangeFile = async (file: any) => {
@@ -130,7 +133,7 @@ function UploadImage({
 
   return (
     <div>
-      {!value && (
+      {!value && type === 'product' ? (
         <Upload
           accept='.png, .jpg, .jpeg'
           multiple={multiple}
@@ -165,9 +168,31 @@ function UploadImage({
             </Text>
           </div>
         </Upload>
+      ) : (
+        <Upload
+          accept='.png, .jpg, .jpeg'
+          fileList={[]}
+          customRequest={() => void 0}
+          onChange={onChangeFile}
+          beforeUpload={beforeUploadImg}
+          className={classNames(styles.upload, { [className]: !!className })}
+        >
+          <img
+            src={value?.url ? value?.url : value}
+            alt=''
+            className={classNames('w-[150px] h-[150px] rounded-full object-cover')}
+          />
+          <Button
+            className='m-auto mt-6 !py-[10px]'
+            type='xhome-negative-primary'
+            prefix={<Icon icon='icon-upload' />}
+          >
+            Chọn ảnh
+          </Button>
+        </Upload>
       )}
 
-      {value && !multiple && (
+      {value && !multiple && type === 'product' && (
         <ItemImage
           width={width}
           height={height}

@@ -1,5 +1,4 @@
-import Loading from '@/components/Loading/Loading';
-import getUserAccounts from '@/store/Login/Login';
+import { getUserAccounts } from '@/store/Login/Login';
 import Aos from 'aos';
 import { Suspense, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
@@ -13,7 +12,7 @@ const AppLayout = () => {
     });
   }, []);
   return (
-    <Suspense fallback={<Loading />}>
+    <Suspense>
       <Outlet />
     </Suspense>
   );
