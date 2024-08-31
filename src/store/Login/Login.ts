@@ -3,14 +3,14 @@ import { userDefault } from "./type";
 import { useAtom } from "jotai";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { useRequest } from "ahooks";
+import { useMount, useRequest } from "ahooks";
 import { serviceGetAccount } from "@/pages/Login/service";
 import { ROUTE_PATH } from "@/routes/route.constant";
 
-const getUserAccounts = () => {
+export const getUserAccounts = () => {
   const location = useLocation();
   const [, setUser] = useAtom(userDefault);
-  const { run: account} = useRequest(serviceGetAccount, {
+  const { run: account, } = useRequest(serviceGetAccount, {
     manual: true,
     onSuccess: (res) => {
         let roles = res.data.DT.roles;
@@ -35,5 +35,3 @@ const getUserAccounts = () => {
 
   return { account };
 };
-
-export default getUserAccounts;

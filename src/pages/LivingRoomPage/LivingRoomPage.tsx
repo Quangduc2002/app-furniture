@@ -9,6 +9,7 @@ import styles from './LivingRoom.module.scss';
 import { Icon } from '@/components/UI/IconFont/Icon';
 import Filter from '@/components/Filter/Filter';
 import getProductTypes from '@/store/Home/ListProductType';
+import { FilterProduct } from '@/utils/FilterProduct';
 
 function LivingRoomPage() {
   getProductTypes(1);
@@ -20,19 +21,14 @@ function LivingRoomPage() {
   const [discount, setDiscount] = useState(false);
   const [ratings, setRatings] = useState('');
   const [product] = useAtom(atomProductTypes);
-  const filteredData = product?.filter(
-    (product: any) =>
-      (isCheckedMaterial.length === 0 || isCheckedMaterial.includes(product.chatLieu)) &&
-      (maxPrice
-        ? (minPrice === '' ||
-            product.giaBan - (product.giaBan * product.giamGia) / 100 >= parseInt(minPrice)) &&
-          (maxPrice === '' ||
-            product.giaBan - (product.giaBan * product.giamGia) / 100 <= parseInt(maxPrice))
-        : minPrice === '' ||
-          product.giaBan - (product.giaBan * product.giamGia) / 100 >= parseInt(minPrice)) &&
-      (discount ? product.giamGia > 0 : product.giamGia >= 0) &&
-      (ratings === '' || (ratings ? product.tongDanhGia >= ratings : '')),
-  );
+  const filteredData = FilterProduct({
+    product,
+    minPrice,
+    maxPrice,
+    discount,
+    ratings,
+    isCheckedMaterial,
+  });
 
   return (
     <div className='pb-[60px]'>

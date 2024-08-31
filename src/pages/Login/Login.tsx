@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from '@/components/UI/Toast/toast';
 import styles from './Login.module.scss';
 import { Icon } from '@/components/UI/IconFont/Icon';
@@ -13,6 +13,8 @@ import { curDate, Days, Months, Years } from '@/utils/FormatDate';
 import { Sexs } from '@/utils/Stars';
 
 function Login() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParam = searchParams.get('redirect');
   const [check, setCheck] = useState(false);
   const [email, setEmail] = useState<any>('');
   const [password, setPassword] = useState<any>('');
@@ -116,7 +118,7 @@ function Login() {
       setUser(data);
 
       if (res.data.user.roleId === 1) {
-        navigate(ROUTE_PATH.HOME);
+        navigate(searchParam ? searchParam : ROUTE_PATH.HOME);
         toast.success('Đăng nhập thành công !');
       } else {
         navigate(ROUTE_PATH.REVENUA);

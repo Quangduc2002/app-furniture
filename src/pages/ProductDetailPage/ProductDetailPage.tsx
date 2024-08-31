@@ -15,7 +15,7 @@ import Product from '@/components/Product/Product';
 import { onAdd } from '@/store/Cart/handleCart';
 import { useAtom } from 'jotai';
 import { userDefault } from '@/store/Login/type';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ROUTE_PATH } from '@/routes/route.constant';
 import { atomListCart } from '@/store/type';
 type ProductDetailParams = {
@@ -26,10 +26,10 @@ type ProductDetailParams = {
 function ProductDetailPage() {
   const { id } = useParams<ProductDetailParams>();
   const navigate = useNavigate();
+  const location = useLocation();
   const [user] = useAtom(userDefault);
   const [showDescribetion, setShowDescribetion] = useState(true);
   const [cartItems, setCartItems] = useAtom(atomListCart);
-
   const [count, setCount] = useState<any>(1);
   const { data: product } = useRequest(() => serviceGetProductDetail(id), {
     refreshDeps: [id],
@@ -122,7 +122,7 @@ function ProductDetailPage() {
         user: user,
       });
     } else {
-      navigate(ROUTE_PATH.LOGIN);
+      navigate(`${ROUTE_PATH.LOGIN}?redirect=${location.pathname}`);
     }
   };
 
@@ -301,7 +301,7 @@ function ProductDetailPage() {
 
                 <button
                   onClick={() => {
-                    return handleAddCart(), navigate(ROUTE_PATH.CHECKOUT);
+                    return handleAddCart(), user?.isAuthenticated && navigate(ROUTE_PATH.CHECKOUT);
                   }}
                   className={clsx(styles.right_cart)}
                 >

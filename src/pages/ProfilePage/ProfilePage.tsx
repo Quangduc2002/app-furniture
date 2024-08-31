@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import styles from './index.module.scss';
 import { useEffect, useState } from 'react';
 import { Sexs } from '@/utils/Stars';
-import { curDate, Days, Months, Years } from '@/utils/FormatDate';
+import { DaySelects, MonthSelects, YearSelects } from '@/utils/FormatDate';
 import { useAtom } from 'jotai';
 import { userDefault } from '@/store/Login/type';
 import { useRequest } from 'ahooks';
@@ -10,38 +10,39 @@ import { serviceEditUser, serviceGetUser } from './service';
 import { FormatEmail } from '@/utils/FormatEmail';
 import { toast } from '@/components/UI/Toast/toast';
 import { Icon } from '@/components/UI/IconFont/Icon';
-import { Input } from 'antd';
+import { Col, Form, Input, Radio, Row, Select } from 'antd';
 import { useImageUpload } from '@/utils/FireBase';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '@/routes/route.constant';
 import ModalChangePassword from './ModalChangePassword/ModalChangePassword';
+import InputText from '@/components/UI/InputText';
+import Button from '@/components/UI/Button/Button';
+import Text from '@/components/UI/Text';
+import { REG_EMAIL } from '@/utils/reg';
+import UploadImage from '@/components/UploadImage/UploadImage';
+import { getUserAccounts } from '@/store/Login/Login';
 
 function ProfilePage() {
   const [user] = useAtom(userDefault);
+  const [, setUser] = useAtom(userDefault);
+  const [form] = Form.useForm();
   const { uploadImage } = useImageUpload();
   const navigate = useNavigate();
-  const [Day, setDay] = useState('');
-  const [Month, setMonth] = useState('');
-  const [Year, setYear] = useState('');
-  const [image, setImage] = useState('');
-  const [file, setFile] = useState<any>(null);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [gioiTinh, setGioiTinh] = useState('');
-  const [fileImage, setFileImage] = useState<string | null>(null);
-  const [changeEmail, setChangeEmail] = useState(false);
   const [visible, setVisible] = useState(false);
-  useRequest(() => serviceGetUser(user?.account?.getUser?.id), {
-    onSuccess: (res) => {
-      setName(res.data.name);
-      setEmail(res.data.email);
-      setGioiTinh(res.data.gioiTinh);
-      setDay(res.data.ngaySinh);
-      setMonth(res.data.thangSinh);
-      setYear(res.data.namSinh);
-      setImage(res.data.image);
-    },
-  });
+
+  useEffect(() => {
+    if (user?.isAuthenticated) {
+      form.setFieldsValue({
+        name: user?.account?.getUser.name,
+        gioiTinh: user?.account?.getUser.gioiTinh,
+        ngaySinh: user?.account?.getUser.ngaySinh,
+        thangSinh: user?.account?.getUser.thangSinh,
+        namSinh: user?.account?.getUser.namSinh,
+        email: user?.account?.getUser.email,
+        image: user?.account?.getUser.image,
+      });
+    }
+  }, [user?.isAuthenticated]);
 
   useEffect(() => {
     if (!user?.isAuthenticated) {
@@ -51,6 +52,15 @@ function ProfilePage() {
   const { run: runEditUser } = useRequest(serviceEditUser, {
     manual: true,
     onSuccess: (res) => {
+      let roles = res.data.DT.roles;
+      let token = res.data.DT.access_token;
+      let getUser = res.data.DT.getUser;
+      localStorage.setItem('jwt', res.data.DT.access_token);
+      let data = {
+        account: { roles, token, getUser },
+        isAuthenticated: true,
+      };
+      setUser(data);
       toast.success('Cập nhật thông tin thành công');
     },
     onError: (error) => {
@@ -58,35 +68,23 @@ function ProfilePage() {
     },
   });
 
-  const handleSubmit = (item: any) => {
-    const file = item.target.files[0] || null;
-    setFile(file);
-    if (file) {
-      const fileUrl = URL.createObjectURL(file);
-      setFileImage(fileUrl);
-    } else {
-      setFileImage(null);
-    }
-  };
-
-  const handleEdit = async (e: any) => {
-    e.preventDefault();
+  const onSubmit = async (values: any) => {
+    const file = values.image.file;
     let dataImage = null;
     if (file) {
       dataImage = await uploadImage(file);
     }
 
     runEditUser(user?.account?.getUser?.id, {
-      image: dataImage,
-      email: email,
-      name: name,
-      ngaySinh: Day,
-      thangSinh: Month,
-      namSinh: Year,
-      gioiTinh: gioiTinh,
+      image: dataImage ? dataImage : values.image,
+      email: values.email,
+      name: values.name,
+      ngaySinh: values.ngaySinh,
+      thangSinh: values.thangSinh,
+      namSinh: values.namSinh,
+      gioiTinh: values.gioiTinh,
     });
   };
-
   return (
     <div className={clsx(styles.container)}>
       <div className={clsx(styles.container_information)}>
@@ -98,16 +96,57 @@ function ProfilePage() {
           </ModalChangePassword>
         </div>
 
-        <div className={clsx(styles.container_information__bottom)}>
-          <div className={clsx(styles.container_information__bottom__left)}>
-            <div className={clsx(styles.container_information__bottom__sex, 'w-[580px]')}>
+        <Form
+          layout='vertical'
+          onFinish={onSubmit}
+          form={form}
+          className={clsx(styles.container_information__bottom)}
+        >
+          <Col className={clsx(styles.container_information__bottom__left, 'flex flex-col gap-4')}>
+            <Form.Item
+              className='w-[580px]'
+              name='name'
+              label='Tên đăng nhập:'
+              rules={[{ required: true, message: 'Tên đăng nhập là bắt buộc' }]}
+            >
+              <InputText placeholder='Nhập tên đăng nhập' />
+            </Form.Item>
+            {/* <div className={clsx(styles.container_information__bottom__sex, 'w-[580px]')}>
               <label className={clsx(styles.container_information__bottom__label)}>
                 Tên đăng nhập
               </label>
               <input type='text' value={name} onChange={(e) => setName(e.target.value)} />
-            </div>
+            </div> */}
+            <Form.Item
+              className='w-[580px]'
+              name='email'
+              label='Email:'
+              rules={[
+                {
+                  required: true,
+                  message: 'Email là bắt buộc',
+                },
+                {
+                  pattern: REG_EMAIL,
+                  message: 'Email không hợp lệ',
+                },
+              ]}
+            >
+              {/* {!changeEmail && (
+                <div className='flex justify-between w-full'>
+                  <span>{FormatEmail(email)}</span>
+                  <p
+                    className='hover:text-[#ee4d2d] cursor-pointer'
+                    onClick={() => setChangeEmail(true)}
+                  >
+                    Thay đổi
+                  </p>
+                </div>
+              )} */}
+              <InputText disabled={true} placeholder='Nhập email' />
+            </Form.Item>
 
-            <div className={clsx(styles.container_information__bottom__sex, 'w-[580px]')}>
+            {/* <div className={clsx(styles.container_information__bottom__sex, 'w-[580px]')}>
               <label className={clsx(styles.container_information__bottom__label)}>Email</label>
               {!changeEmail && (
                 <div className='flex justify-between w-full'>
@@ -123,9 +162,22 @@ function ProfilePage() {
               {changeEmail && (
                 <input type='text' value={email} onChange={(e) => setEmail(e.target.value)} />
               )}
-            </div>
+            </div> */}
 
-            <div className={clsx(styles.container_information__bottom__sex, 'w-[580px]')}>
+            <Form.Item
+              className='w-[580px]'
+              name='gioiTinh'
+              label='Giới tính:'
+              rules={[{ required: true, message: 'Giới tính là bắt buộc' }]}
+            >
+              <Radio.Group>
+                <Radio value={0}>Nam</Radio>
+                <Radio value={1}>Nữ</Radio>
+                <Radio value={2}>Khác</Radio>
+              </Radio.Group>
+            </Form.Item>
+
+            {/* <div className={clsx(styles.container_information__bottom__sex, 'w-[580px]')}>
               <label className={clsx(styles.container_information__bottom__label)}>Giới tính</label>
               <div className='flex items-center'>
                 {Sexs.map((sex: any) => {
@@ -145,9 +197,21 @@ function ProfilePage() {
                   );
                 })}
               </div>
-            </div>
-
-            <div className={clsx(styles.container_information__bottom__sex, 'w-[580px] ')}>
+            </div> */}
+            <Form.Item className='w-[580px]' name='dateOfBirth' label='Ngày sinh:'>
+              <Col className='flex gap-4 justify-between'>
+                <Form.Item name='ngaySinh' className='w-full'>
+                  <Select placeholder='Chọn ngày' options={DaySelects} />
+                </Form.Item>
+                <Form.Item name='thangSinh' className='w-full'>
+                  <Select placeholder='Chọn tháng' options={MonthSelects} />
+                </Form.Item>
+                <Form.Item name='namSinh' className='w-full'>
+                  <Select placeholder='Chọn năm' options={YearSelects} />
+                </Form.Item>
+              </Col>
+            </Form.Item>
+            {/* <div className={clsx(styles.container_information__bottom__sex, 'w-[580px] ')}>
               <label className={clsx(styles.container_information__bottom__label)}>Ngày sinh</label>
 
               <div
@@ -199,22 +263,39 @@ function ProfilePage() {
                   })}
                 </select>
               </div>
-            </div>
+            </div> */}
 
             <div className={clsx(styles.container_information__bottom__sex, 'w-[580px]')}>
-              <label className={clsx(styles.container_information__bottom__label)}></label>
+              {/* <label className={clsx(styles.container_information__bottom__label)}></label>
               <button
                 onClick={handleEdit}
                 type='button'
                 className={clsx(styles.container_information__bottom__btn)}
               >
                 Lưu
-              </button>
+              </button> */}
+              <Button
+                htmlType='submit'
+                // disabled={disable}
+                // loading={requestAddProduct?.loading || requestEditProduct?.loading || loading}
+                className='w-[100px] !py-3'
+                type='xhome-negative-primary'
+              >
+                <Text element='span'>Xác nhận</Text>
+              </Button>
             </div>
-          </div>
+          </Col>
 
           <div className={clsx(styles.add_right)}>
-            <div className={clsx(styles.add_formGroup)}>
+            <Form.Item name='image' rules={[{ required: true, message: 'Ảnh là bắt buộc' }]}>
+              <UploadImage
+                type='profile'
+                description='(kích cỡ tối ưu, 794x540px)'
+                width={397}
+                height={270}
+              />
+            </Form.Item>
+            {/* <div className={clsx(styles.add_formGroup)}>
               <img
                 className={clsx(styles.add_formGroup__img, 'object-cover')}
                 src={!fileImage ? image : fileImage}
@@ -235,9 +316,9 @@ function ProfilePage() {
                 Chọn ảnh
                 <Icon icon='icon-arrow-up-from-bracket' />
               </label>
-            </div>
+            </div> */}
           </div>
-        </div>
+        </Form>
       </div>
     </div>
   );

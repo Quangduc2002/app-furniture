@@ -16,7 +16,6 @@ import FindAccounts from '@/pages/Account/FindAcounts/FindAcounts';
 import Recover from '@/pages/Account/Recover/Recover';
 import EnterCode from '@/pages/Account/EnterCode/EnterCode';
 import PasswordNew from '@/pages/Account/PasswordNew/PasswordNew';
-import Revenua from '@/pages/Revenua/Revenua';
 import AdminLayout from '@/Layout/AdminLayout/AdminLayout';
 import Statistic from '@/pages/Statistic/Statistic';
 import TrashProduct from '@/pages/TrashProduct/TrashProduct';

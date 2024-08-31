@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import { fetchUser, axiosPost } from '../../services/UseServices';
 // import PayPal from '../Paypal/Paypal';
 import { userDefault } from '@/store/Login/type';
@@ -29,14 +29,14 @@ function CheckOut() {
   const [listCartItems] = useAtom(atomListCartUser);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!user?.isAuthenticated) {
-      navigate(ROUTE_PATH.LOGIN);
-    } else {
-      setTenKH(user?.account?.getUser?.name);
-      setEmail(user?.account?.getUser?.email);
-    }
-  }, [navigate, user]);
+  // useEffect(() => {
+  //   if (!user?.isAuthenticated) {
+  //     navigate(`${ROUTE_PATH.LOGIN}?redirect=${location.pathname}`);
+  //   } else {
+  //     setTenKH(user?.account?.getUser?.name);
+  //     setEmail(user?.account?.getUser?.email);
+  //   }
+  // }, [navigate, user]);
 
   useEffect(() => {
     if (isOrder) {
