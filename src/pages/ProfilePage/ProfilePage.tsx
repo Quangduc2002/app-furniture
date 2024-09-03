@@ -49,7 +49,7 @@ function ProfilePage() {
       navigate(ROUTE_PATH.LOGIN);
     }
   }, [navigate, user]);
-  const { run: runEditUser } = useRequest(serviceEditUser, {
+  const { run: runEditUser, loading } = useRequest(serviceEditUser, {
     manual: true,
     onSuccess: (res) => {
       let roles = res.data.DT.roles;
@@ -111,12 +111,6 @@ function ProfilePage() {
             >
               <InputText placeholder='Nhập tên đăng nhập' />
             </Form.Item>
-            {/* <div className={clsx(styles.container_information__bottom__sex, 'w-[580px]')}>
-              <label className={clsx(styles.container_information__bottom__label)}>
-                Tên đăng nhập
-              </label>
-              <input type='text' value={name} onChange={(e) => setName(e.target.value)} />
-            </div> */}
             <Form.Item
               className='w-[580px]'
               name='email'
@@ -132,37 +126,8 @@ function ProfilePage() {
                 },
               ]}
             >
-              {/* {!changeEmail && (
-                <div className='flex justify-between w-full'>
-                  <span>{FormatEmail(email)}</span>
-                  <p
-                    className='hover:text-[#ee4d2d] cursor-pointer'
-                    onClick={() => setChangeEmail(true)}
-                  >
-                    Thay đổi
-                  </p>
-                </div>
-              )} */}
               <InputText disabled={true} placeholder='Nhập email' />
             </Form.Item>
-
-            {/* <div className={clsx(styles.container_information__bottom__sex, 'w-[580px]')}>
-              <label className={clsx(styles.container_information__bottom__label)}>Email</label>
-              {!changeEmail && (
-                <div className='flex justify-between w-full'>
-                  <span>{FormatEmail(email)}</span>
-                  <p
-                    className='hover:text-[#ee4d2d] cursor-pointer'
-                    onClick={() => setChangeEmail(true)}
-                  >
-                    Thay đổi
-                  </p>
-                </div>
-              )}
-              {changeEmail && (
-                <input type='text' value={email} onChange={(e) => setEmail(e.target.value)} />
-              )}
-            </div> */}
 
             <Form.Item
               className='w-[580px]'
@@ -176,28 +141,6 @@ function ProfilePage() {
                 <Radio value={2}>Khác</Radio>
               </Radio.Group>
             </Form.Item>
-
-            {/* <div className={clsx(styles.container_information__bottom__sex, 'w-[580px]')}>
-              <label className={clsx(styles.container_information__bottom__label)}>Giới tính</label>
-              <div className='flex items-center'>
-                {Sexs.map((sex: any) => {
-                  return (
-                    <div key={sex.id} style={{ marginRight: 10 }}>
-                      <input
-                        style={{ marginRight: 4 }}
-                        id={sex.id}
-                        type='radio'
-                        name='gioitinh'
-                        value={sex.id}
-                        onChange={(e) => setGioiTinh(e.target.value)}
-                        checked={sex.id === +gioiTinh ? true : false}
-                      />
-                      <label htmlFor={sex.id}>{sex.name}</label>
-                    </div>
-                  );
-                })}
-              </div>
-            </div> */}
             <Form.Item className='w-[580px]' name='dateOfBirth' label='Ngày sinh:'>
               <Col className='flex gap-4 justify-between'>
                 <Form.Item name='ngaySinh' className='w-full'>
@@ -211,73 +154,10 @@ function ProfilePage() {
                 </Form.Item>
               </Col>
             </Form.Item>
-            {/* <div className={clsx(styles.container_information__bottom__sex, 'w-[580px] ')}>
-              <label className={clsx(styles.container_information__bottom__label)}>Ngày sinh</label>
-
-              <div
-                className={clsx(styles.auth_froup_date, 'w-full flex justify-between flex-1 gap-4')}
-              >
-                <select
-                  className={clsx(styles.container_information__bottom__select, ' flex-1')}
-                  value={Day}
-                  onChange={(e) => setDay(e.target.value)}
-                >
-                  <option style={{ display: 'none' }}>{curDate.getDay()}</option>
-
-                  {Days.map((day: any) => {
-                    return (
-                      <option key={day} value={day}>
-                        {day}
-                      </option>
-                    );
-                  })}
-                </select>
-                <select
-                  className={clsx(styles.container_information__bottom__select, ' flex-1')}
-                  value={Month}
-                  onChange={(e) => setMonth(e.target.value)}
-                >
-                  <option style={{ display: 'none' }}>Tháng {curDate.getMonth() + 1}</option>
-
-                  {Months.map((month: any) => {
-                    return (
-                      <option key={month} value={month}>
-                        Tháng {month}
-                      </option>
-                    );
-                  })}
-                </select>
-
-                <select
-                  className={clsx(styles.container_information__bottom__select, ' flex-1')}
-                  value={Year}
-                  onChange={(e) => setYear(e.target.value)}
-                >
-                  <option style={{ display: 'none' }}>{curDate.getFullYear()}</option>
-                  {Years.map((year: any) => {
-                    return (
-                      <option key={year} value={year}>
-                        {year}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
-            </div> */}
-
             <div className={clsx(styles.container_information__bottom__sex, 'w-[580px]')}>
-              {/* <label className={clsx(styles.container_information__bottom__label)}></label>
-              <button
-                onClick={handleEdit}
-                type='button'
-                className={clsx(styles.container_information__bottom__btn)}
-              >
-                Lưu
-              </button> */}
               <Button
                 htmlType='submit'
-                // disabled={disable}
-                // loading={requestAddProduct?.loading || requestEditProduct?.loading || loading}
+                loading={loading}
                 className='w-[100px] !py-3'
                 type='xhome-negative-primary'
               >
@@ -295,28 +175,6 @@ function ProfilePage() {
                 height={270}
               />
             </Form.Item>
-            {/* <div className={clsx(styles.add_formGroup)}>
-              <img
-                className={clsx(styles.add_formGroup__img, 'object-cover')}
-                src={!fileImage ? image : fileImage}
-                alt=''
-              />
-              <Input
-                className='hidden'
-                type='file'
-                name='uploadImage'
-                id='FLFrontImage'
-                onChange={handleSubmit}
-              />
-              <br />
-              <label
-                htmlFor='FLFrontImage'
-                className={clsx(styles.add_formGroup__customFile, 'flex items-center gap-2')}
-              >
-                Chọn ảnh
-                <Icon icon='icon-arrow-up-from-bracket' />
-              </label>
-            </div> */}
           </div>
         </Form>
       </div>

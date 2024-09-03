@@ -64,51 +64,6 @@ function HeaderRow1() {
                   </span>
                 )}
               </Popover>
-
-              {/* {show && (
-                <div className={clsx(styles.wrapper1_user)}>
-                  {user?.account && user?.account && user?.account?.getUser?.roleId !== 1 ? (
-                    <Link
-                      // to={`admin/${path.LayoutAdminStatistic}`}
-                      to={'/a'}
-                      className={clsx(styles.wrapper1_menu, 'items-center gap-3')}
-                    >
-                      <i className='fa-solid fa-gear'></i>
-                      <p>Quản lý sản phẩm</p>
-                    </Link>
-                  ) : (
-                    ''
-                  )}
-                  <NavLink
-                    className={clsx(styles.wrapper1_menu, 'items-center gap-3')}
-                    // to={`${path.LayoutProfile}`}
-                    to={'/b'}
-                    onClick={() => setShow(!show)}
-                  >
-                    <Icon className='w-5 h-5' icon={'icon-user'} />
-                    <p>Hồ sơ cá nhân</p>
-                  </NavLink>
-
-                  {user?.account && user?.account && user?.account?.getUser?.roleId === 1 ? (
-                    <NavLink
-                      className={clsx(styles.wrapper1_menu, 'items-center gap-3')}
-                      // to={`/order/${path.LayoutOrderAll}`}
-                      to={'/c'}
-                      onClick={() => setShow(!show)}
-                    >
-                      <Icon className='w-5 h-5' icon={'icon-clip-board'} />
-                      <p>Đơn mua</p>
-                    </NavLink>
-                  ) : (
-                    ''
-                  )}
-
-                  <div className={clsx(styles.wrapper1_menu, 'items-center gap-3')}>
-                    <Icon className='w-5 h-5' icon={'icon-right-to-bracket'} />
-                    <p onClick={handleLogOutUser}>Đăng xuất</p>
-                  </div>
-                </div>
-              )} */}
             </li>
           </ul>
         </div>
