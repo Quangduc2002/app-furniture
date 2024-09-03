@@ -2,169 +2,138 @@ import ModalCustom from '@/components/UI/Modal';
 import clsx from 'clsx';
 import { ModalIprops } from '@/components/UI/Modal/type';
 import styles from '../index.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRequest } from 'ahooks';
 import { serviceChangePassword } from '../service';
 import { toast } from '@/components/UI/Toast/toast';
-import { Icon } from '@/components/UI/IconFont/Icon';
+import { Form, Input } from 'antd';
+import InputPassword from '@/components/UI/InputPassword';
+import Button from '@/components/UI/Button/Button';
+import Text from '@/components/UI/Text';
+import { REG_SPACE } from '@/utils/reg';
 
 function ModalChangePassword({ children, setVisible, visible, user }: ModalIprops) {
-  const [currentPass, setCurrentPass] = useState('');
-  const [passNew, setPassNew] = useState('');
-  const [enterPass, setEnterPass] = useState('');
-  const [checkError, setCheckError] = useState('');
-  const [check1, setCheck1] = useState(false);
-  const [check2, setCheck2] = useState(false);
-  const [check3, setCheck3] = useState(false);
+  const [form] = Form.useForm();
+  const allValues = Form.useWatch([], form);
+  const [disabled, setDisabled] = useState<boolean>(false);
 
-  const { run: changePassword } = useRequest(serviceChangePassword, {
+  useEffect(() => {
+    form.validateFields({ validateOnly: true }).then(
+      () => {
+        setDisabled(false);
+      },
+      (error) => {
+        if (error?.errorFields?.length > 0) {
+          setDisabled(true);
+        }
+      },
+    );
+  }, [allValues]);
+
+  const { run: changePassword, loading } = useRequest(serviceChangePassword, {
     manual: true,
     onSuccess: (res) => {
       toast.success('Đổi mật khẩu thành công ');
-      setCheckError(res.data.errCode);
-      setCurrentPass('');
-      setPassNew('');
-      setEnterPass('');
       setVisible(false);
+      form.resetFields();
     },
     onError: (error: any) => {
-      setCheckError(error.response.data.errCode);
       toast.error(error.response.data.message);
     },
   });
 
-  const handleChangePass = (e: any) => {
-    e.preventDefault();
-    if (passNew === enterPass && passNew !== currentPass && currentPass && enterPass && passNew) {
-      changePassword(user?.account?.getUser?.id, {
-        currentPass: currentPass,
-        password: passNew,
-      });
-    }
+  const onFinish = (value: any) => {
+    changePassword(user?.account?.getUser?.id, {
+      currentPass: value.currentPassword,
+      password: value.newPassword,
+    });
   };
+
   return (
     <>
       <span onClick={() => setVisible(true)}>{children}</span>
 
       <ModalCustom open={visible} onCancel={() => setVisible(false)}>
         <div>
-          <div className={clsx(styles.container_model__title)}>
-            <h3 className='text-xl'>Đổi mật khẩu</h3>
+          <div className='flex flex-col gap-2 mb-6'>
+            <h3 className='text-2xl font-bold'>Đổi mật khẩu</h3>
             <p>Mật khẩu của bạn phải có ít nhất 6 ký tự</p>
           </div>
 
-          <form className={clsx(styles.auth_form)}>
-            <div style={{ position: 'relative' }} className={clsx(styles.auth_froup)}>
-              <div style={{ position: 'relative' }}>
-                <input
-                  value={currentPass}
-                  type={check1 === true ? 'text' : 'password'}
-                  name='password'
-                  className={clsx(
-                    styles.auth_input,
-                    checkError && +checkError === 1 && styles.auth_input__active,
-                  )}
-                  placeholder='Mật khẩu hiện tại'
-                  onChange={(e) => setCurrentPass(e.target.value)}
-                />
-                <Icon
-                  onClick={() => {
-                    setCheck1(!check1);
-                  }}
-                  icon={check1 === true ? 'icon-eye' : 'icon-eye-closed'}
-                  className={clsx(styles.auth_froup__eye)}
-                />
-              </div>
-              <div>
-                <p className={clsx(styles.form_message, 'mt-2')}>
-                  {+checkError === 1 ? 'Sai mật khẩu hiện tại.' : ''}
-                </p>
-              </div>
-            </div>
-
-            <div style={{ position: 'relative' }} className={clsx(styles.auth_froup)}>
-              <div style={{ position: 'relative' }}>
-                <input
-                  value={passNew}
-                  type={check2 === true ? 'text' : 'password'}
-                  name='password'
-                  className={clsx(
-                    styles.auth_input,
-                    passNew && (passNew.length < 6 || passNew === currentPass)
-                      ? styles.auth_input__active
-                      : '',
-                  )}
-                  placeholder='Mật khẩu mới'
-                  onChange={(e) => setPassNew(e.target.value)}
-                />
-                <Icon
-                  onClick={() => {
-                    setCheck2(!check2);
-                  }}
-                  icon={check2 === true ? 'icon-eye' : 'icon-eye-closed'}
-                  className={clsx(styles.auth_froup__eye)}
-                />
-              </div>
-              <div>
-                {passNew && (
-                  <p className={clsx(styles.form_message, 'mt-2')}>
-                    {passNew.length < 6
-                      ? 'Vui lòng nhập ít nhất 6 ký tự.'
-                      : passNew === currentPass
-                      ? 'Mật khẩu mới phải khác mật khẩu hiện tại.'
-                      : ''}
-                  </p>
-                )}
-              </div>
-            </div>
-
-            <div style={{ position: 'relative' }} className={clsx(styles.auth_froup)}>
-              <div style={{ position: 'relative' }}>
-                <input
-                  value={enterPass}
-                  type={check3 === true ? 'text' : 'password'}
-                  name='password'
-                  className={clsx(
-                    styles.auth_input,
-                    enterPass && passNew !== enterPass ? styles.auth_input__active : '',
-                  )}
-                  placeholder='Nhập lại mật khẩu mới'
-                  onChange={(e) => setEnterPass(e.target.value)}
-                />
-                <Icon
-                  onClick={() => {
-                    setCheck3(!check3);
-                  }}
-                  icon={check3 === true ? 'icon-eye' : 'icon-eye-closed'}
-                  className={clsx(styles.auth_froup__eye)}
-                />
-              </div>
-              <div>
-                {enterPass && (
-                  <p className={clsx(styles.form_message, 'mt-2')}>
-                    {passNew !== enterPass ? 'Mật khẩu mới không khớp.' : ''}
-                  </p>
-                )}
-              </div>
-            </div>
-
-            <div className={clsx(styles.container_model__btn)}>
-              <p
-                className={clsx(
-                  passNew === enterPass &&
-                    passNew !== currentPass &&
-                    currentPass &&
-                    enterPass &&
-                    passNew
-                    ? ''
-                    : styles.active,
-                )}
-                onClick={handleChangePass}
-              >
-                Đổi mật khẩu
-              </p>
-            </div>
-          </form>
+          <Form
+            layout='vertical'
+            onFinish={onFinish}
+            form={form}
+            className={clsx('flex flex-col gap-4')}
+          >
+            <Form.Item
+              name='currentPassword'
+              rules={[
+                { required: true, message: 'Mật khẩu hiện tại là bắt buộc' },
+                {
+                  validator: (_, value) => {
+                    if (value.length > 0 && value.length < 6) {
+                      return Promise.reject(new Error('Mật khẩu phải lớn hơn 6 kí tự.'));
+                    }
+                    return Promise.resolve();
+                  },
+                },
+              ]}
+            >
+              <InputPassword placeholder='Nhập mật khẩu hiện tại' />
+            </Form.Item>
+            <Form.Item
+              name='newPassword'
+              rules={[
+                { required: true, message: 'Mật khẩu mới là bắt buộc' },
+                {
+                  pattern: REG_SPACE,
+                  message: 'Mật khẩu không được chứa khoảng trắng.',
+                },
+                ({ getFieldValue }) => ({
+                  validator: (_, value) => {
+                    if (value.length > 0 && value.length < 6) {
+                      return Promise.reject(new Error('Mật khẩu mới phải lớn hơn 6 kí tự.'));
+                    } else if (!getFieldValue('currentPassword') === value) {
+                      return Promise.reject(new Error('Mật khẩu mới phải khác mật khẩu hiện tại.'));
+                    }
+                    return Promise.resolve();
+                  },
+                }),
+              ]}
+            >
+              <InputPassword placeholder='Nhập mật khẩu mới' />
+            </Form.Item>
+            <Form.Item
+              name='confirmPassword'
+              rules={[
+                { required: true, message: 'Nhập lại mật khẩu mới là bắt buộc' },
+                {
+                  pattern: REG_SPACE,
+                  message: 'Mật khẩu không được chứa khoảng trắng.',
+                },
+                ({ getFieldValue }) => ({
+                  validator: (_, value) => {
+                    if (value.length > 0 && getFieldValue('newPassword') !== value) {
+                      return Promise.reject(new Error('Mật khẩu mới không khớp.'));
+                    }
+                    return Promise.resolve();
+                  },
+                }),
+              ]}
+            >
+              <InputPassword placeholder='Nhập lại mật khẩu mới' />
+            </Form.Item>
+            <Button
+              htmlType='submit'
+              loading={loading}
+              disabled={disabled}
+              className='w-full !py-3'
+              type='xhome-negative-primary'
+            >
+              <Text element='span'> Đổi mật khẩu</Text>
+            </Button>
+          </Form>
         </div>
       </ModalCustom>
     </>

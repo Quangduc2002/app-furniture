@@ -101,7 +101,7 @@ function Cart() {
         </motion.div>
       ) : (
         <>
-          <div className=' lg:w-[1170px] px-6 lg:m-auto mb-4'>
+          <div className=' lg:max-w-[1170px] px-6 lg:m-auto mb-4'>
             <button
               onClick={GoBack}
               className='flex items-center border-none gap-1 bg-white hover:cursor-pointer focus:outline-none hover:underline no-underline text-gray-500 mb-2'
@@ -114,7 +114,7 @@ function Cart() {
             </div>
           </div>
 
-          <div className='lg:w-[1170px] mx-auto justify-center px-6 md:flex md:space-x-6 xl:px-0'>
+          <div className='lg:max-w-[1170px] mx-auto justify-center px-6 md:flex md:space-x-6 xl:px-0'>
             <div className='rounded-lg md:w-2/3'>
               {listCartItems &&
                 listCartItems?.map((cartItem: any) => {

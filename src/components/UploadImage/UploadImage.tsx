@@ -169,27 +169,29 @@ function UploadImage({
           </div>
         </Upload>
       ) : (
-        <Upload
-          accept='.png, .jpg, .jpeg'
-          fileList={[]}
-          customRequest={() => void 0}
-          onChange={onChangeFile}
-          beforeUpload={beforeUploadImg}
-          className={classNames(styles.upload, { [className]: !!className })}
-        >
+        <div className='flex flex-col items-center'>
           <img
             src={value?.url ? value?.url : value}
             alt=''
             className={classNames('w-[150px] h-[150px] rounded-full object-cover')}
           />
-          <Button
-            className='m-auto mt-6 !py-[10px]'
-            type='xhome-negative-primary'
-            prefix={<Icon icon='icon-upload' />}
+          <Upload
+            accept='.png, .jpg, .jpeg'
+            fileList={[]}
+            customRequest={() => void 0}
+            onChange={onChangeFile}
+            beforeUpload={beforeUploadImg}
+            className={classNames(styles.upload, { [className]: !!className })}
           >
-            Chọn ảnh
-          </Button>
-        </Upload>
+            <Button
+              className='m-auto mt-6 !py-[10px]'
+              type='xhome-negative-primary'
+              prefix={<Icon icon='icon-upload' />}
+            >
+              Chọn ảnh
+            </Button>
+          </Upload>
+        </div>
       )}
 
       {value && !multiple && type === 'product' && (
