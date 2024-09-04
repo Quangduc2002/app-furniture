@@ -89,10 +89,12 @@ function ProfilePage() {
     <div className={clsx(styles.container)}>
       <div className={clsx(styles.container_information)}>
         <div className={clsx(styles.container_information__top, 'flex flex-col gap-2')}>
-          <h1>Hồ sơ của tôi</h1>
-          <p>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
+          <h1 className='text-2xl font-bold'>Hồ sơ của tôi</h1>
+          <p className='text-lg'>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
           <ModalChangePassword user={user} visible={visible} setVisible={setVisible}>
-            <p className={clsx(styles.container_information__changePass)}>Đổi mật khẩu</p>
+            <p className={clsx(styles.container_information__changePass, 'w-max text-lg')}>
+              Đổi mật khẩu
+            </p>
           </ModalChangePassword>
         </div>
 

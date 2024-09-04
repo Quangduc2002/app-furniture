@@ -30,6 +30,8 @@ function ModalChangePassword({ children, setVisible, visible, user }: ModalIprop
     );
   }, [allValues]);
 
+  console.log(allValues);
+
   const { run: changePassword, loading } = useRequest(serviceChangePassword, {
     manual: true,
     onSuccess: (res) => {
@@ -127,7 +129,7 @@ function ModalChangePassword({ children, setVisible, visible, user }: ModalIprop
             <Button
               htmlType='submit'
               loading={loading}
-              disabled={disabled}
+              disabled={disabled || (allValues && Object.entries(allValues).length === 0)}
               className='w-full !py-3'
               type='xhome-negative-primary'
             >
