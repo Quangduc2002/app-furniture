@@ -26,6 +26,26 @@
   // }
 }
 
+.ant-select {
+  &:hover {
+    .ant-select-selector {
+      border-width: 1.5px !important;
+      border-color: var(--primary-main) !important;
+    }
+  }
+}
+
+.ant-select-open {
+  &.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    background: #ffffff !important;
+    border: 1.5px solid #405f2d !important;
+  }
+
+  .ant-select-arrow {
+    transform: rotate(-180deg);
+  }
+}
+
 .ant-modal-wrap.ant-modal-wrap {
   // add padding when mobile
   padding: 16px !important;
@@ -63,15 +83,70 @@
   }
 }
 
+.ant-radio {
+  position: relative;
+  box-shadow: none !important;
+  width: 24px;
+  height: 24px;
+
+  &::after {
+    display: none;
+  }
+
+  .ant-radio-inner {
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--primary-main) !important;
+    box-shadow: none !important;
+    position: absolute;
+
+    &::after {
+      top: 50%;
+      right: 50%;
+      width: 50%;
+      height: 50%;
+      transform: translate(-50%, -50%) !important;
+      margin: 0 !important;
+    }
+  }
+
+  &.ant-radio-checked {
+    .ant-radio-inner::after {
+      background-color: var(--primary-main) !important;
+    }
+
+    .ant-radio-inner {
+      background-color: inherit;
+    }
+  }
+}
+
+.form-sign-up {
+  .ant-form-item .ant-form-item-explain-error
+  {
+     display: none;
+  }
+
+  .ant-form-item.ant-form-item-has-error {
+    .ant-select:hover >.ant-select-selector {
+      border: none !important;
+    }
+  }
+}
+
 .ant-form-item.ant-form-item-has-error {
   span.ant-input-affix-wrapper.ant-input-password,
   .ant-form-item-control-input-content > .ant-input,
   .ant-form-item-control-input-content > .ant-input-affix-wrapper,
+  .ant-form-item-control-input-content > .ant-select,
+  .ant-form-item-control-input-content .ant-radio .ant-radio-inner,
   .input-date {
     border-width: 1.5px !important;
     border-color: var(--error-main) !important;
+    border-radius: 10px !important;
   }
 }
+
 
 .ant-modal {
   // appear only center
@@ -218,43 +293,7 @@
   }
 }
 
-.ant-radio {
-  position: relative;
-  box-shadow: none !important;
-  width: 24px;
-  height: 24px;
 
-  &::after {
-    display: none;
-  }
-
-  .ant-radio-inner {
-    width: 100%;
-    height: 100%;
-    border: 1px solid var(--primary-main) !important;
-    box-shadow: none !important;
-    position: absolute;
-
-    &::after {
-      top: 50%;
-      right: 50%;
-      width: 50%;
-      height: 50%;
-      transform: translate(-50%, -50%) !important;
-      margin: 0 !important;
-    }
-  }
-
-  &.ant-radio-checked {
-    .ant-radio-inner::after {
-      background-color: var(--primary-main) !important;
-    }
-
-    .ant-radio-inner {
-      background-color: inherit;
-    }
-  }
-}
 
 .ant-collapse-header {
   flex-direction: row-reverse;
@@ -449,14 +488,7 @@
   border-color: var(--primary-main) !important;
 }
 
-.ant-select {
-  &:hover {
-    .ant-select-selector {
-      border-width: 1.5px !important;
-      border-color: var(--primary-main) !important;
-    }
-  }
-}
+
 
 .ant-select-item-option-content {
   font-size: 16px;

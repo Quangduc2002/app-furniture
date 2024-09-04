@@ -96,11 +96,15 @@ function BedRoomPage() {
               md: 3,
               lg: 4,
             }}
-            pagination={{
-              total: filteredData?.length || 0,
-              pageSize: 12,
-              align: 'center',
-            }}
+            pagination={
+              filteredData?.length > 12
+                ? {
+                    total: filteredData?.length || 0,
+                    pageSize: 12,
+                    align: 'center',
+                  }
+                : false
+            }
             dataSource={filteredData}
             renderItem={(product: any) => (
               <List.Item>
