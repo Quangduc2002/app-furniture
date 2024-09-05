@@ -11,9 +11,9 @@ import getListProducts from '@/store/Home/ListProducts';
 
 function HomePage() {
   const [product] = useAtom(atomProducts);
-  const { handleSearch, products } = getListProducts({});
+  const { handleSearch, products } = getListProducts({ searchValue: '' });
   useEffect(() => {
-    handleSearch('');
+    handleSearch();
   }, []);
 
   return (

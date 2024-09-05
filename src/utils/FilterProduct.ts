@@ -6,7 +6,6 @@ interface IFilterProduct {
   ratings:any,
   isCheckedMaterial:any
 }
-
  
 export const FilterProduct = ({
   product,

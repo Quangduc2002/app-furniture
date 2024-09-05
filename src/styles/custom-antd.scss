@@ -827,3 +827,8 @@
 .ant-image-preview-root .ant-image-preview-img{
   width: 700px !important;
 }
+
+.ant-table-wrapper .ant-table-column-sorter-up.active,
+.ant-table-wrapper .ant-table-column-sorter-down.active{
+  color: var(--error-main)
+}
