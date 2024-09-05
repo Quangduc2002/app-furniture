@@ -112,7 +112,7 @@ function ManageCustomer() {
       </div>
 
       <div className={'overflow-hidden overflow-x-scroll p-[30px] !pt-0 bg-white rounded-[10px]'}>
-        <div className={'flex items-center justify-between pt-[20px] mb-[20px] flex-wrap'}>
+        <div className={'flex items-center justify-between pt-[20px] flex-wrap'}>
           <div className='flex flex-col gap-4'>
             <Text className='text-[#344767] text-[24px]' element='h1'>
               Danh sách khách hàng
@@ -184,9 +184,9 @@ function ManageCustomer() {
                   title='Chưa có thông tin'
                 />
               ),
-              triggerDesc: 'Hiển thị tổng tiền giảm dần',
-              triggerAsc: 'Hiển thị tổng tiền tăng dần',
-              cancelSort: 'Hủy sắp xếp',
+              triggerDesc: '',
+              triggerAsc: '',
+              cancelSort: '',
             }}
             pagination={
               dataStatisCustomer?.data?.length > pageSize

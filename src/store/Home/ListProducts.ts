@@ -4,10 +4,10 @@ import { atomProducts } from "./type";
 import { serviceGetAllProducts } from "@/pages/HomePage/service";
 
 interface GetListProductsProps {
-  valueSearch?: string
+  searchValue: string
 }
 
- const getListProducts = ({valueSearch}: GetListProductsProps) => {
+ const getListProducts = ({searchValue}: GetListProductsProps) => {
   const [, setListProducts] = useAtom(atomProducts);
   const { data: products, run:searchProduct, refresh:onRefresh } = useRequest(serviceGetAllProducts, {
     manual: true,
@@ -16,7 +16,7 @@ interface GetListProductsProps {
     },
   });
 
-  const handleSearch = (searchValue: string) => {
+  const handleSearch = () => {
     searchProduct({ tenSp: searchValue });
   };
 

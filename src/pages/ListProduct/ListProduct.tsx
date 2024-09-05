@@ -11,6 +11,8 @@ import { FormatPrice } from '@/utils/FormatPrice';
 import ModalDelete from './ModalDelete';
 import Button from '@/components/UI/Button/Button';
 import { ROUTE_PATH } from '@/routes/route.constant';
+import { useDebounceFn } from 'ahooks';
+import InputText from '@/components/UI/InputText';
 
 function ListProduct() {
   const navigate = useNavigate();
@@ -18,10 +20,8 @@ function ListProduct() {
   const [pageSize, setPageSize] = useState<any>(12);
   const [action, setAction] = useState<string>('');
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-  const { handleSearch, products, onRefresh } = getListProducts({});
-  useEffect(() => {
-    handleSearch('');
-  }, []);
+  const [searchValue, setSearchValue] = useState<string>('');
+  const { handleSearch, products, onRefresh } = getListProducts({ searchValue: searchValue });
 
   const columns = [
     {
@@ -36,6 +36,11 @@ function ListProduct() {
       title: 'Tên sản phẩm',
       dataIndex: 'tenSp',
       key: 'tenSp',
+      sorter: (a: any, b: any) => a.tenSp.localeCompare(b.tenSp),
+      render: (_: any, record: any) => (
+        console.log(record.tenSp),
+        (<Text className='w-[260px] line-clamp-1 break-all'>{record.tenSp}</Text>)
+      ),
     },
     {
       title: 'Chất liệu',
@@ -67,6 +72,8 @@ function ListProduct() {
           {record?.soLuong}
         </Row>
       ),
+      defaultSortOrder: 'descend' as 'descend',
+      sorter: (a: any, b: any) => a.soLuong - b.soLuong,
     },
     {
       title: '',
@@ -99,6 +106,17 @@ function ListProduct() {
     onChange: onSelectChange,
     type: 'checkbox' as const,
   };
+  const { run } = useDebounceFn(
+    () => {
+      handleSearch();
+    },
+    {
+      wait: 400,
+    },
+  );
+  useEffect(() => {
+    handleSearch();
+  }, []);
 
   return (
     <div className={clsx(styles.listProduct, 'xs:w-full')}>
@@ -112,25 +130,16 @@ function ListProduct() {
         </div>
         <div style={{ display: 'flex' }}>
           <div className={clsx(styles.listProduct_header__search)}>
-            <input
+            <InputText
+              className='w-[300px]'
               type='text'
               placeholder='Tìm kiếm...'
-              // value={searchQuery}
-              // ref={search}
-              // onChange={(event) => setSearchQuery(event.target.value)}
-              // onKeyDown={handleKeyPress}
+              value={searchValue}
+              onChange={(e) => {
+                setSearchValue((e.target as HTMLInputElement).value);
+                run();
+              }}
             />
-            {/* {searchQuery && (
-              <i
-                onClick={HandleClear}
-                className={clsx(styles.listProduct_header__xmark, 'fa-solid fa-xmark')}
-              ></i>
-            )} */}
-          </div>
-          <div className={clsx(styles.listProduct_annouce)}>
-            <div>
-              <Icon icon='icon-bell' />
-            </div>
           </div>
         </div>
       </div>
@@ -198,7 +207,7 @@ function ListProduct() {
           }}
         >
           <Table
-            rowSelection={rowSelection}
+            rowSelection={products?.data?.length > 0 ? rowSelection : undefined}
             columns={products?.data?.length > 0 ? columns : []}
             dataSource={products?.data.map((item: any) => ({ ...item, key: item.ID })) || []}
             locale={{
@@ -214,6 +223,9 @@ function ListProduct() {
                   title='Chưa có thông tin'
                 />
               ),
+              triggerDesc: '',
+              triggerAsc: '',
+              cancelSort: '',
             }}
             pagination={
               products?.data?.length > 10

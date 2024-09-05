@@ -56,28 +56,6 @@ const ModalMenu = ({ onClose }: any) => {
                 </li>
               );
             })}
-
-          {/* {user?.isAuthenticated === true ? (
-            <li>
-              {user.account && user.account.getUser.roleId !== 1 ? (
-                <Link
-                  to={`admin`}
-                  style={{ textDecoration: 'none' }}
-                  className={clsx(styles.wrapper3_link)}
-                >
-                  <li>Quản lý sản phẩm</li>
-                </Link>
-              ) : (
-                ''
-              )}
-
-              <Link to={'a'} className={clsx(styles.wrapper3_link)}>
-                Hồ sơ cá nhân
-              </Link>
-            </li>
-          ) : (
-            ''
-          )} */}
         </ul>
 
         <div className={clsx(styles.wrapper3_btn)}>
@@ -102,7 +80,7 @@ function HeaderRow2() {
   const [focus, setFocus] = useState(false);
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState<string>('');
-  const { handleSearch } = getListProducts({ valueSearch: searchValue });
+  const { handleSearch } = getListProducts({ searchValue: searchValue });
   const [products] = useAtom(atomProducts);
 
   const showDrawer = () => {
@@ -114,7 +92,7 @@ function HeaderRow2() {
   };
 
   const HandleOnSubmit = () => {
-    handleSearch(searchValue);
+    handleSearch();
     navigate(`?search=${searchValue}`);
   };
 
