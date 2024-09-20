@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-import { Input, InputNumber, InputNumberProps } from 'antd';
+import { Input } from 'antd';
 import classNames from 'classnames';
 
 import styles from './index.module.scss';

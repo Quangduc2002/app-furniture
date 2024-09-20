@@ -139,7 +139,9 @@ function OrderPage() {
                             <img
                               className={clsx(styles.order_product__img)}
                               alt=''
-                              src={`/Images/${item.image}`}
+                              src={`${
+                                item?.image?.match(/^https:/) ? item.image : `/Images/${item.image}`
+                              }`}
                             />
                             <div>
                               <p className={clsx(styles.order_product__name)}>{item.tenSp}</p>

@@ -1,9 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { atomOrderInfo } from '@/store/type';
 import {
   PayPalScriptProvider,
   PayPalButtons,
   usePayPalScriptReducer,
 } from '@paypal/react-paypal-js';
+import { useAtom } from 'jotai';
 const style: any = { layout: 'vertical' };
 
 interface ButtonWrapperProps {
@@ -11,6 +13,7 @@ interface ButtonWrapperProps {
   amount: any;
   handleOrder: any;
   currency: any;
+  orderInfo?: any;
 }
 
 interface PayPalProps {
@@ -20,6 +23,8 @@ interface PayPalProps {
 
 const ButtonWrapper = ({ showSpinner, amount, handleOrder, currency }: ButtonWrapperProps) => {
   const [{ isPending }] = usePayPalScriptReducer();
+  const [orderInfo] = useAtom(atomOrderInfo);
+  console.log(orderInfo);
 
   return (
     <>
@@ -38,7 +43,7 @@ const ButtonWrapper = ({ showSpinner, amount, handleOrder, currency }: ButtonWra
         }
         onApprove={(data, actions: any) =>
           actions?.order?.capture().then(async (res: any) => {
-            return handleOrder();
+            return handleOrder(orderInfo);
           })
         }
       />
@@ -48,7 +53,7 @@ const ButtonWrapper = ({ showSpinner, amount, handleOrder, currency }: ButtonWra
 
 export default function PayPal({ handleOrder, amount }: PayPalProps) {
   return (
-    <div style={{ maxWidth: '750px', minHeight: '200px' }}>
+    <div className='max-w-[750px] min-h-[200px] mt-8'>
       <PayPalScriptProvider options={{ clientId: 'test', components: 'buttons', currency: 'USD' }}>
         <ButtonWrapper
           showSpinner={false}

@@ -133,69 +133,68 @@ function UploadImage({
 
   return (
     <div>
-      {!value &&
-        (type === 'product' ? (
+      {!value && type === 'product' && (
+        <Upload
+          accept='.png, .jpg, .jpeg'
+          multiple={multiple}
+          fileList={[]}
+          customRequest={() => void 0}
+          onChange={onChangeFile}
+          beforeUpload={beforeUploadImg}
+          className={classNames(styles.upload, { [className]: !!className })}
+        >
+          <div
+            className={classNames(
+              'flex flex-col justify-center items-center rounded-[8px] border-[1px] border-dashed border-[var(--primary-main)] bg-[var(--primary-50)] cursor-pointer',
+              { [classNameContent]: !!classNameContent },
+            )}
+            style={{
+              width,
+              height,
+            }}
+          >
+            <div className='flex p-[8px] justify-center items-center gap-[8px] bg-[var(--background-default)] [box-shadow:-20px_20px_80px_-8px_rgba(0,_0,_0,_0.16)] rounded-[100%]'>
+              <Icon icon='icon-upload-image-icon' className='text-[24px]' color='primary-main' />
+            </div>
+            <Text type='title1-semi-bold' color='primary-main'>
+              Tải ảnh lên{' '}
+              <span className='font-normal text-[var(--text-secondary)]'>hoặc kéo thả tại đây</span>
+            </Text>
+            <Text type='body2' color='text-secondary' className='mt-[10px] mb-[4px]'>
+              PNG, JPG or JPEG
+            </Text>
+            <Text type='body2' color='text-secondary'>
+              {description || '(kích cỡ tối ưu, 924x497px)'}
+            </Text>
+          </div>
+        </Upload>
+      )}
+
+      {type === 'profile' && (
+        <div className='flex flex-col items-center'>
+          <img
+            src={value?.url ? value?.url : value}
+            alt=''
+            className={classNames('w-[150px] h-[150px] rounded-full object-cover')}
+          />
           <Upload
             accept='.png, .jpg, .jpeg'
-            multiple={multiple}
             fileList={[]}
             customRequest={() => void 0}
             onChange={onChangeFile}
             beforeUpload={beforeUploadImg}
             className={classNames(styles.upload, { [className]: !!className })}
           >
-            <div
-              className={classNames(
-                'flex flex-col justify-center items-center rounded-[8px] border-[1px] border-dashed border-[var(--primary-main)] bg-[var(--primary-50)] cursor-pointer',
-                { [classNameContent]: !!classNameContent },
-              )}
-              style={{
-                width,
-                height,
-              }}
+            <Button
+              className='m-auto mt-6 !py-[10px]'
+              type='xhome-negative-primary'
+              prefix={<Icon icon='icon-upload' />}
             >
-              <div className='flex p-[8px] justify-center items-center gap-[8px] bg-[var(--background-default)] [box-shadow:-20px_20px_80px_-8px_rgba(0,_0,_0,_0.16)] rounded-[100%]'>
-                <Icon icon='icon-upload-image-icon' className='text-[24px]' color='primary-main' />
-              </div>
-              <Text type='title1-semi-bold' color='primary-main'>
-                Tải ảnh lên{' '}
-                <span className='font-normal text-[var(--text-secondary)]'>
-                  hoặc kéo thả tại đây
-                </span>
-              </Text>
-              <Text type='body2' color='text-secondary' className='mt-[10px] mb-[4px]'>
-                PNG, JPG or JPEG
-              </Text>
-              <Text type='body2' color='text-secondary'>
-                {description || '(kích cỡ tối ưu, 924x497px)'}
-              </Text>
-            </div>
+              Chọn ảnh
+            </Button>
           </Upload>
-        ) : (
-          <div className='flex flex-col items-center'>
-            <img
-              src={value?.url ? value?.url : value}
-              alt=''
-              className={classNames('w-[150px] h-[150px] rounded-full object-cover')}
-            />
-            <Upload
-              accept='.png, .jpg, .jpeg'
-              fileList={[]}
-              customRequest={() => void 0}
-              onChange={onChangeFile}
-              beforeUpload={beforeUploadImg}
-              className={classNames(styles.upload, { [className]: !!className })}
-            >
-              <Button
-                className='m-auto mt-6 !py-[10px]'
-                type='xhome-negative-primary'
-                prefix={<Icon icon='icon-upload' />}
-              >
-                Chọn ảnh
-              </Button>
-            </Upload>
-          </div>
-        ))}
+        </div>
+      )}
 
       {value && !multiple && type === 'product' && (
         <ItemImage
