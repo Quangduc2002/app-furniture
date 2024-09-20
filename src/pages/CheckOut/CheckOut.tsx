@@ -1,42 +1,58 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-// import { fetchUser, axiosPost } from '../../services/UseServices';
-// import PayPal from '../Paypal/Paypal';
 import { userDefault } from '@/store/Login/type';
 import { useAtom } from 'jotai';
 import { ROUTE_PATH } from '@/routes/route.constant';
-import { atomListCart, atomListCartUser } from '@/store/type';
+import { atomListCart, atomListCartUser, atomOrderInfo } from '@/store/type';
 import { FormatPrice } from '@/utils/FormatPrice';
 import { Icon } from '@/components/UI/IconFont/Icon';
 import { GoBack } from '@/utils/GoBack';
-import { useRequest } from 'ahooks';
+import { useRequest, useUpdateEffect } from 'ahooks';
 import { serviceOrder } from './service';
 import { toast } from '@/components/UI/Toast/toast';
 import Button from '@/components/UI/Button/Button';
-import PayPal from '@/components/Paypal/Paypal';
+import { Form } from 'antd';
+import InputText from '@/components/UI/InputText';
+import Text from '@/components/UI/Text';
+import InputTextArea from '@/components/UI/InputTextArea/InputTextArea';
+import SelectCustom from '@/components/UI/SelectCustom';
+import ModalPayment from './ModalPayment/ModalPayment';
 
 function CheckOut() {
+  const [form] = Form.useForm();
+  const [disable, setDisabled] = useState<boolean>(true);
+  const allValues = Form.useWatch([], form);
+  const [, setOrderInfo] = useAtom(atomOrderInfo);
   const [cartItems, setCartItems] = useAtom(atomListCart);
-  const [tenKH, setTenKH] = useState<any>('');
-  const [soDT, setSoDT] = useState<any>('');
-  const [email, setEmail] = useState<any>('');
-  const [diaChi, setDiaChi] = useState<any>('');
-  const [thanhToan, setThanhToan] = useState<any>('');
-  const [note, setNote] = useState<any>('');
+  const [payment, setPayment] = useState<any>('');
   const [isOrder, setIsOrder] = useState<boolean>(false);
-  const [formErrors, setFormErrors] = useState<any>({});
   const [user] = useAtom(userDefault);
   const [listCartItems] = useAtom(atomListCartUser);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!user?.isAuthenticated) {
-  //     navigate(`${ROUTE_PATH.LOGIN}?redirect=${location.pathname}`);
-  //   } else {
-  //     setTenKH(user?.account?.getUser?.name);
-  //     setEmail(user?.account?.getUser?.email);
-  //   }
-  // }, [navigate, user]);
+  const methodPayment = [
+    {
+      label: 'Thanh toán khi nhận hàng',
+      value: 'Thanh toán khi nhận hàng',
+    },
+    {
+      label: 'Chuyển khoản ngân hàng',
+      value: 'Chuyển khoản ngân hàng',
+    },
+  ];
+
+  useUpdateEffect(() => {
+    form.validateFields({ validateOnly: true }).then(
+      () => {
+        setDisabled(false);
+      },
+      (error) => {
+        if (error?.errorFields?.length > 0) {
+          setDisabled(true);
+        }
+      },
+    );
+  }, [allValues]);
 
   useEffect(() => {
     if (isOrder) {
@@ -52,68 +68,40 @@ function CheckOut() {
     }
   }, [listCartItems]);
 
-  const handleValidation = () => {
-    let errors: any = {};
-    let isValid = true;
+  const { run: runOrder } = useRequest(serviceOrder, {
+    manual: true,
+    onSuccess: () => {
+      setCartItems(
+        cartItems?.filter((item: any) => item.customer_id !== user?.account?.getUser?.id),
+      ),
+        setIsOrder(true);
+      toast.success('Mua sản phẩm thành công ');
+    },
+  });
 
-    if (!tenKH) {
-      errors.tenKH = 'Please enter name !';
-      isValid = false;
-    }
+  const onSubmit = async (values: any) => {
+    const newOrderInfo = {
+      Product: listCartItems,
+      tenKH: values.name,
+      soDT: values.phone,
+      diaChi: values.address,
+      email: values.email,
+      phuongThucTT: values.payment,
+      note: values.note,
+      trangThaiDH: 0,
+      maKH: user?.account?.getUser?.id,
+      isPay: values.payment === 'Chuyển khoản ngân hàng',
+    };
 
-    if (!soDT) {
-      errors.soDT = 'Please enter phone number !';
-      isValid = false;
+    setOrderInfo(newOrderInfo);
+    if (values.payment !== 'Chuyển khoản ngân hàng') {
+      handleOrder(newOrderInfo);
     }
-
-    if (!email) {
-      errors.email = 'Please enter email !';
-      isValid = false;
-    }
-
-    if (!diaChi) {
-      errors.diaChi = 'Please enter address !';
-      isValid = false;
-    }
-    if (!thanhToan) {
-      errors.thanhToan = 'Please enter select a payment method !';
-      isValid = false;
-    }
-    setFormErrors(errors);
-    return isValid;
   };
 
-  const { run: runOrder } = useRequest(
-    () =>
-      serviceOrder({
-        Product: listCartItems,
-        tenKH: tenKH,
-        soDT: soDT,
-        diaChi: diaChi,
-        email: email,
-        phuongThucTT: thanhToan,
-        note: note,
-        trangThaiDH: 0,
-        maKH: user?.account?.getUser?.id,
-        isPay: thanhToan === 'Chuyển khoản ngân hàng' ? true : false,
-      }),
-    {
-      manual: true,
-      onSuccess: () => {
-        setCartItems(
-          cartItems?.filter((item: any) => item.customer_id !== user?.account?.getUser?.id),
-        ),
-          setIsOrder(true);
-        toast.success('Mua sản phẩm thành công ');
-      },
-    },
-  );
-
-  const handleOrder = async () => {
+  const handleOrder = async (orderInfo: any) => {
     if (user?.isAuthenticated) {
-      if (handleValidation()) {
-        runOrder();
-      }
+      runOrder(orderInfo);
     } else {
       navigate(ROUTE_PATH.LOGIN);
     }
@@ -210,117 +198,83 @@ function CheckOut() {
                 </div>
               </div>
 
-              <div className='px-3 md:w-5/12'>
-                <div className='w-full mx-auto rounded-lg bg-white border border-solid border-gray-200 p-3 text-gray-800 font-light mb-6'>
-                  <div className='w-full sm:flex gap-4 mb-3 items-center max-sm:block'>
-                    <div className='sm:w-32 max-sm:w-full'>
-                      <span className='text-gray-600 font-semibold'>Tên người nhận:</span>
-                    </div>
-                    <div className='flex-grow'>
-                      <input
-                        value={tenKH}
-                        className={`${
-                          formErrors.tenKH ? '!border-red-500' : ''
-                        } w-full  border border-solid  px-2 focus:border-gray-300 outline-none focus:ring rounded-lg py-2`}
-                        onChange={(e) => setTenKH(e.target.value)}
-                      />
-                    </div>
-                  </div>
+              <Form form={form} onFinish={onSubmit} layout='vertical' className='px-3 md:w-5/12'>
+                <div className='w-full flex flex-col gap-3 mx-auto rounded-lg bg-white border border-solid border-gray-200 p-3 text-gray-800 font-light mb-6'>
+                  <Form.Item
+                    label={<Text>Tên người nhận:</Text>}
+                    name='name'
+                    rules={[{ required: true, message: 'Tên người nhận là bắt buộc' }]}
+                  >
+                    <InputText />
+                  </Form.Item>
 
-                  <div className='w-full sm:flex gap-4 mb-3 items-center max-sm:block'>
-                    <div className='sm:w-32 xs:min-w-[80px]'>
-                      <span className='text-gray-600 font-semibold'>Email:</span>
-                    </div>
-                    <div className='flex-grow'>
-                      <input
-                        className={`${
-                          formErrors.email ? '!border-red-500' : ''
-                        } w-full  border border-solid  px-2 focus:border-gray-300 outline-none focus:ring rounded-lg py-2`}
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                    </div>
-                  </div>
+                  <Form.Item
+                    label={<Text>Email:</Text>}
+                    name='email'
+                    rules={[{ required: true, message: 'Email là bắt buộc' }]}
+                  >
+                    <InputText />
+                  </Form.Item>
 
-                  <div className='w-full sm:flex gap-4 mb-3 items-center max-sm:block'>
-                    <div className=' sm:w-32 max-sm:w-full'>
-                      <span className='text-gray-600 font-semibold'>Số điện thoại:</span>
-                    </div>
-                    <div className='flex-grow'>
-                      <input
-                        className={`${
-                          formErrors.soDT ? '!border-red-500' : ''
-                        } w-full  border border-solid  px-2 focus:border-gray-300 outline-none focus:ring rounded-lg py-2`}
-                        value={soDT}
-                        onChange={(e) => setSoDT(e.target.value)}
-                      />
-                    </div>
-                  </div>
+                  <Form.Item
+                    label={<Text>Số điện thoại:</Text>}
+                    name='phone'
+                    rules={[{ required: true, message: 'Số điện thoại là bắt buộc' }]}
+                  >
+                    <InputText />
+                  </Form.Item>
 
-                  <div className='w-full gap-4 mb-3 sm:flex items-center max-sm:block'>
-                    <div className='sm:w-32 max-sm:w-full'>
-                      <span className='text-gray-600 font-semibold'>Địa chỉ:</span>
-                    </div>
-                    <div className='flex-grow'>
-                      <input
-                        className={`${
-                          formErrors.diaChi ? '!border-red-500' : ''
-                        } w-full border border-solid  px-2 focus:border-gray-300 outline-none focus:ring rounded-lg py-2`}
-                        value={diaChi}
-                        onChange={(e) => setDiaChi(e.target.value)}
-                      />
-                    </div>
-                  </div>
+                  <Form.Item
+                    label={<Text>Địa chỉ:</Text>}
+                    name='address'
+                    rules={[{ required: true, message: 'Địa chỉ là bắt buộc' }]}
+                  >
+                    <InputText />
+                  </Form.Item>
 
-                  <div className='w-full sm:flex gap-4 mb-3 items-center max-sm:block'>
-                    <div className='sm:w-32 max-sm:w-full'>
-                      <span className='text-gray-600 font-semibold'>Ghi chú:</span>
-                    </div>
-                    <div className='flex-grow'>
-                      <textarea
-                        className='w-full border-solid border  px-2 focus:border-gray-300 outline-none focus:ring rounded-lg py-2'
-                        rows={1}
-                        value={note}
-                        id='company-dd'
-                        onChange={(e) => setNote(e.target.value)}
-                      ></textarea>
-                    </div>
-                  </div>
+                  <Form.Item label={<Text>Ghi chú:</Text>} name='note'>
+                    <InputTextArea className='rounded-[10px]' />
+                  </Form.Item>
 
-                  <div className='w-full sm:flex gap-4 mb-3 items-center max-sm:block flex-wrap'>
-                    <div className='w-full'>
-                      <span className='text-gray-600 font-semibold'>Phương thức thanh toán:</span>
-                    </div>
-
-                    <select
-                      onChange={(e) => setThanhToan(e.target.value)}
-                      className={`${
-                        formErrors.thanhToan ? '!border-red-500' : ''
-                      } py-2 px-2 w-full mt-2.5 border-solid focus:ring focus:border-gray-300 outline-none block border border-gray-200 rounded-lg text-lg`}
-                    >
-                      <option className='hidden'>Phương thức thanh toán</option>
-                      <option value='Thanh toán khi nhận hàng'>Thanh toán khi nhận hàng</option>
-                      <option value='Chuyển khoản ngân hàng'>Chuyển khoản ngân hàng</option>
-                    </select>
-                  </div>
+                  <Form.Item
+                    rules={[{ required: true, message: 'Phương thức thanh toán là bắt buộc' }]}
+                    label={<Text>Phương thức thanh toán:</Text>}
+                    name='payment'
+                  >
+                    <SelectCustom
+                      options={methodPayment}
+                      value={payment}
+                      placeholder='Chọn phương thức thanh toán'
+                      onChange={(value) => setPayment(value)}
+                    />
+                  </Form.Item>
                 </div>
 
-                {thanhToan === 'Chuyển khoản ngân hàng' ? (
-                  <PayPal
+                {payment === 'Chuyển khoản ngân hàng' ? (
+                  <ModalPayment
                     handleOrder={handleOrder}
                     amount={Math.round((tongTien + 300000) / 23500)}
-                  />
-                ) : (
-                  <div>
-                    <button
-                      onClick={handleOrder}
-                      className='block w-full bg-[#ee4d2d] hover:bg-[#c52432] text-white rounded-lg px-3 py-4 font-semibold'
+                  >
+                    <Button
+                      htmlType='submit'
+                      disabled={disable}
+                      type='xhome-negative-primary'
+                      className=' w-full '
                     >
-                      <i className='mdi mdi-lock-outline mr-1'></i> Mua ngay
-                    </button>
-                  </div>
+                      Thanh toán
+                    </Button>
+                  </ModalPayment>
+                ) : (
+                  <Button
+                    htmlType='submit'
+                    disabled={disable}
+                    type='xhome-negative-primary'
+                    className=' w-full '
+                  >
+                    Mua ngay
+                  </Button>
                 )}
-              </div>
+              </Form>
             </div>
           )}
 
