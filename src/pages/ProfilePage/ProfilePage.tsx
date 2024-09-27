@@ -1,16 +1,13 @@
 import clsx from 'clsx';
 import styles from './index.module.scss';
 import { useEffect, useState } from 'react';
-import { Sexs } from '@/utils/Stars';
 import { DaySelects, MonthSelects, YearSelects } from '@/utils/FormatDate';
 import { useAtom } from 'jotai';
 import { userDefault } from '@/store/Login/type';
 import { useRequest } from 'ahooks';
-import { serviceEditUser, serviceGetUser } from './service';
-import { FormatEmail } from '@/utils/FormatEmail';
+import { serviceEditUser } from './service';
 import { toast } from '@/components/UI/Toast/toast';
-import { Icon } from '@/components/UI/IconFont/Icon';
-import { Col, Form, Input, Radio, Row, Select } from 'antd';
+import { Col, Form, Radio, Row, Select } from 'antd';
 import { useImageUpload } from '@/utils/FireBase';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '@/routes/route.constant';
@@ -20,7 +17,6 @@ import Button from '@/components/UI/Button/Button';
 import Text from '@/components/UI/Text';
 import { REG_EMAIL } from '@/utils/reg';
 import UploadImage from '@/components/UploadImage/UploadImage';
-import { getUserAccounts } from '@/store/Login/Login';
 
 function ProfilePage() {
   const [user] = useAtom(userDefault);
@@ -49,6 +45,7 @@ function ProfilePage() {
       navigate(ROUTE_PATH.LOGIN);
     }
   }, [navigate, user]);
+
   const { run: runEditUser, loading } = useRequest(serviceEditUser, {
     manual: true,
     onSuccess: (res) => {
@@ -71,6 +68,7 @@ function ProfilePage() {
   const onSubmit = async (values: any) => {
     const file = values.image.file;
     let dataImage = null;
+
     if (file) {
       dataImage = await uploadImage(file);
     }

@@ -7,16 +7,26 @@ import { useState } from 'react';
 import { useRequest } from 'ahooks';
 import { toast } from '@/components/UI/Toast/toast';
 import { serviceTrash } from '../service';
+import { DeleteFileImage } from '@/utils/FireBase';
 
 function ModalTrash({ data, children, onRefresh, action, disabled }: ModalIprops) {
   const [visible, setVisible] = useState(false);
 
+  const isCheck = data?.map((item: any) => item.ID);
   const { run } = useRequest(serviceTrash, {
     manual: true,
-    onSuccess: (res) => {
-      action === 'delete'
-        ? toast.success('Xóa sản phẩm thành công !')
-        : toast.success('Khôi phục sản phẩm thành công !');
+    onSuccess: async (res) => {
+      if (action === 'delete') {
+        toast.success('Xóa sản phẩm thành công !');
+        const deleteListImage = data?.map((item: any) => {
+          DeleteFileImage(item?.image);
+        });
+
+        await Promise.all(deleteListImage);
+      } else {
+        toast.success('Khôi phục sản phẩm thành công !');
+      }
+
       setVisible(false);
       onRefresh && onRefresh();
     },
@@ -27,7 +37,7 @@ function ModalTrash({ data, children, onRefresh, action, disabled }: ModalIprops
 
   const handleDeleteProduct = () => {
     run({
-      isChecked: data,
+      isChecked: isCheck,
       status: 1,
       action: action,
     });
@@ -45,8 +55,8 @@ function ModalTrash({ data, children, onRefresh, action, disabled }: ModalIprops
         </span>
         <Row wrap={false} align={'middle'} justify={'end'} className='mt-[24px] gap-[16px]'>
           <Button
-            type='xhotel-negative-secondary'
             className='w-[96px]'
+            type={action !== 'restore' ? 'xhotel-negative-secondary' : 'xhotel-secondary'}
             onClick={() => setVisible(false)}
           >
             <Text type='title1-semi-bold'>Huỷ</Text>

@@ -3,11 +3,8 @@ import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import styles from './Trash.module.scss';
 import Button from '@/components/UI/Button/Button';
-import ModalDelete from '../ListProduct/ModalDelete';
 import { Result, Row, Table } from 'antd';
-import { Icon } from '@/components/UI/IconFont/Icon';
 import { FormatPrice } from '@/utils/FormatPrice';
-import getListProducts from '@/store/Home/ListProducts';
 import Text from '@/components/UI/Text';
 import { motion, spring } from 'framer-motion';
 import { useRequest } from 'ahooks';
@@ -19,6 +16,7 @@ function TrashProduct() {
   const [pageSize, setPageSize] = useState<any>(12);
   const [action, setAction] = useState<string>('');
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const [selectDataProducts, setselectDataProducts] = useState<any[]>([]);
   const columns = [
     {
       title: 'STT',
@@ -75,7 +73,23 @@ function TrashProduct() {
     selectedRowKeys,
     onChange: onSelectChange,
     type: 'checkbox' as const,
+    onSelect: (record: any, selected: any, selectedRows: any) => {
+      if (selected) {
+        setselectDataProducts(selectedRows);
+      } else {
+        setselectDataProducts((prev) => prev.filter((item) => item.key !== record.key));
+      }
+    },
+    onSelectAll: (selected: any, selectedRows: any, changeRows: any) => {
+      if (selected) {
+        setselectDataProducts(selectedRows);
+      } else {
+        setselectDataProducts([]);
+      }
+    },
   };
+
+  console.log(selectDataProducts);
 
   return (
     <div className={clsx(styles.listProduct, 'xs:w-full ')}>
@@ -103,14 +117,14 @@ function TrashProduct() {
               <option value='delete'>Xóa</option>
             </select>
             <ModalTrash
-              data={selectedRowKeys}
+              data={selectDataProducts}
               action={action}
               disabled={action === ''}
               onRefresh={onRefresh}
             >
               <Button
                 disabled={
-                  action === '' || selectedRowKeys.length === 0 || products?.data?.length === 0
+                  action === '' || selectDataProducts.length === 0 || products?.data?.length === 0
                 }
                 type='xhotel-negative-primary'
               >
