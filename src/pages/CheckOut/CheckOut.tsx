@@ -41,6 +41,15 @@ function CheckOut() {
     },
   ];
 
+  useEffect(() => {
+    if (user && user.isAuthenticated) {
+      form.setFieldsValue({
+        name: user?.account?.getUser?.name,
+        email: user?.account?.getUser?.email,
+      });
+    }
+  }, [user]);
+
   useUpdateEffect(() => {
     form.validateFields({ validateOnly: true }).then(
       () => {
@@ -213,7 +222,7 @@ function CheckOut() {
                     name='email'
                     rules={[{ required: true, message: 'Email là bắt buộc' }]}
                   >
-                    <InputText />
+                    <InputText disabled={true} />
                   </Form.Item>
 
                   <Form.Item

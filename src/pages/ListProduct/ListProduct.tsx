@@ -38,8 +38,7 @@ function ListProduct() {
       key: 'tenSp',
       sorter: (a: any, b: any) => a.tenSp.localeCompare(b.tenSp),
       render: (_: any, record: any) => (
-        console.log(record.tenSp),
-        (<Text className='w-[260px] line-clamp-1 break-all'>{record.tenSp}</Text>)
+        <Text className='w-[260px] line-clamp-1 break-all'>{record.tenSp}</Text>
       ),
     },
     {

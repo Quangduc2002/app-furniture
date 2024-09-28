@@ -16,7 +16,7 @@ import {
 } from '../service';
 import InputCurrency from '@/components/UI/InputCurrency/InputCurrency';
 import UploadImage from '@/components/UploadImage/UploadImage';
-import { useImageUpload } from '@/utils/FireBase';
+import { DeleteFileImage, useImageUpload } from '@/utils/FireBase';
 import { toast } from '@/components/UI/Toast/toast';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ROUTE_PATH } from '@/routes/route.constant';
@@ -76,6 +76,7 @@ function ManageProduct() {
   const requestEditProduct = useRequest(serviceEditProduct, {
     manual: true,
     onSuccess: () => {
+      runProductDtails(id);
       toast.success('Sửa sản phẩm thành công !');
     },
     onError: (err: any) => {
@@ -89,6 +90,7 @@ function ManageProduct() {
     let dataImage = null;
     if (file) {
       dataImage = await uploadImage(file);
+      DeleteFileImage(productDetail?.data?.image);
     }
 
     const data: any = {
