@@ -13,9 +13,12 @@ import Button from '@/components/UI/Button/Button';
 import { ROUTE_PATH } from '@/routes/route.constant';
 import { useDebounceFn } from 'ahooks';
 import InputText from '@/components/UI/InputText';
+import RoleWrap from '@/components/Role/RoleWrap';
+import { useRole } from '@/store/Role/useRole';
 
 function ListProduct() {
   const navigate = useNavigate();
+  const { checkRole } = useRole();
   const [currentPage, setCurrentPage] = useState<any>(1);
   const [pageSize, setPageSize] = useState<any>(12);
   const [action, setAction] = useState<string>('');
@@ -74,26 +77,30 @@ function ListProduct() {
       defaultSortOrder: 'descend' as 'descend',
       sorter: (a: any, b: any) => a.soLuong - b.soLuong,
     },
-    {
-      title: '',
-      dataIndex: 'actions',
-      key: 'actions',
-      render: (_: any, record: any) => (
-        <Row wrap={false} align={'middle'} justify={'end'}>
-          <p
-            onClick={() => navigate(ROUTE_PATH.EDITPRODUCT(record.ID, 'update'))}
-            className='w-[48px] h-[48px] flex items-center justify-center rounded-full cursor-pointer hover:bg-[var(--primary-8)] transition-all'
-          >
-            <Icon icon='icon-pen-fill' className='text-[18px]' color='text-icon' />
-          </p>
-          <ModalDelete data={record} onRefresh={onRefresh}>
-            <p className='w-[48px] h-[48px] flex items-center justify-center rounded-full cursor-pointer hover:bg-[var(--primary-8)] transition-all'>
-              <Icon icon='icon-trash-fill' className='text-[24px] text-[--error-main]' />
-            </p>
-          </ModalDelete>
-        </Row>
-      ),
-    },
+    ...(checkRole(['ADMIN'])
+      ? [
+          {
+            title: '',
+            dataIndex: 'actions',
+            key: 'actions',
+            render: (_: any, record: any) => (
+              <Row wrap={false} align={'middle'} justify={'end'}>
+                <p
+                  onClick={() => navigate(ROUTE_PATH.EDITPRODUCT(record.ID, 'update'))}
+                  className='w-[48px] h-[48px] flex items-center justify-center rounded-full cursor-pointer hover:bg-[var(--primary-8)] transition-all'
+                >
+                  <Icon icon='icon-pen-fill' className='text-[18px]' color='text-icon' />
+                </p>
+                <ModalDelete data={record} onRefresh={onRefresh}>
+                  <p className='w-[48px] h-[48px] flex items-center justify-center rounded-full cursor-pointer hover:bg-[var(--primary-8)] transition-all'>
+                    <Icon icon='icon-trash-fill' className='text-[24px] text-[--error-main]' />
+                  </p>
+                </ModalDelete>
+              </Row>
+            ),
+          },
+        ]
+      : []),
   ];
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
@@ -175,12 +182,14 @@ function ListProduct() {
           </div>
 
           <div className={clsx(styles.listProduct_title__right, 'my-4 flex-wrap gap-2 pl-2.5')}>
-            <Link to={ROUTE_PATH.ADDPRODUCT('new')}>
-              <Button type='xhotel-negative-primary' className='flex items-center !py-3 h-full'>
-                <Icon icon='icon-plus' className='mr-[6px]' />
-                Thêm sản phẩm
-              </Button>
-            </Link>
+            <RoleWrap role={['ADMIN']}>
+              <Link to={ROUTE_PATH.ADDPRODUCT('new')}>
+                <Button type='xhotel-negative-primary' className='flex items-center !py-3 h-full'>
+                  <Icon icon='icon-plus' className='mr-[6px]' />
+                  Thêm sản phẩm
+                </Button>
+              </Link>
+            </RoleWrap>
 
             <div className={clsx(styles.listProduct_title__right__show)}>
               <select

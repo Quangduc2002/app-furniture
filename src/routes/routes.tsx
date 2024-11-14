@@ -25,6 +25,7 @@ import ListOrderProduct from '@/pages/ListOrderProduct/ListOrderProduct';
 import ListOrderProductDetails from '@/pages/ListOrderProductDetails/ListOrderProductDetails';
 import ListMaterial from '@/pages/ListMaterial/ListMaterial';
 import ManageCustomer from '@/pages/ManageCustomer/ManageCustomer';
+import RoleLayout from '@/components/Role/RoleLayout';
 
 const MainLayout = React.lazy(() => import('@/Layout/MainLayout/MainLayout'));
 const HomePage = React.lazy(() => import('@/pages/HomePage/HomePage'));
@@ -169,13 +170,19 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        element: <AdminLayout />,
+        element: (
+          <RoleLayout role={['ADMIN', 'MANAGEMENT_BOARD']}>
+            <AdminLayout />
+          </RoleLayout>
+        ),
         children: [
           {
             path: ROUTE_PATH.REVENUA,
             element: (
               <Suspense>
-                <Statistic />
+                <RoleLayout role={['ADMIN', 'MANAGEMENT_BOARD']}>
+                  <Statistic />
+                </RoleLayout>
               </Suspense>
             ),
           },
@@ -183,7 +190,9 @@ export const router = createBrowserRouter([
             path: ROUTE_PATH.MANAGEPRODUCT,
             element: (
               <Suspense>
-                <ListProduct />
+                <RoleLayout role={['ADMIN', 'MANAGEMENT_BOARD']}>
+                  <ListProduct />
+                </RoleLayout>
               </Suspense>
             ),
           },
@@ -191,7 +200,9 @@ export const router = createBrowserRouter([
             path: ROUTE_PATH.TRASHPRODUCT,
             element: (
               <Suspense>
-                <TrashProduct />
+                <RoleLayout role={['ADMIN']}>
+                  <TrashProduct />
+                </RoleLayout>
               </Suspense>
             ),
           },
@@ -199,7 +210,9 @@ export const router = createBrowserRouter([
             path: ROUTE_PATH.ADDPRODUCT(':action'),
             element: (
               <Suspense>
-                <ManageProduct />
+                <RoleLayout role={['ADMIN']}>
+                  <ManageProduct />
+                </RoleLayout>
               </Suspense>
             ),
           },
@@ -207,7 +220,9 @@ export const router = createBrowserRouter([
             path: ROUTE_PATH.EDITPRODUCT(':id', ':action'),
             element: (
               <Suspense>
-                <ManageProduct />
+                <RoleLayout role={['ADMIN']}>
+                  <ManageProduct />
+                </RoleLayout>
               </Suspense>
             ),
           },
@@ -215,7 +230,9 @@ export const router = createBrowserRouter([
             path: ROUTE_PATH.LISTORDERPRODUCT,
             element: (
               <Suspense>
-                <ListOrderProduct />
+                <RoleLayout role={['ADMIN', 'MANAGEMENT_BOARD']}>
+                  <ListOrderProduct />
+                </RoleLayout>
               </Suspense>
             ),
           },
@@ -223,7 +240,9 @@ export const router = createBrowserRouter([
             path: ROUTE_PATH.LISTORDERPRODUCTDETAILS,
             element: (
               <Suspense>
-                <ListOrderProductDetails />
+                <RoleLayout role={['ADMIN', 'MANAGEMENT_BOARD']}>
+                  <ListOrderProductDetails />
+                </RoleLayout>
               </Suspense>
             ),
           },
@@ -239,7 +258,9 @@ export const router = createBrowserRouter([
             path: ROUTE_PATH.MANAGECUSTOMER,
             element: (
               <Suspense>
-                <ManageCustomer />
+                <RoleLayout role={['ADMIN', 'MANAGEMENT_BOARD']}>
+                  <ManageCustomer />
+                </RoleLayout>
               </Suspense>
             ),
           },

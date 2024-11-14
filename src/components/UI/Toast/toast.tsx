@@ -39,6 +39,7 @@ export const toast = {
               fontSize: 18,
               cursor: 'pointer',
               marginLeft: 8,
+              marginRight: 8,
               color: 'white',
             }}
             onClick={() => t.dismiss(id)}
@@ -80,6 +81,7 @@ export const toast = {
               fontSize: 18,
               cursor: 'pointer',
               marginLeft: 8,
+              marginRight: 8,
               color: 'white',
             }}
             onClick={() => t.dismiss(id)}

@@ -10,6 +10,7 @@ import { Result, Row, Table } from 'antd';
 import { useState } from 'react';
 import ModalMaterial from './ModalMaterial/ModalMaterial';
 import ModalDeleteMaterial from './ModalDeleteMaterial/ModalDeleteMaterial';
+import RoleWrap from '@/components/Role/RoleWrap';
 
 function ListMaterial() {
   const [currentPage, setCurrentPage] = useState<any>(1);
@@ -35,18 +36,20 @@ function ListMaterial() {
       dataIndex: 'actions',
       key: 'actions',
       render: (_: any, record: any) => (
-        <Row wrap={false} align={'middle'} justify={'end'}>
-          <ModalMaterial data={record} onRefresh={onRefresh}>
-            <p className='w-[48px] h-[48px] flex items-center justify-center rounded-full cursor-pointer hover:bg-[var(--primary-8)] transition-all'>
-              <Icon icon='icon-pen-fill' className='text-[18px]' color='text-icon' />
-            </p>
-          </ModalMaterial>
-          <ModalDeleteMaterial data={record} onRefresh={onRefresh}>
-            <p className='w-[48px] h-[48px] flex items-center justify-center rounded-full cursor-pointer hover:bg-[var(--primary-8)] transition-all'>
-              <Icon icon='icon-trash-fill' className='text-[24px] text-[--error-main]' />
-            </p>
-          </ModalDeleteMaterial>
-        </Row>
+        <RoleWrap role={'ADMIN'}>
+          <Row wrap={false} align={'middle'} justify={'end'}>
+            <ModalMaterial data={record} onRefresh={onRefresh}>
+              <p className='w-[48px] h-[48px] flex items-center justify-center rounded-full cursor-pointer hover:bg-[var(--primary-8)] transition-all'>
+                <Icon icon='icon-pen-fill' className='text-[18px]' color='text-icon' />
+              </p>
+            </ModalMaterial>
+            <ModalDeleteMaterial data={record} onRefresh={onRefresh}>
+              <p className='w-[48px] h-[48px] flex items-center justify-center rounded-full cursor-pointer hover:bg-[var(--primary-8)] transition-all'>
+                <Icon icon='icon-trash-fill' className='text-[24px] text-[--error-main]' />
+              </p>
+            </ModalDeleteMaterial>
+          </Row>
+        </RoleWrap>
       ),
     },
   ];
@@ -91,12 +94,14 @@ function ListMaterial() {
           </div>
 
           <div className={'flex my-4 flex-wrap gap-2 pl-2.5'}>
-            <ModalMaterial onRefresh={onRefresh}>
-              <Button type='xhotel-negative-primary' className='flex items-center !py-3 h-full'>
-                <Icon icon='icon-plus' className='mr-[6px]' />
-                Thêm chất liệu
-              </Button>
-            </ModalMaterial>
+            <RoleWrap role={'ADMIN'}>
+              <ModalMaterial onRefresh={onRefresh}>
+                <Button type='xhotel-negative-primary' className='flex items-center !py-3 h-full'>
+                  <Icon icon='icon-plus' className='mr-[6px]' />
+                  Thêm chất liệu
+                </Button>
+              </ModalMaterial>
+            </RoleWrap>
 
             <div>
               <select
