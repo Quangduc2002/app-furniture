@@ -9,11 +9,14 @@ import { useRequest } from 'ahooks';
 import { serviceGetCustomer, serviceStatisCustomer } from './service';
 import { useState } from 'react';
 import { FormatPrice } from '@/utils/FormatPrice';
-import ModalDeleteCustomer from './ModalDeleteCustomer/ModalDeleteCustomer';
+import ModalStatusCustomer from './ModalStatusCustomer/ModalStatusCustomer';
+import { useRole } from '@/store/Role/useRole';
 
 function ManageCustomer() {
   const [pageSize, setPageSize] = useState<any>(12);
   const [statisticCustomer, setStatisticCustomer] = useState<any>('');
+  const { checkRole } = useRole();
+  const disableRole = checkRole(['ADMIN']);
   const { data: dataStatisCustomer, run, refresh: onRefresh } = useRequest(serviceStatisCustomer);
 
   const handleStatisticCustomers = async () => {
@@ -62,17 +65,21 @@ function ManageCustomer() {
       render: (_: any, record: any) => (
         <Row wrap={false} align={'middle'} justify={'end'}>
           {!record?.status ? (
-            <ModalDeleteCustomer data={record} onRefresh={onRefresh}>
-              <p className='w-[48px] h-[48px] flex items-center justify-center rounded-full cursor-pointer hover:bg-[var(--primary-8)] transition-all'>
-                <Icon icon='icon-lock-unlocked' className='text-[24px] text-[--x-home-main]' />
-              </p>
-            </ModalDeleteCustomer>
+            <ModalStatusCustomer data={record} onRefresh={onRefresh} disabled={disableRole}>
+              <Button disabled={!disableRole}>
+                <p className='w-[48px] h-[48px] flex items-center justify-center rounded-full hover:bg-[var(--primary-8)] transition-all'>
+                  <Icon icon='icon-lock-unlocked' className='text-[24px] text-[--x-home-main]' />
+                </p>
+              </Button>
+            </ModalStatusCustomer>
           ) : (
-            <ModalDeleteCustomer data={record} onRefresh={onRefresh}>
-              <p className='w-[48px] h-[48px] flex items-center justify-center rounded-full cursor-pointer hover:bg-[var(--primary-8)] transition-all'>
-                <Icon icon='icon-lock' className='text-[24px] text-[--error-main]' />
-              </p>
-            </ModalDeleteCustomer>
+            <ModalStatusCustomer data={record} onRefresh={onRefresh} disabled={disableRole}>
+              <Button disabled={!disableRole}>
+                <p className='w-[48px] h-[48px] flex items-center justify-center rounded-full hover:bg-[var(--primary-8)] transition-all'>
+                  <Icon icon='icon-lock' className='text-[24px] text-[--error-main]' />
+                </p>
+              </Button>
+            </ModalStatusCustomer>
           )}
         </Row>
       ),
