@@ -2,7 +2,6 @@ import { motion, spring } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import clsx from 'clsx';
-import { Image } from 'antd';
 import { useRequest } from 'ahooks';
 import Loading from '@/components/Loading/Loading';
 import styles from './ProductDetails.module.scss';
@@ -129,11 +128,7 @@ function ProductDetailPage() {
   return (
     <div className='pb-[60px]'>
       <div className={clsx(styles.medium)}>
-        <div className={clsx(styles.breadcrumbs, 'items-center')}>
-          <Link to='/' className={clsx(styles.Link)}>
-            Trang chủ
-          </Link>
-          <Icon icon='icon-alt-arrow-right' className='text-[18px]' />
+        <div className={clsx(styles.breadcrumbs, 'items-center sm:px-[30px]')}>
           <span>Chi tiết sản phẩm</span>
           <Icon icon='icon-alt-arrow-right' className='text-[18px]' />
           <span>{product?.data?.tenSp}</span>
@@ -152,7 +147,7 @@ function ProductDetailPage() {
         >
           <div className={clsx(styles.productDetail)}>
             <div className={clsx(styles.images, 'relative')}>
-              <Image className='!w-[550px] !h-[400px]' src={`${product?.data?.image}`} />
+              <img className='!w-[550px] lg:!h-[400px]' src={`${product?.data?.image}`} />
             </div>
             <div className={clsx(styles.right)}>
               <h1 className='text-3xl'>{product?.data?.tenSp}</h1>
@@ -181,19 +176,20 @@ function ProductDetailPage() {
               <div className={clsx(styles.right_price)}>
                 {product?.data?.giamGia !== '0' ? (
                   <>
-                    <span className={clsx(styles.right_priceAmount)}>
-                      {FormatPrice.format(product?.data?.giaBan)}
+                    <span className={clsx(styles.right_priceAmount, 'max-sm:text-[18px]')}>
+                      {FormatPrice.format(product?.data?.giaBan)} đ
                     </span>
-                    <span className={clsx(styles.right_priceRed)}>
+                    <span className={'text-[#f62d3e] sm:text-[30px] text-[24px]'}>
                       {FormatPrice.format(
                         product?.data?.giaBan -
                           (product?.data?.giaBan * product?.data?.giamGia) / 100,
-                      )}
+                      )}{' '}
+                      đ
                     </span>
                   </>
                 ) : (
                   <span className={clsx(styles.right_priceRed)}>
-                    {FormatPrice.format(product?.data?.giaBan)}
+                    {FormatPrice.format(product?.data?.giaBan)} đ
                   </span>
                 )}
               </div>
@@ -201,7 +197,7 @@ function ProductDetailPage() {
               {product?.data?.giamGia !== '0' ? (
                 <div className={clsx(styles.right_discountCode)}>
                   <p>Mã giảm giá của shop </p>
-                  <span>-{product?.data?.giamGia}%</span>
+                  <span>- {product?.data?.giamGia}%</span>
                 </div>
               ) : (
                 ''
@@ -233,7 +229,7 @@ function ProductDetailPage() {
                 </div>
               </div>
 
-              <div style={{ marginTop: 30, marginBottom: 30 }}>
+              <div className='my-[30px]'>
                 <div className={clsx(styles.right_quantity)}>
                   <div>
                     <p>Số lượng</p>
@@ -294,7 +290,7 @@ function ProductDetailPage() {
                 </div>
               </div>
 
-              <div className={clsx(styles.right_btn)}>
+              <div className={'flex gap-4 flex-wrap'}>
                 <button onClick={() => handleAddCart()} className={clsx(styles.right_addcart)}>
                   <span>Thêm vào giỏ hàng</span>
                 </button>
@@ -314,7 +310,7 @@ function ProductDetailPage() {
           <div
             className={clsx(styles.describe, 'max-w-[1170px] py-[30px] border-y border-[#dcdcdc]')}
           >
-            <ul className={clsx(styles.describe_ul)}>
+            <ul className={'flex mb-[20px]'}>
               <li className={clsx(styles.describe_li)}>
                 <p
                   onClick={() => setShowDescribetion(true)}
@@ -374,8 +370,13 @@ function ProductDetailPage() {
 
                 <div className='border-b pb-4'>
                   <p>Sản phẩm đã được đánh giá</p>
-                  <div className={clsx(styles.describe_evaluation, 'flex items-center gap-10')}>
-                    <div className='ml-14'>
+                  <div
+                    className={clsx(
+                      styles.describe_evaluation,
+                      'flex max-sm:flex-col items-center gap-10',
+                    )}
+                  >
+                    <div>
                       <p className='text-xl uppercase font-normal'>Sao trung bình</p>
                       <div
                         className={clsx(

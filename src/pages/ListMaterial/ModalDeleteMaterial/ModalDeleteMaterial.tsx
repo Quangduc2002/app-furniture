@@ -7,6 +7,7 @@ import Button from '@/components/UI/Button/Button';
 import { useRequest } from 'ahooks';
 import { serviceDeleteMaterial } from '../service';
 import { toast } from '@/components/UI/Toast/toast';
+import styles from './index.module.scss';
 
 function ModalDeleteMaterial({ data, children, onRefresh }: ModalIprops) {
   const [visible, setVisible] = useState(false);
@@ -34,7 +35,7 @@ function ModalDeleteMaterial({ data, children, onRefresh }: ModalIprops) {
         open={visible}
         onCancel={() => setVisible(false)}
         title={'Xóa chất liệu'}
-        // className={styles.modal}
+        className={styles.modal}
       >
         <Text type='body2' color='text-primary' className='mt-4'>
           Bạn có chắc chắn muốn xóa chất liệu{' '}

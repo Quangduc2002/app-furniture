@@ -8,6 +8,7 @@ import { useRequest } from 'ahooks';
 import { toast } from '@/components/UI/Toast/toast';
 import { serviceTrash } from '../service';
 import { DeleteFileImage } from '@/utils/FireBase';
+import styles from './index.module.scss';
 
 function ModalTrash({ data, children, onRefresh, action, disabled }: ModalIprops) {
   const [visible, setVisible] = useState(false);
@@ -47,12 +48,17 @@ function ModalTrash({ data, children, onRefresh, action, disabled }: ModalIprops
     <>
       <span onClick={!disabled ? () => setVisible(true) : () => setVisible(false)}>{children}</span>
 
-      <ModalCustom open={visible} onCancel={() => setVisible(false)}>
-        <span className='text-xl'>
+      <ModalCustom
+        open={visible}
+        onCancel={() => setVisible(false)}
+        title={action !== 'restore' ? 'Xóa sản phẩm' : 'Khôi phục sản phẩm'}
+        className={styles.modal}
+      >
+        <Text type='body1' className='text-xl'>
           {action !== 'restore'
             ? 'Bạn có chắc chắn muốn xóa sản phẩm này không ?'
             : 'Bạn có muốn khôi phục không ?'}
-        </span>
+        </Text>
         <Row wrap={false} align={'middle'} justify={'end'} className='mt-[24px] gap-[16px]'>
           <Button
             className='w-[96px]'

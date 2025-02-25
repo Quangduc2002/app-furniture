@@ -43,7 +43,7 @@ function ListOrderProductDetails() {
       title: 'Tổng tiền',
       dataIndex: 'donGia',
       key: 'donGia',
-      render: (value: any) => <Text className='text-right'>{FormatPrice.format(value)}đ</Text>,
+      render: (value: any) => <Text className='text-right'>{FormatPrice.format(value)} đ</Text>,
     },
   ];
 

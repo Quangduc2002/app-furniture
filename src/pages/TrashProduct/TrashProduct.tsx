@@ -89,8 +89,6 @@ function TrashProduct() {
     },
   };
 
-  console.log(selectDataProducts);
-
   return (
     <div className={clsx(styles.listProduct, 'xs:w-full ')}>
       <div className={clsx(styles.listProduct_header, 'flex-wrap  h-[44px]')}>
@@ -119,7 +117,9 @@ function TrashProduct() {
             <ModalTrash
               data={selectDataProducts}
               action={action}
-              disabled={action === ''}
+              disabled={
+                action === '' || selectDataProducts.length === 0 || products?.data?.length === 0
+              }
               onRefresh={onRefresh}
             >
               <Button

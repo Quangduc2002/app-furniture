@@ -9,7 +9,7 @@ const instance = axios.create({
 instance.defaults.withCredentials = false;
 instance.interceptors.request.use(
   function (config) {
-    config.headers.Authorization = `Bearer ${localStorage.jwt}`;
+    config.headers.Authorization = `Bearer ${localStorage.accessToken}`;
 
     return config;
   },
@@ -37,13 +37,26 @@ instance.interceptors.response.use(
     return response;
   },
 
-  function (error) {
+  async function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     const status = (error && error.response && error.response.status) || 500;
     switch (status) {
       case 401: {
-        return error && error.response.data;
+        const originalRequest = error.config;
+        const refreshToken = localStorage.getItem('refreshToken');
+
+        try {
+          const { data } = await instance.post('/auth/refresh-token', { refreshToken });
+          localStorage.setItem('accessToken', data.accessToken);
+          localStorage.setItem('refreshToken', data.refreshToken);
+
+          instance.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
+
+          return instance(originalRequest);
+        } catch (refreshError) {
+          return Promise.reject(refreshError);
+        }
       }
 
       case 403: {

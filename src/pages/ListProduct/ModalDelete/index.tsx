@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useRequest } from 'ahooks';
 import { serviceDeleteAllProduct, serviceDeleteProduct } from '../service';
 import { toast } from '@/components/UI/Toast/toast';
+import styles from './index.module.scss';
 
 function index({ data, children, onRefresh, action, disabled }: ModalIprops) {
   const [visible, setVisible] = useState(false);
@@ -54,7 +55,12 @@ function index({ data, children, onRefresh, action, disabled }: ModalIprops) {
     <>
       <span onClick={!disabled ? () => setVisible(true) : () => setVisible(false)}>{children}</span>
 
-      <ModalCustom open={visible} onCancel={() => setVisible(false)}>
+      <ModalCustom
+        className={styles.modal}
+        open={visible}
+        onCancel={() => setVisible(false)}
+        title='Xóa sản phẩm'
+      >
         <span className='text-xl'>
           Bạn có chắc chắn muốn xóa sản phẩm{' '}
           <span className='text-xl not-italic font-semibold leading-[22px]'>{data?.tenSp}</span> này

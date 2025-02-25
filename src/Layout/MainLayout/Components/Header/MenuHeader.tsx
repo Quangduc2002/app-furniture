@@ -34,7 +34,7 @@ export const MenuHeader: React.FC<MenuHeaderProps> = ({ user, hide }) => {
           : [],
       )?.map((item: any) => {
         return (
-          <NavLink className={clsx(styles.wrapper1_menu, 'items-center gap-3')} to={item?.href}>
+          <NavLink key={item.id} className={clsx(styles.wrapper1_menu, 'items-center gap-3')} to={item?.href}>
             {item?.icon()}
             <p>{item?.title}</p>
           </NavLink>

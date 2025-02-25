@@ -8,6 +8,7 @@ import { atomListCart } from '@/store/type';
 import { userDefault } from '@/store/Login/type';
 import { ModalIprops } from '@/components/UI/Modal/type';
 import Text from '@/components/UI/Text';
+import styles from './index.module.scss';
 
 function ModalDelete({ data, children, setVisible, visible }: ModalIprops) {
   const [cartItems, setCartItems] = useAtom(atomListCart);
@@ -31,12 +32,23 @@ function ModalDelete({ data, children, setVisible, visible }: ModalIprops) {
     <>
       <span onClick={() => setVisible(true)}>{children}</span>
 
-      <ModalCustom open={visible} onCancel={() => setVisible(false)}>
-        <span>
+      <ModalCustom
+        className={styles.modal}
+        open={visible}
+        onCancel={() => setVisible(false)}
+        title='Xóa sản phẩm'
+      >
+        <Text type='body1'>
           Bạn có chắc chắn muốn xóa sản phẩm{' '}
-          <span className='text-sm not-italic font-semibold leading-[22px]'>{data?.tenSp}</span> này
-          không?
-        </span>
+          <Text
+            element='span'
+            type='body1'
+            className='text-sm not-italic !font-bold leading-[22px]'
+          >
+            {data?.tenSp}
+          </Text>{' '}
+          này không?
+        </Text>
         <Row wrap={false} align={'middle'} justify={'end'} className='mt-[24px] gap-[16px]'>
           <Button
             type='xhotel-negative-secondary'
