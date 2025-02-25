@@ -831,3 +831,10 @@
 .ant-menu-light:not(.ant-menu-horizontal) .ant-menu-item:not(.ant-menu-item-selected):hover {
   background-color: transparent;
 }
+
+.ant-checkbox .ant-checkbox-inner:after {
+  display: inline !important;
+  width: 6px;
+  height: 12px;
+  top: 46% !important;
+}

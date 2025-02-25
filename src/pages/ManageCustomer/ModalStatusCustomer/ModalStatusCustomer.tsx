@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { useRequest } from 'ahooks';
 import { toast } from '@/components/UI/Toast/toast';
 import { serviceDeleteClient } from '../service';
+import styles from './index.module.scss';
 
 function ModalStatusCustomer({ data, children, onRefresh, disabled }: ModalIprops) {
   const [visible, setVisible] = useState(false);
@@ -37,6 +38,7 @@ function ModalStatusCustomer({ data, children, onRefresh, disabled }: ModalIprop
 
       {disabled && (
         <ModalCustom
+          className={styles.modal}
           open={visible}
           onCancel={() => setVisible(false)}
           title={'Trạng thái tài khoản của khách hàng'}
@@ -44,7 +46,7 @@ function ModalStatusCustomer({ data, children, onRefresh, disabled }: ModalIprop
           <Text type='body2' color='text-primary' className='mt-4'>
             {data?.status ? 'Bạn có muốn khóa tài khoản' : 'Bạn có muốn mở khóa tài khoản'}&nbsp;
             <span className='text-lg not-italic font-semibold leading-[22px]'>{data?.name}</span>
-            &nbsp; không?
+            &nbsp;không ?
           </Text>
           <Row wrap={false} align={'middle'} justify={'end'} className='mt-[24px] gap-[16px]'>
             <Button

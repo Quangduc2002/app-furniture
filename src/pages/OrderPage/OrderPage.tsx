@@ -157,7 +157,7 @@ function OrderPage() {
                             <span
                               className={clsx(styles.order_product__right__discount, 'text-[16px]')}
                             >
-                              {FormatPrice.format(item.giaBan)}đ
+                              {FormatPrice.format(item.giaBan)} đ
                             </span>
                             <span
                               className={clsx(styles.order_product__right__price, 'text-[16px]')}
@@ -182,7 +182,7 @@ function OrderPage() {
                             styles.order_total__price,
                           )}
                         >
-                          {FormatPrice.format(totalOrder)}đ
+                          {FormatPrice.format(totalOrder)} đ
                         </span>
                       </div>
                     </div>

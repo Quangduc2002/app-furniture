@@ -48,13 +48,13 @@ function Product({ product }: any) {
           <div className={clsx(styles.room_price)}>
             {product.giamGia !== '0' ? (
               <span className={clsx(styles.priceAmount)}>
-                {FormatPrice.format(product.giaBan)}đ
+                {FormatPrice.format(product.giaBan)} đ
               </span>
             ) : (
               ''
             )}
             <span className={clsx(styles.priceRed, 'text-[16px]')}>
-              {FormatPrice.format(product.giaBan - (product.giaBan * product.giamGia) / 100)}đ
+              {FormatPrice.format(product.giaBan - (product.giaBan * product.giamGia) / 100)} đ
             </span>
           </div>
           <div className='stars-outer'>

@@ -159,7 +159,7 @@ function Cart() {
                           </div>
 
                           <div className='flex items-center space-x-4 justify-between m-0'>
-                            <p className='text-xl mb-0'>{FormatPrice.format(cartItem.total)}đ</p>
+                            <p className='text-xl mb-0'>{FormatPrice.format(cartItem.total)} đ</p>
                             <ModalDelete data={cartItem} visible={visible} setVisible={setVisible}>
                               <Icon
                                 icon='icon-close-line'
@@ -177,18 +177,18 @@ function Cart() {
             <div className='mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3'>
               <div className='mb-2 flex justify-between'>
                 <p className='text-gray-700'>Tổng tiền</p>
-                <p className='text-gray-700'>{FormatPrice.format(totalMoney)}đ</p>
+                <p className='text-gray-700'>{FormatPrice.format(totalMoney)} đ</p>
               </div>
               <div className='flex justify-between'>
                 <p className='text-gray-700'>Phí vận chuyển</p>
-                <p className='text-gray-700'>{FormatPrice.format(300000)}đ</p>
+                <p className='text-gray-700'>{FormatPrice.format(300000)} đ</p>
               </div>
               <hr className='my-4' />
               <div className='flex justify-between'>
                 <p className='text-lg font-bold'>Tổng tiền</p>
                 <div className=''>
                   <p className='mb-1 text-lg font-bold'>
-                    {FormatPrice.format(totalMoney + 300000)}đ
+                    {FormatPrice.format(totalMoney + 300000)} đ
                   </p>
                 </div>
               </div>

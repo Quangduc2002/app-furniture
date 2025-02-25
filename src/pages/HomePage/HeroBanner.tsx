@@ -41,7 +41,7 @@ function HeroBanner() {
         <SplideTrack>
           {slickSlides?.map((item: any, index: number) => (
             <SplideSlide key={index}>
-              <img className={clsx(styles.home1_img)} alt='' src={item} />
+              <img className={clsx(styles.home1_img)} alt='' src={item} loading='lazy' />
             </SplideSlide>
           ))}
         </SplideTrack>

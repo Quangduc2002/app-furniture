@@ -64,7 +64,7 @@ const ModalOrderDetail: React.FC<ModalIprops> = ({
       title: 'Tổng tiền',
       dataIndex: 'donGia',
       key: 'donGia',
-      render: (value: any) => <Text className='text-center'>{FormatPrice.format(value)}đ</Text>,
+      render: (value: any) => <Text className='text-center'>{FormatPrice.format(value)} đ</Text>,
     },
   ];
 
@@ -127,7 +127,7 @@ const ModalOrderDetail: React.FC<ModalIprops> = ({
             <Text>
               Tổng tiền hóa đơn: &nbsp;
               <Text className='text-xl' element='span'>
-                {FormatPrice.format(total)}đ
+                {FormatPrice.format(total)} đ
               </Text>
             </Text>
           </div>

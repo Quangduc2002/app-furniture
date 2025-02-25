@@ -165,7 +165,7 @@ function CheckOut() {
                             </div>
                             <div>
                               <span className='font-semibold text-gray-600 text-xl max-sm:text-lg'>
-                                {FormatPrice.format(cartItem.total)}đ
+                                {FormatPrice.format(cartItem.total)} đ
                               </span>
                             </div>
                           </div>
@@ -180,7 +180,9 @@ function CheckOut() {
                       <span className='text-gray-600 text-xl'>Tổng tiền</span>
                     </div>
                     <div className='pl-3'>
-                      <span className='font-semibold text-xl'>{FormatPrice.format(tongTien)}đ</span>
+                      <span className='font-semibold text-xl'>
+                        {FormatPrice.format(tongTien)} đ
+                      </span>
                     </div>
                   </div>
                   <div className='w-full flex items-center'>
@@ -188,7 +190,7 @@ function CheckOut() {
                       <span className='text-gray-600 text-xl'>Phí vận chuyển</span>
                     </div>
                     <div className='pl-3'>
-                      <span className='font-semibold text-xl'> {FormatPrice.format(300000)}đ</span>
+                      <span className='font-semibold text-xl'> {FormatPrice.format(300000)} đ</span>
                     </div>
                   </div>
                 </div>
@@ -200,7 +202,7 @@ function CheckOut() {
                     </div>
                     <div className='pl-3'>
                       <span className='font-semibold text-2xl'>
-                        {FormatPrice.format(tongTien + 300000)}đ
+                        {FormatPrice.format(tongTien + 300000)} đ
                       </span>
                     </div>
                   </div>
