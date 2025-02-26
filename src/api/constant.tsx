@@ -1,7 +1,9 @@
 /* eslint-disable indent */
 import axios from 'axios';
 
-export const PREFIX_API = process.env.APP_API_URL;
+export const PREFIX_API =
+  process.env.BUILD_MODE === 'dev' ? process.env.DOAMIN_DEV : process.env.DOAMIN_PRODUCTION;
+
 const instance = axios.create({
   baseURL: PREFIX_API,
 });
