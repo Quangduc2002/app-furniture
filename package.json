@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "cross-env BUILD_MODE=dev vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "start": "npm run build && vite preview",
@@ -27,6 +27,7 @@
     "axios": "^1.7.2",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
+    "cross-env": "^7.0.3",
     "csvgtocss": "^0.0.10",
     "dayjs": "^1.11.13",
     "esno": "^4.7.0",
