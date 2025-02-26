@@ -58,8 +58,6 @@ function ModalMaterial({ data, children, onRefresh }: ModalIprops) {
     runAddMaterial({ tenChatLieu: values?.tenChatLieu });
   };
 
-  console.log(data);
-
   return (
     <>
       <span onClick={() => setVisible(true)}>{children}</span>

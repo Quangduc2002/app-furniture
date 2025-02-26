@@ -1,6 +1,6 @@
 import Product from '@/components/Product/Product';
 import { atomProductTypes } from '@/store/Home/type';
-import { List, Result } from 'antd';
+import { List, Result, Spin } from 'antd';
 import clsx from 'clsx';
 import { useAtom } from 'jotai';
 import React, { useState } from 'react';

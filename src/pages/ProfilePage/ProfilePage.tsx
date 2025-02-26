@@ -52,7 +52,8 @@ function ProfilePage() {
       let roles = res.data.DT.roles;
       let token = res.data.DT.access_token;
       let getUser = res.data.DT.getUser;
-      localStorage.setItem('jwt', res.data.DT.access_token);
+      localStorage.setItem('accessToken', res.data.DT.access_token);
+      localStorage.setItem('refreshToken', res.data.DT.refresh_token);
       let data = {
         account: { roles, token, getUser },
         isAuthenticated: true,

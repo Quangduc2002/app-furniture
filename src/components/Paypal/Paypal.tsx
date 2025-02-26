@@ -24,7 +24,6 @@ interface PayPalProps {
 const ButtonWrapper = ({ showSpinner, amount, handleOrder, currency }: ButtonWrapperProps) => {
   const [{ isPending }] = usePayPalScriptReducer();
   const [orderInfo] = useAtom(atomOrderInfo);
-  console.log(orderInfo);
 
   return (
     <>
