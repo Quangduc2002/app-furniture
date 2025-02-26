@@ -51,12 +51,12 @@ export const RouteSidebar = () => {
           href: ROUTE_PATH.MANAGEPRODUCT,
           role: ['ADMIN', 'MANAGEMENT_BOARD'],
         },
-        {
-          key: '2-3',
-          label: 'Quản lý nhân viên',
-          href: ROUTE_PATH.HOME,
-          role: ['ADMIN', 'MANAGEMENT_BOARD'],
-        },
+        // {
+        //   key: '2-3',
+        //   label: 'Quản lý nhân viên',
+        //   href: ROUTE_PATH.HOME,
+        //   role: ['ADMIN', 'MANAGEMENT_BOARD'],
+        // },
         {
           key: '2-4',
           label: 'Quản lý khách hàng',

@@ -30,8 +30,6 @@ function ModalChangePassword({ children, setVisible, visible, user }: ModalIprop
     );
   }, [allValues]);
 
-  console.log(allValues);
-
   const { run: changePassword, loading } = useRequest(serviceChangePassword, {
     manual: true,
     onSuccess: (res) => {

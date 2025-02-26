@@ -49,13 +49,17 @@ instance.interceptors.response.use(
         const refreshToken = localStorage.getItem('refreshToken');
 
         try {
-          const { data } = await instance.post('/auth/refresh-token', { refreshToken });
-          localStorage.setItem('accessToken', data.accessToken);
-          localStorage.setItem('refreshToken', data.refreshToken);
+          if (refreshToken) {
+            const { data } = await instance.post('/auth/refresh-token', { refreshToken });
+            localStorage.setItem('accessToken', data.accessToken);
+            localStorage.setItem('refreshToken', data.refreshToken);
 
-          instance.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
+            instance.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
 
-          return instance(originalRequest);
+            return instance(originalRequest);
+          } else {
+            return error && error.response.data;
+          }
         } catch (refreshError) {
           return Promise.reject(refreshError);
         }
